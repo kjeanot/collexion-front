@@ -1,4 +1,5 @@
 import logo from '../../assets/logo.svg';
+import Footer from '../Footer.tsx/Footer';
 import Header from '../Header/Header';
 
 import './App.scss';
@@ -23,6 +24,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <Footer />
     </div>
   );
 }
