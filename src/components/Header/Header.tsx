@@ -17,15 +17,15 @@ export default function Header() {
           />
         </a>
         <div className="w-4/5 " id="navbar-dropdown">
-          <ul className="flex flex-wrap content-center justify-between font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li className="flex">
+          <ul className="flex flex-wrap content-center justify-start font-medium p-4 md:p-0 mt-4 border rtl:space-x-reverse md:mt-0 border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li className="flex grow">
               <button
                 type="button"
                 id="dropdownNavbarLink"
                 data-dropdown-toggle="dropdownNavbar"
                 className="flex items-center justify-center w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
               >
-                Catégories{' '}
+                Catégories
                 <svg
                   className="w-2.5 h-2.5 ms-2.5"
                   aria-hidden="true"
@@ -86,7 +86,7 @@ export default function Header() {
                 </ul>
               </div>
             </li>
-            <li className="flex w-2/5">
+            <li className="flex flex-none md:w-2/5">
               <button
                 type="button"
                 data-collapse-toggle="navbar-search"
@@ -138,13 +138,13 @@ export default function Header() {
                 />
               </div>
             </li>
-            <li className="flex content-center">
+            <li className="flex flex-none content-center">
               <a
                 href="#"
-                className="flex content-center py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                className="flex content-center py-2 md:px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               >
                 <svg
-                  className="mr-2 w-6 h-6 text-gray-800 dark:text-white inline-block"
+                  className="md:mr-2 w-6 h-6 text-gray-800 dark:text-white inline-block"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
