@@ -1,10 +1,13 @@
 import logo from '../../assets/logo.svg';
+import Footer from '../Footer/Footer';
+import Header from '../Header/Header';
 
 import './App.scss';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container mx-auto px-4">
+      <Header />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
@@ -21,6 +24,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <Footer />
     </div>
   );
 }
