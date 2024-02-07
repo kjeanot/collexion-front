@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 type Props = {};
 
 export default function Gallery({}: Props) {
   return (
     <div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mx-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         <div className="hover:contrast-50 relative">
           <a href="">
             <img
