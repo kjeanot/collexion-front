@@ -1,7 +1,6 @@
 import logo from '../../assets/logo.svg';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
-
 import './App.scss';
 
 function App() {
