@@ -3,15 +3,15 @@ import React from 'react';
 export default function Footer() {
   return (
     <footer className="bg-white dark:bg-gray-900">
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+      <div className="mx-auto w-full max-w-screen-xl py-6 lg:py-8">
         <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0 md:w-1/2 lg:w-2/5 px-6">
+          <div className="mb-6 md:mb-0 md:w-1/2 lg:w-2/5">
               <span className="text-2xl font-semibold whitespace-nowrap dark:text-white">
                 Collexion
               </span>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit voluptates voluptate eum earum atque odit illum ratione perferendis porro cum. Optio in neque tempora corporis minus delectus dolorum, molestiae saepe?</p>
           </div>
-          <div className="lg:grid lg:grid-cols-3 gap-8 sm:gap-6 sm:grid-cols-3 lg:w-3/5 md:w-1/2 px-6">
+          <div className="lg:grid lg:grid-cols-3 gap-8 sm:gap-6 sm:grid-cols-3 lg:w-3/5 md:w-1/2 ">
             <div className="mb-4">
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Contact
