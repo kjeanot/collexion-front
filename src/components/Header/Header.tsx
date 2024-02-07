@@ -6,11 +6,10 @@ export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
   return (
     <>
-      <nav className="bg-white border-gray-200">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
-          <a
+      <nav className="navbar bg-base-100">
+        <a
             href="#"
-            className="flex items-center space-x-3 rtl:space-x-reverse w-1/5"
+            className="flex items-center space-x-3 rtl:space-x-reverse md:w-25 "
           >
             <img
               src={logo}
@@ -18,65 +17,29 @@ export default function Header() {
               alt="Collexion logo"
             />
           </a>
-          <div className="w-4/5 " id="navbar-dropdown">
-            <ul className="flex flex-wrap content-center justify-start font-medium p-4 md:p-0 mt-4 border rtl:space-x-reverse md:mt-0 border-0">
-              <li className="flex grow">
-                <button
-                  type="button"
-                  id="dropdownNavbarLink"
-                  data-dropdown-toggle="dropdownNavbar"
-                  className="flex items-center justify-center w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto"
-                >
-                  Catégories
-                  <svg
-                    className="w-2.5 h-2.5 ms-2.5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 4 4 4-4"
-                    />
-                  </svg>
-                </button>
-
-                <div
-                  id="dropdownNavbar"
-                  className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
-                >
-                  <ul
-                    className="py-2 text-sm text-gray-700"
-                    aria-labelledby="dropdownLargeButton"
-                  >
-                    <li>
-                      <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                        Figurines
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                        Montres
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                        Véhicules
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                        Horlogerie
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li className="flex flex-none md:w-2/5">
+        <div className="flex">
+          <ul className="flex grow menu menu-horizontal px-1">
+            <li>
+              <details>
+                <summary>Catégories</summary>
+                <ul className="p-2 bg-base-100 rounded-t-none">
+                  <li>
+                    <a>Figurines</a>
+                  </li>
+                  <li>
+                    <a>Jeux-vidéos</a>
+                  </li>
+                  <li>
+                    <a>Montres</a>
+                  </li>
+                  <li>
+                    <a>Véhicules</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+          <li className="flex flex-none md:w-2/5">
                 <button
                   type="button"
                   data-collapse-toggle="navbar-search"
@@ -152,9 +115,7 @@ export default function Header() {
                   <span className="hidden md:inline-block">Se connecter</span>
                 </a>
               </li>
-            </ul>
-          </div>
-        </div>
+      </div>
       </nav>
       {showLogin && <Login />}
     </>
