@@ -12,6 +12,7 @@ import './App.scss';
 function App() {
   const dispatch = useAppDispatch();
   const collectionList = useAppSelector((state) => state.collections.list);
+  
   useEffect(() => {
     dispatch(fetchCollections());
   }, []);
