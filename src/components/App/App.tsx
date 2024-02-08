@@ -1,16 +1,17 @@
-import logo from "../../assets/logo.svg";
-import Card from "../Card/Card";
-import Footer from "../Footer/Footer";
-import Gallery from "../Gallery/Gallery";
-import Header from "../Header/Header";
-import Carroussel from "../Carroussel/Carroussel"
-import "./App.scss";
+import logo from '../../assets/logo.svg';
+import Card from '../Card/Card';
+import Footer from '../Footer/Footer';
+import Gallery from '../Gallery/Gallery';
+import Header from '../Header/Header';
+import Carrousel from '../Carrousel/Carrousel';
+import './App.scss';
 
 function App() {
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
-      <Carroussel />
+      <Carrousel />
+      <Gallery />
       <Footer />
     </div>
   );
