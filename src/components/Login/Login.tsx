@@ -1,6 +1,11 @@
 import React from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { switchLoginDisplay } from "../../store/reducers/app";
 
 export default function Login() {
+  const dispatch = useAppDispatch();
+  // import state from app reducer to handle the login component display
+  const showLogin = useAppSelector((state) => state.app.showLogin);
   return (
     <>
       <div
@@ -19,6 +24,7 @@ export default function Login() {
                 type="button"
                 className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                 data-modal-hide="authentication-modal"
+                onClick={() => dispatch(switchLoginDisplay())}
               >
                 <svg
                   className="w-3 h-3"
@@ -29,9 +35,9 @@ export default function Login() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
