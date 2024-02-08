@@ -4,10 +4,11 @@ import appReducer from "./reducers/app";
 
 
 const store = configureStore({
-  // The store is divided in 4 main reducers for structuration reasons.
+  // The store is divided in 5 main reducers for structuration purposes.
   reducer: {
     // objects: objectsReducer,
     // collections: collectionsReducer,
+    // categories: categoriesReducer,
     // user: userReducer,
     app: appReducer
   }

@@ -12,7 +12,7 @@ export default function Header() {
       <nav className="navbar bg-base-100">
         <a
           href="#"
-          className="flex items-center space-x-3 rtl:space-x-reverse md:w-25 "
+          className="flex flex-wrap items-center space-x-3 rtl:space-x-reverse w-1/5 "
         >
           <img
             src={logo}
@@ -20,12 +20,12 @@ export default function Header() {
             alt="Collexion logo"
           />
         </a>
-        <div className="flex">
+        <div className="flex w-4/5">
           <ul className="flex grow menu menu-horizontal px-1">
             <li>
               <details>
                 <summary>Catégories</summary>
-                <ul className="p-2 bg-base-100 rounded-t-none">
+                <ul className="p-2 bg-base-100 rounded-t-none min-w-56">
                   <li>
                     <a>Figurines</a>
                   </li>

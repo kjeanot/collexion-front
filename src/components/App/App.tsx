@@ -11,7 +11,6 @@ function App() {
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
-      <Carroussel />
       <Footer />
     </div>
   );
