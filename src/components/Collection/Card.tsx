@@ -1,19 +1,19 @@
 import React from 'react';
 import avatar from '../../assets/avatar-generations_bssq.jpg';
-import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
+import { Collection } from '../../types/types';
 
 type Props = {};
 
-export default function Card({}: Props) {
+export default function Card({ collection }: {collection : Collection}) {
   return (
     <div>
       <a
         href="#"
         className="block max-w-sm bg-white border border-gray-200 shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
       >
-        <img src={banner} alt="" />
+        <img src={collection.image} alt="" />
         <h5 className="mb-2 ml-2 mt-2 text-2xl font-bold tracking-tight text-customred dark:text-white">
-          Le dernier maitre de l'air, ma collection.
+          {collection.name}
         </h5>
         <div className="flex items-center gap-2">
           <img className="w-10 h-10 ml-2 rounded-full" src={avatar} alt="" />
@@ -23,7 +23,7 @@ export default function Card({}: Props) {
         </div>
 
         <p className="font-normal py-3 px-1 text-center text-gray-700 dark:text-gray-400">
-          Voici tout les objets en ma possession sur le theme de l'animé Avatar.
+          {collection.description}
         </p>
       </a>
     </div>
