@@ -21,7 +21,7 @@ export default function Header() {
           />
         </a>
         <div className="flex w-4/5">
-          <ul className="flex grow menu menu-horizontal px-1">
+          <ul className="flex grow menu menu-horizontal px-1 z-50">
             <li>
               <details>
                 <summary>Catégories</summary>
