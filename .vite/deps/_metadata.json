@@ -1,23 +1,38 @@
 {
-  "hash": "e434f3e1",
-  "browserHash": "734e3cdd",
+  "hash": "b0c5ca4b",
+  "browserHash": "f654e759",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "669b7fd9",
+      "fileHash": "7e534292",
       "needsInterop": true
+    },
+    "react-redux": {
+      "src": "../../node_modules/react-redux/dist/react-redux.mjs",
+      "file": "react-redux.js",
+      "fileHash": "e87d32f0",
+      "needsInterop": false
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "0786b7ec",
+      "fileHash": "399f3262",
       "needsInterop": true
+    },
+    "@reduxjs/toolkit": {
+      "src": "../../node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs",
+      "file": "@reduxjs_toolkit.js",
+      "fileHash": "9dd9f9f2",
+      "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-V42YN7MM": {
-      "file": "chunk-V42YN7MM.js"
+    "chunk-AYRJNZXD": {
+      "file": "chunk-AYRJNZXD.js"
+    },
+    "chunk-GKWPUQBP": {
+      "file": "chunk-GKWPUQBP.js"
     }
   }
 }
