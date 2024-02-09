@@ -10,8 +10,7 @@ export default {
     },
   },
   daisyui: {
-    themes: ['light'],
-    // utils: [true],
+    themes: ["light"],
   },
-  plugins: [require('daisyui')],
+  plugins: [require("daisyui")],
 };
