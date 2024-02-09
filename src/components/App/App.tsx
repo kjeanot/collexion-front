@@ -11,7 +11,11 @@ import './App.scss';
 import { Outlet } from 'react-router-dom';
 
 function App() {
-  
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCollections());
+  });
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
