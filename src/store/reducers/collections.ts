@@ -3,11 +3,11 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { Collection } from '../../types/types';
+import { ICollection } from '../../types/types';
 import axios from 'axios';
 
 interface CollectionsState {
-  list: Collection[];
+  list: ICollection[];
 }
 
 export const initialState: CollectionsState = {
