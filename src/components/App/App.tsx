@@ -5,13 +5,15 @@ import Gallery from '../Gallery/Gallery';
 import Header from '../Header/Header';
 import Carrousel from '../Carrousel/Carrousel';
 import './App.scss';
+import Content from '../Content/Content';
 
 function App() {
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
-      <Carrousel />
-      <Gallery />
+      <Content />
+      {/* <Carrousel /> */}
+      {/* <Gallery /> */}
       <Footer />
     </div>
   );
