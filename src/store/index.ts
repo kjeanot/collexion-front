@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import appReducer from "./reducers/app";
+import collectionsReducer from "./reducers/collections";
 
 
 
@@ -7,7 +8,7 @@ const store = configureStore({
   // The store is divided in 5 main reducers for structuration purposes.
   reducer: {
     // objects: objectsReducer,
-    // collections: collectionsReducer,
+    collections: collectionsReducer,
     // categories: categoriesReducer,
     // user: userReducer,
     app: appReducer
