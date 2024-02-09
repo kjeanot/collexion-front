@@ -8,7 +8,7 @@ export default function Card({ collection }: { collection: ICollection }) {
   return (
     <a href="#" className="card bg-base-100 shadow-xl hover:bg-gray-100">
       <figure>
-        <img src={collection.image} alt="Shoes" />
+        <img src={collection.image} alt={collection.name} />
       </figure>
       <div className="card-body">
         <h2 className="card-title text-customred">{collection.name}</h2>
