@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-  value: number | null;
+  value: number | null | undefined;
 };
 
 export default function Rating({ value }: Props) {

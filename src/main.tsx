@@ -13,7 +13,8 @@ import App from './components/App/App';
 import './styles/index.scss';
 import store from './store';
 import Collections from './components/Collection/Collections';
-import SingleCollection from './components/Collection/SingleCollection'
+import SingleCollection from './components/Collection/SingleCollection';
+import singleCollectionLoader from './loaders/singleCollection';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,7 +23,7 @@ const router = createBrowserRouter(
       Object, Catégories, User, Mentions...
       <Route path="/categories" />
       <Route path="/category/:id" />
-      <Route path="/collections" element={<Collections />}/>
+      <Route path="/collections" element={<Collections />} />
       <Route path="/collection/:id" element={<SingleCollection />} />
     </Route>
   )

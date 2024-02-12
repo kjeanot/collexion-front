@@ -1,8 +1,9 @@
 import React from 'react'
 
 interface Props {
-  picture?: string,
-  nickname: string
+  picture?: string | null,
+  nickname: string | undefined
+  
 }
 
 export default function Avatar({ picture, nickname } : Props) {
