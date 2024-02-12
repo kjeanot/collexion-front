@@ -5,12 +5,13 @@ type Props = {};
 export default function Subscribe({}: Props) {
   return (
     <div className="my-8">
-      <p className="text-xl font-medium text-customred">
+      <p className="text-xl font-medium uppercase text-customred">
         Comme vous, d'autres personnes ont la passion de la collection. Pourquoi
         ne pas les rejoindre ?!
       </p>
       {/* border */}
       <div className="border mt-6" />
+      {/* form */}
       <div className="mt-6">
         <label className="form-control w-full max-w-xs">
           <div className="label">

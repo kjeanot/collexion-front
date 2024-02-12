@@ -8,15 +8,18 @@ import './App.scss';
 import store from '../../store';
 import Subscribe from '../Subscribe/Subscribe';
 import Content from '../Content/Content';
+import Comment from '../Comment/Comment';
 
 function App() {
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
       {/* <Content /> */}
-      <Subscribe />
+      {/* <Subscribe /> */}
       {/* <Carroussel /> */}
       {/* <Gallery /> */}
+      <Card />
+      <Comment />
       <Footer />
     </div>
   );
