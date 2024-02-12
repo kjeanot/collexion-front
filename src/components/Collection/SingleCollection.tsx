@@ -12,9 +12,7 @@ export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
   const params = useParams();
   const dispatch = useAppDispatch();
-  const currentCollection = useAppSelector(
-    (state) => state.collections.currentCollection
-  );
+  const data: ICollection = useLoaderData();
 
   useEffect(() => {
     dispatch(fetchSingleCollection(parseInt(params.id)));
@@ -23,10 +21,7 @@ export default function SingleCollection() {
   return (
     <>
       <header className="flex flex-wrap border border-b-2 mb-6">
-        <img
-          src={currentCollection?.image}
-          className="w-full md:w-1/3 object-cover"
-        />
+        <img src={data.image} className="w-full md:w-1/3 object-cover" />
         <div className="w-full md:w-2/3 p-6">
           <div className="flex justify-end">
             <button className="btn btn-circle mr-4">
@@ -65,24 +60,20 @@ export default function SingleCollection() {
               </svg>
             </button>
           </div>
-          <h1 className="my-5 text-2xl font-bold">
-            {currentCollection && currentCollection.name}
-          </h1>
+          <h1 className="my-5 text-2xl font-bold">{data.name}</h1>
           <div className="flex flex-wrap justify-between content-center">
-            <Avatar
-              nickname={currentCollection && currentCollection.user.nickname}
-            />
-            <Rating value={currentCollection && currentCollection.rating} />
+            <Avatar nickname={data.user.nickname} />
+            <Rating value={data.rating} />
           </div>
           <section className="my-5">
             <h2 className="text-xl">Description</h2>
-            <p>{currentCollection && currentCollection.description}</p>
+            <p>{data.description}</p>
           </section>
         </div>
       </header>
       <h2 className="text-xl mb-6">Objets de cette collection</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-        {currentCollection?.myobjects.map((object) => (
+        {data.myobjects.map((object) => (
           <ObjectCard id={object.id} name={object.name} image={object.image} />
         ))}
         <button className="btn btn-square h-full w-full">

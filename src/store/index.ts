@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import appReducer from "./reducers/app";
+import userReducer  from "./reducers/userReducer";
 import collectionsReducer from "./reducers/collections";
 
 
@@ -10,7 +11,7 @@ const store = configureStore({
     // objects: objectsReducer,
     collections: collectionsReducer,
     // categories: categoriesReducer,
-    // user: userReducer,
+    user: userReducer,
     app: appReducer
   }
 });
