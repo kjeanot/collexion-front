@@ -1,25 +1,29 @@
+import { useEffect } from 'react';
 import logo from '../../assets/logo.svg';
-import Card from '../Card/Card';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchCollections } from '../../store/reducers/collections';
+import CollectionsList from '../Collection/CollectionsList';
+import CollectionCTA from '../Collection/CollectionCTA';
 import Footer from '../Footer/Footer';
 import Gallery from '../Gallery/Gallery';
 import Header from '../Header/Header';
-import Carroussel from '../Carrousel/Carrousel';
 import './App.scss';
-import store from '../../store';
-import Subscribe from '../Subscribe/Subscribe';
-import Content from '../Content/Content';
-import Comment from '../Comment/Comment';
+import Carrousel from '../Carrousel/Carrousel';
 
 function App() {
+  const dispatch = useAppDispatch();
+  const collectionList = useAppSelector((state) => state.collections.list);
+
+  useEffect(() => {
+    dispatch(fetchCollections());
+  }, []);
+  console.log(collectionList);
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
-      {/* <Content /> */}
-      {/* <Subscribe /> */}
-      {/* <Carroussel /> */}
-      {/* <Gallery /> */}
-      <Card />
-      <Comment />
+      <CollectionCTA />
+      <CollectionsList data={collectionList} />
+      <Carrousel />
       <Footer />
     </div>
   );
