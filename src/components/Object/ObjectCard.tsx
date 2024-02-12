@@ -15,10 +15,10 @@ export default function ObjectCard({ id, name, image } : IObject) {
           />
         </figure>
         <div className="card-body">
-          <h3 className="justify-center line-clamp-3">Montre Seiko Presage </h3>
+          <h3 className="justify-center line-clamp-3">{name}</h3>
         </div>
       </div>
-    </ Link>
+    </Link>
     </>
   );
 }

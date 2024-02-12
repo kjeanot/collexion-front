@@ -3,24 +3,28 @@ import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import ObjectCard from '../Object/ObjectCard';
 import { ICollection } from '../../types/types';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { findCollection } from '../../store/selectors/collections';
+import { fetchSingleCollection } from '../../store/reducers/collections';
 
 export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
   const params = useParams();
-  const collectionId = parseInt(params.id);
-  // Get the collection list from the global state
-  const collections = useAppSelector((state) => state.collections.list);
-  // Using the findCollection function with the collection id to get the current collection to display
-  const currentCollection = findCollection(collections, collectionId);
+  const dispatch = useAppDispatch();
+  const currentCollection = useAppSelector(
+    (state) => state.collections.currentCollection
+  );
+
+  useEffect(() => {
+    dispatch(fetchSingleCollection(parseInt(params.id)));
+  }, []);
 
   return (
     <>
       <header className="flex flex-wrap border border-b-2 mb-6">
         <img
-          src="https://via.placeholder.com/1500"
+          src={currentCollection?.image}
           className="w-full md:w-1/3 object-cover"
         />
         <div className="w-full md:w-2/3 p-6">
