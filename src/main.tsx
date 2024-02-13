@@ -16,7 +16,7 @@ import Collections from './components/Collection/Collections';
 import SingleCollection from './components/Collection/SingleCollection';
 import singleCollectionLoader from './loaders/singleCollection';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
-import { fetchSingleCollection } from './store/reducers/collections';
+import { fetchSingleCollection } from './store/reducers/collectionsReducer';
 import Error from './components/Error/Error';
 
 const router = createBrowserRouter(
@@ -27,16 +27,16 @@ const router = createBrowserRouter(
       <Route path="/categories" />
       <Route path="/category/:id" />
       <Route path="/collections" element={<Collections />} />
-      <Route 
-        path="/collection/:id" 
-        element={<SingleCollection />} 
-        loader={({params}) => {
-        const promise = fetch(`http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`)
-        .then(res => res.json);
-        return promise;
+      <Route
+        path="/collection/:id"
+        element={<SingleCollection />}
+        loader={({ params }) => {
+          const promise = fetch(
+            `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`
+          ).then((res) => res.json);
+          return promise;
         }}
         errorElement={<Error />}
-      
       />
     </Route>
   )

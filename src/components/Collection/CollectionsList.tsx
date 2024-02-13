@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchCollections } from '../../store/reducers/collections';
+import { fetchCollections } from '../../store/reducers/collectionsReducer';
 import CollectionCard from './CollectionCard';
 import { ICollection } from '../../types/types';
 

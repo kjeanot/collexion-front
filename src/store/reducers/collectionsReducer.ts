@@ -28,6 +28,10 @@ export const fetchCollections = createAsyncThunk(
           Authorization:
             'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDc3NDkzODAsImV4cCI6MTcwNzc1Mjk4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.rvuzm8FCMUZMykxKz9TM85PPze55RxdmeGo-VvwE47Fkg-yHtKCCom_gSgxhZJekhfbvNJ2k7MyK2TnjwWgCTPq57L_b0J_LfvV396R8ju6SIK_ULTdTF05UObDfpS-01ZXUvLR9ZsEMNdLewvKfyOVtHmlsr21qkWSlhM12UMc81hIRc9aQa9j0S5fWfQvDVTH2PKBxqVuiK1OzWeuGArvCh8P3ZmKrJucCmPogrNFomphIoli_NwOIiLzYhSYi9iEHMbRbdzykRMiWPR0yYkxM5N1IXLNAqZmqfNk9z9d9eu0-L9BaqiMrWuevmRcO8_RIOKgVzkri2LeovGjujA',
         },
+        auth: {
+          username: 'admin@admin.com',
+          password: 'admin',
+        },
       }
     );
     return response.data;

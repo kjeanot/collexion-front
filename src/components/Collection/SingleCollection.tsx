@@ -6,7 +6,7 @@ import { ICollection } from '../../types/types';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { findCollection } from '../../store/selectors/collections';
-import { fetchSingleCollection } from '../../store/reducers/collections';
+import { fetchSingleCollection } from '../../store/reducers/collectionsReducer';
 
 export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params

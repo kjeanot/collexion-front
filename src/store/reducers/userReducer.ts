@@ -22,6 +22,7 @@ export const login = createAsyncThunk(
       {
         username: 'admin@admin.com',
         password: 'admin',
+        
       }
     );
     return response.data;

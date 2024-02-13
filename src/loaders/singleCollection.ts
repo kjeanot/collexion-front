@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingleCollection } from '../store/reducers/collections';
+import { fetchSingleCollection } from '../store/reducers/collectionsReducer';
 
 const singleCollectionLoader = async ({ params }) => {
   console.log(parseInt(params.id));

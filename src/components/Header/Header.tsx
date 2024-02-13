@@ -1,7 +1,7 @@
 import Login from '../Login/Login';
 import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { switchLoginDisplay } from '../../store/reducers/app';
+import { switchLoginDisplay } from '../../store/reducers/appReducer';
 import store from '../../store';
 
 export default function Header() {
