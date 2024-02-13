@@ -6,8 +6,6 @@ export default function Gallery({}: Props) {
   return (
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-
-        
         <div className="hover:contrast-50 relative">
           <a href="">
             <img
@@ -21,11 +19,6 @@ export default function Gallery({}: Props) {
           </a>
         </div>
 
-
-
-
-
-
         <div className="hover:blur-sm">
           <a href="">
             <img
@@ -35,9 +28,6 @@ export default function Gallery({}: Props) {
             />
           </a>
         </div>
-
-
-
 
         <div className="hover:drop-shadow-md hover:contrast-50">
           <img

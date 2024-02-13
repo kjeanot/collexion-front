@@ -1,124 +1,105 @@
-// Component DaisyUI
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
 
-export default function Carrousel() {
+type Props = {};
+
+export default function Carrousel({}: Props) {
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
   return (
-    <div>
-      <div className="carousel w-full mt-6 pb-6">
-        {/* slide 1 */}
-        <div
-          id="slide1"
-          className="carousel-item relative w-full grid grid-cols-2 md:grid-cols-3 gap-6"
-        >
-          {/* card 1 */}
-          <a href="">
-            <div className="card h-auto max-w-full bg-base-100 shadow hover:contrast-50">
-              <figure className="h-56 overflow-hidden">
-                <img
-                  className="object-fill"
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title justify-center">Category x</h2>
-              </div>
+    <Carousel
+      responsive={responsive}
+      infinite
+      showDots
+      autoPlay
+      keyBoardControl
+      autoPlaySpeed={2000}
+      customTransition="all .5"
+      transitionDuration={500}
+      containerClass="carousel-container my-2"
+      removeArrowOnDeviceType={['tablet', 'mobile']}
+      dotListClass="custom-dot-list-style opacity-70"
+      itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
+    >
+      <div>
+        <a href="">
+          <div className="card bg-base-100 shadow hover:contrast-50">
+            <figure>
+              <img
+                className=""
+                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                alt="Shoes"
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title justify-center">Category x</h2>
             </div>
-          </a>
-          {/* card 2 */}
-          <a href="">
-            <div className="card h-auto max-w-full bg-base-100 shadow hover:contrast-50">
-              <figure className="h-56 overflow-hidden">
-                <img
-                  className="object-fill"
-                  src="https://blog.info-brocantes.com/wp-content/uploads/iStock-168432580-1-1.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title justify-center">Category x</h2>
-              </div>
-            </div>
-          </a>
-          {/* card 3 */}
-          <a href="">
-            <div className="card h-auto max-w-full bg-base-100 shadow hover:contrast-50">
-              <figure className="h-56 overflow-hidden">
-                <img
-                  className="object-cover"
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title justify-center">Category x</h2>
-              </div>
-            </div>
-          </a>
-          {/* button */}
-          <div className="absolute flex justify-end transform -translate-y-1/2 left-1 right-1 top-1/2">
-            <a href="#slide2" className="btn">
-              ❯
-            </a>
           </div>
-        </div>
-
-        {/* slide 2 */}
-        <div
-          id="slide2"
-          className="carousel-item relative w-full grid grid-cols-2 md:grid-cols-3 gap-6"
-        >
-          {/* card 1 */}
-          <a href="">
-            <div className="card h-auto max-w-full bg-base-100 shadow hover:contrast-50">
-              <figure className="h-56">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title justify-center">Category x</h2>
-              </div>
-            </div>
-          </a>
-          {/* card 2 */}
-          <a href="">
-            <div className="card h-auto max-w-full bg-base-100 shadow hover:contrast-50">
-              <figure className="h-56">
-                <img
-                  src="https://blog.info-brocantes.com/wp-content/uploads/iStock-168432580-1-1.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title justify-center">Category x</h2>
-              </div>
-            </div>
-          </a>
-          {/* card 3 */}
-          <a href="">
-            <div className="card h-auto max-w-full bg-base-100 shadow hover:contrast-50">
-              <figure className="h-56">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title justify-center">Category x</h2>
-              </div>
-            </div>
-          </a>
-          {/* button */}
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-1 right-1 top-1/2">
-            <a href="#slide1" className="btn">
-              ❮
-            </a>
-          </div>
-        </div>
+        </a>
       </div>
-      {/* border */}
-      <div className="border mb-6" />
-    </div>
+      <div>
+        <a href="">
+          <div className="card bg-base-100 shadow hover:contrast-50">
+            <figure>
+              <img
+                className=""
+                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                alt="Shoes"
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title justify-center">Category x</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a href="">
+          <div className="card bg-base-100 shadow hover:contrast-50">
+            <figure>
+              <img className="" src={banner} alt="Shoes" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title justify-center">Category x</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a href="">
+          <div className="card bg-base-100 shadow hover:contrast-50">
+            <figure>
+              <img
+                className=""
+                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                alt="Shoes"
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title justify-center">Category x</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+    </Carousel>
   );
 }

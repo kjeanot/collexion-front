@@ -92,6 +92,7 @@ export default function Login() {
                 </button>
                 <div className="text-sm font-medium text-gray-500">
                   Pas encore enregistré ?{' '}
+                  Pas encore enregistré ?{' '}
                   <a href="#" className="text-blue-700 hover:underline">
                     Créez votre compte
                   </a>
