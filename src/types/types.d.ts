@@ -6,6 +6,7 @@ export interface ICollection {
   rating: number | null;
   user: IUser;
   myobjects: IObject[];
+  created_at: string,
 }
 
 export interface IUser {

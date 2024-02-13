@@ -1,8 +1,8 @@
-import Login from "../Login/Login";
-import logo from "../../assets/logo-collexion.png";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { switchLoginDisplay } from "../../store/reducers/app";
-import store from "../../store";
+import Login from '../Login/Login';
+import logo from '../../assets/logo-collexion.png';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { switchLoginDisplay } from '../../store/reducers/appReducer';
+import store from '../../store';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -42,7 +42,7 @@ export default function Header() {
               </details>
             </li>
           </ul>
-          <li className="flex flex-none md:w-2/5">
+          <li className="flex flex-none">
             <button
               type="button"
               data-collapse-toggle="navbar-search"
