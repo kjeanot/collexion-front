@@ -4,7 +4,7 @@ type Props = {};
 
 export default function Comment({}: Props) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
       <div className="p-6 mb-6">
         <h2 className="text-2xl font-semibold">Commentaires</h2>
         {/* border */}

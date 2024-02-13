@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { ICollection } from '../../types/types';
 import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import ObjectCard from '../Object/ObjectCard';
-import { ICollection } from '../../types/types';
-import { useLoaderData, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { findCollection } from '../../store/selectors/collections';
-import { fetchSingleCollection } from '../../store/reducers/collectionsReducer';
+import Comment from '../Comment/Comment';
 
-export default function SingleCollection() {
-  // Using useParams() to retrieve the collection id, passed by the router params
-  const params = useParams();
-  const dispatch = useAppDispatch();
-  // const data: ICollection = useLoaderData();
+type Props = {};
+
+export default function ObjectPage({}: Props) {
   const data: ICollection = {
     id: 2,
-    name: 'Ma premiere collection ',
+    name: 'Mon objet',
     image: 'https://via.placeholder.com/150',
     description:
       '1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Pretium lectus quam id leo in vitae turpis massa. Condimentum mattis pellentesque id nibh tortor id aliquet lectus. Ac turpis egestas integer eget aliquet nibh praesent tristique. ',
@@ -44,11 +39,6 @@ export default function SingleCollection() {
     ],
     created_at: '2024-02-12T10:42:43+00:00',
   };
-
-  useEffect(() => {
-    dispatch(fetchSingleCollection(parseInt(params.id)));
-  }, []);
-
   return (
     <>
       <header className="flex flex-wrap border border-b-2 mb-6">
@@ -91,18 +81,25 @@ export default function SingleCollection() {
               </svg>
             </button>
           </div>
-          <h1 className="my-5 text-2xl font-bold">{data.name}</h1>
+          <h1 className="my-5 text-2xl font-bold text-customred">
+            {data.name}
+          </h1>
           <div className="flex flex-wrap justify-between content-center">
             <Avatar nickname={data.user.nickname} />
-            <Rating value={data.rating} />
           </div>
           <section className="my-5">
             <h2 className="text-xl">Description</h2>
             <p>{data.description}</p>
           </section>
+          <section className="border border-b-2  max-w-md p-2">
+            <p>Etat :</p>
+            <p>Collection :</p>
+            <p>Catégorie :</p>
+          </section>
         </div>
       </header>
-      <h2 className="text-xl mb-6">Objets de cette collection</h2>
+
+      <h2 className="text-xl mb-6">Autres objets de cette collection</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
         {data.myobjects.map((object) => (
           <ObjectCard id={object.id} name={object.name} image={object.image} />
@@ -111,6 +108,7 @@ export default function SingleCollection() {
           + Ajouter un objet
         </button>
       </div>
+      <Comment />
     </>
   );
 }

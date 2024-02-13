@@ -10,6 +10,7 @@ import Header from '../Header/Header';
 import './App.scss';
 import { Outlet } from 'react-router-dom';
 import { login } from '../../store/reducers/userReducer';
+import SingleCollection from '../Collection/SingleCollection';
 
 function App() {
   const dispatch = useAppDispatch();

@@ -24,8 +24,10 @@ export default function Header() {
           <ul className="flex grow menu menu-horizontal px-1 z-50">
             <li>
               <details>
-                <summary>Catégories</summary>
-                <ul className="p-2 bg-base-100 rounded-t-none min-w-56">
+                <summary className="font-medium text-base text-customred">
+                  Catégories
+                </summary>
+                <ul className="p-2 text-base bg-base-100 rounded-t-none min-w-56">
                   <li>
                     <a>Figurines</a>
                   </li>
@@ -48,7 +50,7 @@ export default function Header() {
               data-collapse-toggle="navbar-search"
               aria-controls="navbar-search"
               aria-expanded="false"
-              className="md:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
+              className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
             >
               <svg
                 className="w-5 h-5"
@@ -70,7 +72,7 @@ export default function Header() {
             <div className="relative hidden md:block">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-500"
+                  className="w-4 h-4 text-customred"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -101,7 +103,7 @@ export default function Header() {
               onClick={() => dispatch(switchLoginDisplay())}
             >
               <svg
-                className="md:mr-2 w-6 h-6 text-gray-800"
+                className="md:mr-2 md:ml-6 w-6 h-6 text-customred"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -115,7 +117,9 @@ export default function Header() {
                   d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                 />
               </svg>
-              <span className="hidden md:inline-block">Se connecter</span>
+              <span className="hidden md:inline-block font-medium text-base text-customred">
+                Se connecter
+              </span>
             </a>
           </li>
         </div>
