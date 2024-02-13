@@ -6,17 +6,21 @@ import { ICollection } from '../../types/types';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { findCollection } from '../../store/selectors/collections';
-import { fetchSingleCollection } from '../../store/reducers/collectionsReducer';
+import { deleteCollection, fetchSingleCollection } from '../../store/reducers/collectionsReducer';
+import Modal from '../Modal/Modal';
+import { switchModalDisplay } from '../../store/reducers/appReducer';
 
 export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
   const params = useParams();
   const dispatch = useAppDispatch();
+  const showModal = useAppSelector((state) => state.app.showModal)
   const { data }: any = useLoaderData();
   console.log(data);
 
   return (
     <>
+    {showModal && <Modal actionLabel={'Supprimer la collection'} action={dispatch(deleteCollection(data.id))}/>}
       <header className="flex flex-wrap border border-b-2 mb-6">
         <img src={data.image} className="w-full md:w-1/3 object-cover" />
         <div className="w-full md:w-2/3 p-6">
@@ -41,7 +45,10 @@ export default function SingleCollection() {
                 />
               </svg>
             </button>
-            <button className="btn btn-circle">
+            <button 
+              className="btn btn-circle"
+              onClick={() => dispatch(switchModalDisplay())}
+            >
               <svg
                 className="w-6 h-6 text-gray-800"
                 aria-hidden="true"
