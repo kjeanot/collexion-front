@@ -12,40 +12,8 @@ export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
   const params = useParams();
   const dispatch = useAppDispatch();
-  const data: ICollection = {
-    "id": 2,
-    "name": "Ma premiere collection ",
-    "image": "https:\/\/via.placeholder.com\/150",
-    "description": "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Pretium lectus quam id leo in vitae turpis massa. Condimentum mattis pellentesque id nibh tortor id aliquet lectus. Ac turpis egestas integer eget aliquet nibh praesent tristique. ",
-    "rating": null,
-    "user": {
-      "id": 3,
-      "nickname": "user 1",
-      "picture": null
-    },
-    "myobjects": [
-      {
-        "id": 4,
-        "name": "Object 0",
-        "image": "https:\/\/via.placeholder.com\/150"
-      },
-      {
-        "id": 5,
-        "name": "Object 1",
-        "image": "https:\/\/via.placeholder.com\/150"
-      },
-      {
-        "id": 6,
-        "name": "Object 2",
-        "image": "https:\/\/via.placeholder.com\/150"
-      }
-    ],
-    "created_at": "2024-02-12T10:42:43+00:00"
-  }
-
-  useEffect(() => {
-    dispatch(fetchSingleCollection(parseInt(params.id)));
-  }, []);
+  const { data }: any = useLoaderData();
+  console.log(data);
 
   return (
     <>
@@ -89,6 +57,7 @@ export default function SingleCollection() {
               </svg>
             </button>
           </div>
+
           <h1 className="my-5 text-2xl font-bold">{data.name}</h1>
           <div className="flex flex-wrap justify-between content-center">
             <Avatar nickname={data.user.nickname} />
@@ -102,7 +71,7 @@ export default function SingleCollection() {
       </header>
       <h2 className="text-xl mb-6">Objets de cette collection</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-        {data.myobjects.map((object) => (
+        {data.myobjects.map((object: ICollection) => (
           <ObjectCard id={object.id} name={object.name} image={object.image} />
         ))}
         <button className="btn btn-square h-full w-full">

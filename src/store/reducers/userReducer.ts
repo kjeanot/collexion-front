@@ -1,4 +1,5 @@
 import {
+  StateFromReducersMapObject,
   createAction,
   createAsyncThunk,
   createReducer,
@@ -11,7 +12,7 @@ interface userState {
     username: null | string;
     password: null | string;
   };
-  token: null | string;
+  token: unknown | null | string;
 }
 export const initialState: userState = {
   credentials: {
@@ -23,7 +24,7 @@ export const initialState: userState = {
 
 export const setUsername = createAction<string>('user/setUsername');
 export const setPassword = createAction<string>('user/setPassword');
-export const login = createAsyncThunk<string>(
+export const login = createAsyncThunk<StateFromReducersMapObject<any>>(
   'user/login_check',
   async (_, thunkAPI) => {
     // Retreive the state to pass the stored informations into the API request body
@@ -37,6 +38,7 @@ export const login = createAsyncThunk<string>(
   }
 );
 
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(login.pending, (state, action) => {
@@ -44,8 +46,9 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(login.fulfilled, (state, action) => {
       console.log('fulfilled', action);
-      state.token = action.payload;
-      localStorage.setItem('jwt', JSON.stringify(state.token));
+      state.token = action.payload.token;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
+      // localStorage.setItem('jwt', JSON.stringify(state["token"]));
     })
     .addCase(login.rejected, (state, action) => {
       console.log('rejected', action);

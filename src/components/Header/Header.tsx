@@ -3,6 +3,7 @@ import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
 import store from '../../store';
+import { NavLink } from 'react-router-dom';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -42,6 +43,9 @@ export default function Header() {
               </details>
             </li>
           </ul>
+          <li>
+          <NavLink to={'/collections'}>Collections</NavLink>
+          </li>
           <li className="flex flex-none">
             <button
               type="button"
@@ -95,8 +99,7 @@ export default function Header() {
             </div>
           </li>
           <li className="flex flex-none content-center">
-            <a
-              href="#"
+            <div
               className="flex content-center py-2 md:px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
               onClick={() => dispatch(switchLoginDisplay())}
             >
@@ -116,7 +119,7 @@ export default function Header() {
                 />
               </svg>
               <span className="hidden md:inline-block">Se connecter</span>
-            </a>
+            </div>
           </li>
         </div>
       </nav>

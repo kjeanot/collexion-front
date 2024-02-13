@@ -27,15 +27,8 @@ export const initialState: CollectionsState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    const response = await axios.get(
-      'http://64ed31429cbded49acab4281.cloud.lan:8080/api/collections',
-      {
-        headers: {
-          Authorization: `Bearer ${state.user.token}`,
-        },
-      }
-    );
+      const response = await axios.get(
+      'http://64ed31429cbded49acab4281.cloud.lan:8080/api/collections');
     return response.data;
   }
 );
@@ -46,7 +39,7 @@ export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.get(
-      `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${id}`
+      `http://64ed31429cbded49acab4281.cloud.lan:8080/api/collection/${id}`
     );
     return response.data;
   }
@@ -56,7 +49,7 @@ export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.delete(
-      `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${id}`
+      `http://64ed31429cbded49acab4281.cloud.lan:8080/api/collection/${id}`
     );
     return response.data;
   }
