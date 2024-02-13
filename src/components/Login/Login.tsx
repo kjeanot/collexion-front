@@ -1,11 +1,21 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
+import {
+  login,
+  setPassword,
+  setUsername,
+} from '../../store/reducers/userReducer';
 
 export default function Login() {
   const dispatch = useAppDispatch();
   // import state from app reducer to handle the login component display
   const showLogin = useAppSelector((state) => state.app.showLogin);
+  const handleLoginSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
+    dispatch(login());
+  };
+
   return (
     <>
       <div
@@ -61,6 +71,9 @@ export default function Login() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
                     placeholder="email@gmail.com"
                     required
+                    onChange={(evt) => {
+                      dispatch(setUsername(evt.currentTarget.value));
+                    }}
                   />
                 </div>
                 <div>
@@ -77,6 +90,9 @@ export default function Login() {
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
                     required
+                    onChange={(evt) => {
+                      dispatch(setPassword(evt.currentTarget.value));
+                    }}
                   />
                 </div>
                 <div>
@@ -87,12 +103,12 @@ export default function Login() {
                 <button
                   type="submit"
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  onSubmit={handleLoginSubmit()}
                 >
                   Se connecter
                 </button>
                 <div className="text-sm font-medium text-gray-500">
-                  Pas encore enregistré ?{' '}
-                  Pas encore enregistré ?{' '}
+                  Pas encore enregistré ? Pas encore enregistré ?{' '}
                   <a href="#" className="text-blue-700 hover:underline">
                     Créez votre compte
                   </a>

@@ -12,7 +12,36 @@ export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
   const params = useParams();
   const dispatch = useAppDispatch();
-  const data: ICollection = useLoaderData();
+  const data: ICollection = {
+    "id": 2,
+    "name": "Ma premiere collection ",
+    "image": "https:\/\/via.placeholder.com\/150",
+    "description": "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Pretium lectus quam id leo in vitae turpis massa. Condimentum mattis pellentesque id nibh tortor id aliquet lectus. Ac turpis egestas integer eget aliquet nibh praesent tristique. ",
+    "rating": null,
+    "user": {
+      "id": 3,
+      "nickname": "user 1",
+      "picture": null
+    },
+    "myobjects": [
+      {
+        "id": 4,
+        "name": "Object 0",
+        "image": "https:\/\/via.placeholder.com\/150"
+      },
+      {
+        "id": 5,
+        "name": "Object 1",
+        "image": "https:\/\/via.placeholder.com\/150"
+      },
+      {
+        "id": 6,
+        "name": "Object 2",
+        "image": "https:\/\/via.placeholder.com\/150"
+      }
+    ],
+    "created_at": "2024-02-12T10:42:43+00:00"
+  }
 
   useEffect(() => {
     dispatch(fetchSingleCollection(parseInt(params.id)));
