@@ -9,12 +9,6 @@ import {
 
 export default function Login() {
   const dispatch = useAppDispatch();
-  // import state from app reducer to handle the login component display
-  const showLogin = useAppSelector((state) => state.app.showLogin);
-  const handleLoginSubmit = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    dispatch(login());
-  };
 
   return (
     <>
@@ -101,9 +95,11 @@ export default function Login() {
                   </a>
                 </div>
                 <button
-                  type="submit"
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                  onSubmit={handleLoginSubmit()}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(login());
+                  }}
                 >
                   Se connecter
                 </button>

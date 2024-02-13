@@ -10,18 +10,16 @@ interface userState {
   credentials: {
     username: null | string;
     password: null | string;
-    
   };
   token: null | string;
 }
 export const initialState: userState = {
   credentials: {
-    username: "admin@admin.com",
-    password: "admin",
+    username: 'admin@admin.com',
+    password: 'admin',
   },
   token: null,
 };
-
 
 export const setUsername = createAction<string>('user/setUsername');
 export const setPassword = createAction<string>('user/setPassword');
@@ -47,17 +45,19 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(login.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.token = action.payload;
+      localStorage.setItem('jwt', JSON.stringify(state.token));
     })
     .addCase(login.rejected, (state, action) => {
       console.log('rejected', action);
     })
     .addCase(setUsername, (state, action) => {
+      console.log('new username :', action.payload);
       state.credentials.username = action.payload;
     })
     .addCase(setPassword, (state, action) => {
+      console.log('new password :', action.payload);
       state.credentials.password = action.payload;
-    })
-    ;
+    });
 });
 
 export default userReducer;
