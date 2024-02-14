@@ -22,7 +22,7 @@ export default function SingleCollection() {
     <>
     {showModal && <Modal actionLabel={'Supprimer la collection'} action={dispatch(deleteCollection(data.id))}/>}
       <header className="flex flex-wrap border border-b-2 mb-6">
-        <img src={data.image} className="w-full md:w-1/3 object-cover" />
+        <img src="https://picsum.photos/1000" className="w-full md:w-1/3 object-cover" />
         <div className="w-full md:w-2/3 p-6">
           <div className="flex justify-end">
             <button className="btn btn-circle mr-4">

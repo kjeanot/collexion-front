@@ -6,6 +6,7 @@ import {
   setPassword,
   setUsername,
 } from '../../store/reducers/userReducer';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -90,24 +91,27 @@ export default function Login() {
                   />
                 </div>
                 <div>
-                  <a href="#" className="text-sm text-blue-700 hover:underline">
+                  <a href="#" className="text-sm text-customred hover:underline">
                     Mot de passe oublié ?
                   </a>
                 </div>
                 <button
-                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
                   onClick={(evt) => {
                     evt.preventDefault();
                     dispatch(login());
+                    dispatch(switchLoginDisplay());
                   }}
                 >
                   Se connecter
                 </button>
                 <div className="text-sm font-medium text-gray-500">
                   Pas encore enregistré ? Pas encore enregistré ?{' '}
-                  <a href="#" className="text-blue-700 hover:underline">
-                    Créez votre compte
-                  </a>
+                  <Link 
+                    to="/subscribe" 
+                    className="text-customred hover:underline"
+                    onClick={() => dispatch(switchLoginDisplay())}
+                    >Créer votre compte</Link>
                 </div>
               </form>
             </div>

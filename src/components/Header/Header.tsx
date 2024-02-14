@@ -3,16 +3,16 @@ import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
 import store from '../../store';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const showLogin = useAppSelector((state) => state.app.showLogin);
   return (
     <>
-      <nav className="navbar bg-base-100">
-        <a
-          href="#"
+      <nav className="navbar bg-base-100 color text-customred">
+        <Link
+          to="/"
           className="flex flex-wrap items-center space-x-3 rtl:space-x-reverse w-1/5 "
         >
           <img
@@ -20,7 +20,7 @@ export default function Header() {
             className="h-32 object-contain"
             alt="Collexion logo"
           />
-        </a>
+        </Link>
         <div className="flex w-4/5">
           <ul className="flex grow menu menu-horizontal px-1 z-50">
             <li>
@@ -43,16 +43,13 @@ export default function Header() {
               </details>
             </li>
           </ul>
-          <li>
-          <NavLink to={'/collections'}>Collections</NavLink>
-          </li>
           <li className="flex flex-none">
             <button
               type="button"
               data-collapse-toggle="navbar-search"
               aria-controls="navbar-search"
               aria-expanded="false"
-              className="md:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
+              className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
             >
               <svg
                 className="w-5 h-5"
@@ -74,7 +71,7 @@ export default function Header() {
             <div className="relative hidden md:block">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-500"
+                  className="w-4 h-4 text-customred"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -100,11 +97,11 @@ export default function Header() {
           </li>
           <li className="flex flex-none content-center">
             <div
-              className="flex content-center py-2 md:px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+              className="flex content-center py-2 md:px-2 text-customred rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-customorange md:p-0"
               onClick={() => dispatch(switchLoginDisplay())}
             >
               <svg
-                className="md:mr-2 w-6 h-6 text-gray-800"
+                className="md:mr-2 w-6 h-6 text-customred"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

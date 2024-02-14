@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
   <nav>
     <h6 className="footer-title">Trouver l'inspiration</h6> 
     <a className="link link-hover">Catégories</a>
-    <a className="link link-hover">Collections</a>
+    <NavLink to={'/collections'}>Collections</NavLink>
     <a className="link link-hover">Collection au hasard</a>
     <a className="link link-hover">Objet au hasard</a>
   </nav> 
