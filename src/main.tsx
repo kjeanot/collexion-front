@@ -14,7 +14,7 @@ import './styles/index.scss';
 import store from './store';
 import Collections from './components/Collection/Collections';
 import SingleCollection from './components/Collection/SingleCollection';
-import singleCollectionLoader from './loaders/singleCollection';
+import SingleCollectionEdit from './components/Collection/SingleCollectionEdit';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { fetchSingleCollection } from './store/reducers/collectionsReducer';
 import Error from './components/Error/Error';
@@ -45,6 +45,10 @@ const router = createBrowserRouter(
           return promise;
         }}
         // errorElement={<Error />}
+      />
+      <Route
+        path='/collection/:id/edit'
+        element={<SingleCollectionEdit />}
       />
       <Route path='/subscribe' element={<Subscribe />} />
     </Route>
