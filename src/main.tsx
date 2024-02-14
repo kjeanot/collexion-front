@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { fetchSingleCollection } from './store/reducers/collectionsReducer';
 import Error from './components/Error/Error';
 import ObjectPage from './components/ObjectPage/ObjectPage';
+import Home from './components/Home/Home';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +40,7 @@ const router = createBrowserRouter(
         // }}
         // errorElement={<Error />}
       />
-      <Route path="/object" element={<ObjectPage />} />
+      <Route path="/home" element={<Home />} />
     </Route>
   )
 );

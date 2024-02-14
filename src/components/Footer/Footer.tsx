@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="footer p-10 bg-base-200 text-base-content mt-6">
+    <footer className="footer relative p-10 bg-base-200 text-base-content mt-6">
       <aside className="md:max-w-80">
         <h3 className="footer-title">Collexion</h3>
         <p>
