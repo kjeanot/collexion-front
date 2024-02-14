@@ -5,7 +5,7 @@ type Props = {
   text: string;
 };
 
-export default function Button({ text, action }: Props) {
+export default function Button({ text }: Props) {
   const dispatch = useAppDispatch();
   return (
     <div>

@@ -9,7 +9,7 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const showLogin = useAppSelector((state) => state.app.showLogin);
   return (
-    <>
+    <header>
       <nav className="navbar bg-base-100 color text-customred">
         <Link
           to="/"
@@ -121,6 +121,6 @@ export default function Header() {
         </div>
       </nav>
       {showLogin && <Login />}
-    </>
+    </header>
   );
 }
