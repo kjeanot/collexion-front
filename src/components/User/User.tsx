@@ -60,25 +60,26 @@ export default function User() {
           maiores tempora officiis!
         </p>
       </section>
-      <div role="tablist" className="tabs tabs-bordered">
+      <div role="tablist" className="tabs tabs-bordered flex divide-y border-b-2">
         <NavLink
           to="/user/:id"
           role="tab"
           className={({ isActive, isPending }) =>
-            isPending ? 'tab' : isActive ? 'tab tab-active' : ''
+            isPending ? 'bg-gray-100 w-60' : isActive ? 'bg-gray-300 w-60' : 'bg-gray-100 w-60'
           }
         >
-          Collections créées
+          <h3>Collections créées</h3>
         </NavLink>
         <NavLink
           to="/user/favorites"
           role="tab"
           className={({ isActive, isPending }) =>
-            isPending ? 'tab' : isActive ? 'tab tab-active' : ''
+            isPending ? 'bg-gray-100 w-60' : isActive ? 'bg-gray-300 w-60' : 'bg-gray-100 w-60'
           }
         >
-          Collections favorites
+          <h3>Collections favorites</h3>
         </NavLink>
+        
       </div>
       <Outlet />
     </>
