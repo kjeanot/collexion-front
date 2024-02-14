@@ -1,12 +1,12 @@
 export interface ICollection {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-  rating: number | null;
-  user: IUser;
-  myobjects: IObject[];
-  created_at: string,
+  id?: number;
+  name?: string;
+  image?: string | File;
+  description?: string;
+  rating?: number | null;
+  user?: IUser;
+  myobjects?: IObject[];
+  created_at?: string,
 }
 
 export interface IUser {
