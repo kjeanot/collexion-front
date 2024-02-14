@@ -18,6 +18,8 @@ import singleCollectionLoader from './loaders/singleCollection';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { fetchSingleCollection } from './store/reducers/collectionsReducer';
 import Error from './components/Error/Error';
+import axios from 'axios';
+import Subscribe from './components/Subscribe/Subscribe';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,13 +33,20 @@ const router = createBrowserRouter(
         path="/collection/:id"
         element={<SingleCollection />}
         loader={({ params }) => {
-          const promise = fetch(
-            `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`
-          ).then((res) => res.json);
+          const token = JSON.parse(localStorage.getItem('jwt'));
+          const promise = axios(
+            `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           return promise;
         }}
-        errorElement={<Error />}
+        // errorElement={<Error />}
       />
+      <Route path='/subscribe' element={<Subscribe />} />
     </Route>
   )
 );

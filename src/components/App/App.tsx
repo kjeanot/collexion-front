@@ -12,12 +12,6 @@ import { Outlet } from 'react-router-dom';
 import { login } from '../../store/reducers/userReducer';
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(login());
-    console.log('login');
-  }, []);
 
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
