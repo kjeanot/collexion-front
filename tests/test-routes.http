@@ -13,6 +13,9 @@ content-type: application/json
   "password": "admin"
 }
 
+### Route Delete Collection
+DELETE http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api//api/collection/2 HTTP/1.1
+
 
 
 

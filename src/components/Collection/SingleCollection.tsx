@@ -20,7 +20,7 @@ export default function SingleCollection() {
 
   return (
     <>
-    {showModal && <Modal actionLabel={'Supprimer la collection'} action={dispatch(deleteCollection(data.id))}/>}
+    {showModal && <Modal actionLabel={'Supprimer la collection'} action={() => dispatch(deleteCollection(data.id))} />}
       <header className="flex flex-wrap border border-b-2 mb-6">
         <img src="https://picsum.photos/1000" className="w-full md:w-1/3 object-cover" />
         <div className="w-full md:w-2/3 p-6">
@@ -36,7 +36,7 @@ export default function SingleCollection() {
                 <path
                   fillRule="evenodd"
                   d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
                 <path
                   fillRule="evenodd"
