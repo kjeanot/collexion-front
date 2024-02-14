@@ -50,6 +50,10 @@ const router = createBrowserRouter(
         path='/collection/:id/edit'
         element={<SingleCollectionEdit />}
       />
+      <Route
+        path='/collection/new'
+        element={<SingleCollectionEdit />}
+      />
       <Route path='/subscribe' element={<Subscribe />} />
     </Route>
   )

@@ -34,7 +34,7 @@ export const fetchCollections = createAsyncThunk(
   }
 );
 
-// Middleware for a single Collection CRUD
+// Middlewares for a single Collection CRUD
 
 export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',

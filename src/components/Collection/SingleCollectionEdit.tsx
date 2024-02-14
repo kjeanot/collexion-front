@@ -1,39 +1,45 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { ICollection } from '../../types/types';
 
 export default function SingleCollectionEdit() {
+  const data: ICollection = useLoaderData() ?? '';
   return (
-    <form className="md:w-1/2 mx-auto flex flex-col">
-      <h1 className="text-3xl mb-6">Editer la collection</h1>
-      <label className="form-control w-full">
+    <form className="md:w-1/2 mx-auto">
+      <h1 className="text-3xl mb-6">{data ? 'Editer la' : 'Créer une'} collection</h1>
+      <label className="form-control w-full" htmlFor='collection-name'>
         <div className="label">
           <span className="label-text">Nom de la collection</span>
         </div>
         <input
+          id="collection-name"
           type="text"
-          placeholder="Nom de la collection"
+          placeholder={data.name ? data.name : "Nom de la collection"}
           className="input input-bordered w-full"
         />
       </label>
-      <label className="form-control w-full">
+      <label className="form-control w-full" htmlFor="collection-description">
         <div className="label">
           <span className="label-text">Description de la collection</span>
         </div>
         <textarea
+          id="collection-description"
           className="textarea textarea-bordered h-24"
-          placeholder="Decription"
+          placeholder={data.description ? data.description : "Description de la collection"}
         ></textarea>
       </label>
-      <label className="form-control w-full">
+      <label className="form-control w-full" htmlFor="collection-image">
         <div className="label">
-          <span className="label-text">Description de la collection</span>
+          <span className="label-text">Image de la collection</span>
         </div>
         <input
+          id="collection-image"
           type="file"
           className="file-input file-input-bordered file-input-neutral w-full"
         />
       </label>
-      <h2 className="text-xl my-6">Objets rattachés</h2>
-      {
+      { data && <h2 className="text-xl my-6">Objets rattachés</h2>}
+      { data &&
       [...Array(15)].map((_, index) => (
         <div key={index} className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4">
           <img src="https://picsum.photos/200" className="max-w-16 mr-4 object-fill" />
@@ -64,7 +70,7 @@ export default function SingleCollectionEdit() {
       }
       <button
         type="button"
-        className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center mb-2 mx-auto"
+        className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center my-4 mx-auto"
       >
         Mettre à jour
       </button>
