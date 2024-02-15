@@ -22,10 +22,10 @@ export default function CollectionCard({
       <div className="card-body">
         <h3 className="card-title text-customred">{collection.name}</h3>
         <Rating value={collection.rating} />
-        <Avatar
+        {collection.user && <Avatar
           picture={collection.user.picture}
           nickname={collection.user.nickname}
-        />
+        />}
         <p className="line-clamp-5">{collection.description}</p>
       </div>
     </Link>

@@ -16,7 +16,9 @@ function App() {
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
-      <Outlet />
+      <main className="my-4">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );

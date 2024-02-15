@@ -28,7 +28,7 @@ export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
     const response = await axios.get(
-      'http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collections'
+      `${import.meta.env.VITE_API_PATH}collections`
     );
     return response.data;
   }
@@ -40,7 +40,7 @@ export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.get(
-      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/${id}`
+      `${import.meta.env.VITE_API_PATH}collections/${id}`
     );
     return response.data;
   }
@@ -50,7 +50,7 @@ export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.delete(
-      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/${id}`
+      `${import.meta.env.VITE_API_PATH}collection/${id}`
     );
     return response.data;
   }

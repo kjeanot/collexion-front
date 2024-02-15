@@ -33,7 +33,7 @@ export const login = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.post(
-      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/login_check`,
+      `${import.meta.env.VITE_API_PATH}login_check`,
       state.user.credentials
     );
     return response.data;
@@ -45,7 +45,7 @@ export const fetchUserInfo = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.get(
-      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/user/${state.user.id}`
+      `${import.meta.env.VITE_API_PATH}${state.user.id}`
     );
     return response.data;
   }
