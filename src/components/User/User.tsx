@@ -4,7 +4,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 export default function User() {
   return (
     <>
-      <section>
+      <section className='mb-6'>
         <div className="flex flex-col mx-auto place-items-center md:flex-row mb-6">
           <div className="avatar md:mr-6 w-32">
             <div className="w-fit rounded-full">
@@ -60,13 +60,13 @@ export default function User() {
           maiores tempora officiis!
         </p>
       </section>
-      <div role="tablist" className="tabs tabs-bordered flex divide-y border-b-2">
+      <div role="tablist" className="tabs tabs-bordered sm:flex divide-y border-b-2 mb-4">
         <NavLink
           to="/user/2"
           end
           role="tab"
           className={({ isActive, isPending }) =>
-            isPending ? 'bg-gray-100 w-60 p-2' : isActive ? 'bg-gray-300 w-60 p-2' : 'bg-gray-100 w-60 p-2'
+            isPending ? 'bg-gray-100 w-60 p-2 rounded-tl-xl' : isActive ? 'bg-gray-400 w-60 p-2 rounded-tl-xl' : 'bg-gray-100 w-60 p-2 rounded-tl-xl'
           }
         >
           <h3>Collections créées</h3>
@@ -75,7 +75,7 @@ export default function User() {
           to="/user/2/favorites"
           role="tab"
           className={({ isActive, isPending }) =>
-            isPending ? 'bg-gray-100 w-60 p-2' : isActive ? 'bg-gray-300 w-60 p-2' : 'bg-gray-100 w-60 p-2'
+            isPending ? 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2' : isActive ? 'bg-gray-400 w-60 p-2 rounded-tl-xl sm:-ml-2' : 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
           }
         >
           <h3>Collections favorites</h3>

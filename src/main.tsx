@@ -15,6 +15,7 @@ import store from './store';
 import Collections from './components/Collection/Collections';
 import SingleCollection from './components/Collection/SingleCollection';
 import SingleCollectionEdit from './components/Collection/SingleCollectionEdit';
+import UserCollectionsList from './components/User/UserCollectionsList';
 import User from './components/User/User';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { fetchSingleCollection } from './store/reducers/collectionsReducer';
@@ -47,18 +48,16 @@ const router = createBrowserRouter(
         }}
         errorElement={<Error />}
       />
-      <Route
-        path='/collection/:id/edit'
-        element={<SingleCollectionEdit />}
-      />
-      <Route
-        path='/collection/new'
-        element={<SingleCollectionEdit />}
-      />
-      <Route path='/subscribe' element={<Subscribe />} />
-      <Route path='/user/:id' element={<User />}>
-        <Route index element={<Collections />}/>
-        <Route path='/user/:id/favorites' element={<Subscribe />}/>
+      <Route path="/collection/:id/edit" element={<SingleCollectionEdit />} />
+      <Route path="/collection/new" element={<SingleCollectionEdit />} />
+      <Route path="/subscribe" element={<Subscribe />} />
+      <Route path="/user/:id" element={<User />}>
+        <Route 
+          index 
+          element={<UserCollectionsList />} />
+        <Route 
+          path="/user/:id/favorites" 
+          element={<Subscribe />} />
       </Route>
     </Route>
   )
