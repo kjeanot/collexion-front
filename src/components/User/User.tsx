@@ -62,19 +62,20 @@ export default function User() {
       </section>
       <div role="tablist" className="tabs tabs-bordered flex divide-y border-b-2">
         <NavLink
-          to="/user/:id"
+          to="/user/2"
+          end
           role="tab"
           className={({ isActive, isPending }) =>
-            isPending ? 'bg-gray-100 w-60' : isActive ? 'bg-gray-300 w-60' : 'bg-gray-100 w-60'
+            isPending ? 'bg-gray-100 w-60 p-2' : isActive ? 'bg-gray-300 w-60 p-2' : 'bg-gray-100 w-60 p-2'
           }
         >
           <h3>Collections créées</h3>
         </NavLink>
         <NavLink
-          to="/user/favorites"
+          to="/user/2/favorites"
           role="tab"
           className={({ isActive, isPending }) =>
-            isPending ? 'bg-gray-100 w-60' : isActive ? 'bg-gray-300 w-60' : 'bg-gray-100 w-60'
+            isPending ? 'bg-gray-100 w-60 p-2' : isActive ? 'bg-gray-300 w-60 p-2' : 'bg-gray-100 w-60 p-2'
           }
         >
           <h3>Collections favorites</h3>

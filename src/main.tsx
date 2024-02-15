@@ -58,6 +58,7 @@ const router = createBrowserRouter(
       <Route path='/subscribe' element={<Subscribe />} />
       <Route path='/user/:id' element={<User />}>
         <Route index element={<Collections />}/>
+        <Route path='/user/:id/favorites' element={<Subscribe />}/>
       </Route>
     </Route>
   )
