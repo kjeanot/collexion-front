@@ -27,8 +27,14 @@ export const initialState: CollectionsState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}collections`
+      `${import.meta.env.VITE_API_PATH}collections`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return response.data;
   }
@@ -50,7 +56,7 @@ export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}collection/${id}`
+      `${import.meta.env.VITE_API_PATH}collection/delete/${id}`
     );
     return response.data;
   }

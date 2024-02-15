@@ -17,8 +17,8 @@ interface userState {
 }
 export const initialState: userState = {
   credentials: {
-    username: 'admin@admin.com',
-    password: 'admin',
+    username: null,
+    password: null,
   },
   id: null,
   token: null,
@@ -58,10 +58,9 @@ const userReducer = createReducer(initialState, (builder) => {
       console.log('pending', action);
     })
     .addCase(login.fulfilled, (state, action) => {
-      console.log('fulfilled', action);
-      state.token = action.payload.token;
-      axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
-      localStorage.setItem('jwt', JSON.stringify(state["token"]));
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.setItem('jwt', JSON.stringify(action.payload.token))}`;
+      console.log(localStorage.getItem('jwt'));
+      
     })
     .addCase(login.rejected, (state, action) => {
       console.log('rejected', action);
