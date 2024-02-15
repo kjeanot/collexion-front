@@ -24,7 +24,7 @@ export default function Header() {
           <ul className="flex grow menu menu-horizontal px-1 z-50">
             <li>
               <details>
-                <summary className="font-medium text-base text-customred">
+                <summary className="font-medium text-lg text-customred">
                   Catégories
                 </summary>
                 <ul className="p-2 text-base bg-base-100 rounded-t-none min-w-56">
@@ -72,7 +72,7 @@ export default function Header() {
             <div className="relative hidden md:block">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-customred"
+                  className="w-5 h-5 text-customred"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -103,7 +103,7 @@ export default function Header() {
               onClick={() => dispatch(switchLoginDisplay())}
             >
               <svg
-                className="md:mr-2 md:ml-6 w-6 h-6 text-customred"
+                className="md:mr-2 md:ml-6 w-7 h-7 text-customred"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -117,7 +117,7 @@ export default function Header() {
                   d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                 />
               </svg>
-              <span className="hidden md:inline-block font-medium text-base text-customred">
+              <span className="hidden md:inline-block font-medium text-lg text-customred">
                 Se connecter
               </span>
             </a>

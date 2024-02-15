@@ -7,8 +7,9 @@ type Props = {};
 
 export default function Home({}: Props) {
   return (
-    <div className="relative">
-      <h1 className="md:h-20 p-5 text-center text-2xl font-semibold text-white bg-gradient-to-r from-customred to-customorange">
+    <div>
+      {/* bandeau */}
+      <h1 className="md:h-20 w-screen p-5 text-center text-2xl font-semibold text-white bg-gradient-to-r from-customred to-customorange">
         Chaque objet a son histoire, et chaque collection raconte votre parcours
         !
       </h1>
@@ -22,7 +23,7 @@ export default function Home({}: Props) {
       <div className="flex justify-end">
         <button
           type="button"
-          className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
+          className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-lg px-8 py-2 text-center me-2 mb-2"
         >
           Toutes les collections
         </button>
@@ -43,7 +44,7 @@ export default function Home({}: Props) {
       <div className="flex justify-end">
         <button
           type="button"
-          className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2 mt-6"
+          className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-lg px-8 py-2 text-center me-2 mb-2 mt-6"
         >
           Tous les objets
         </button>
@@ -65,7 +66,7 @@ export default function Home({}: Props) {
       <div className="flex justify-end">
         <button
           type="button"
-          className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2 mt-6"
+          className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-lg px-8 py-2 text-center me-2 mb-2 mt-6"
         >
           Toutes les catégories
         </button>

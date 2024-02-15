@@ -18,11 +18,10 @@ export const login = createAsyncThunk(
   'user/login_check',
   async (_, thunkAPI) => {
     const response = await axios.post(
-      `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/login_check`,
+      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/login_check`,
       {
         username: 'admin@admin.com',
         password: 'admin',
-        
       }
     );
     return response.data;

@@ -30,14 +30,14 @@ export default function Carrousel({}: Props) {
       responsive={responsive}
       infinite
       autoPlay
+      showDots
       keyBoardControl
-      showDots={false}
       autoPlaySpeed={2000}
       customTransition="all .5"
       transitionDuration={500}
       containerClass="carousel-container my-2"
       removeArrowOnDeviceType={['tablet', 'mobile']}
-      dotListClass="custom-dot-list-style opacity-70"
+      dotListClass="md:invisible custom-dot-list-style opacity-70"
       itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
     >
       <div>
