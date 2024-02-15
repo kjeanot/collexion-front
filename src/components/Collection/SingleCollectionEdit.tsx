@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation, useParams } from 'react-router-dom';
 import {
   fetchSingleCollection,
+  postCollection,
   resetCurrentCollection,
+  setCollectionDescription,
+  setCollectionImage,
+  setCollectionName,
+  updateCollection,
 } from '../../store/reducers/collectionsReducer';
 
 export default function SingleCollectionEdit() {
@@ -22,6 +27,9 @@ export default function SingleCollectionEdit() {
           placeholder={data ? data.name : 'Nom de la collection'}
           value={data ? data.name : ''}
           className="input input-bordered w-full"
+          onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+            dispatch(setCollectionName(evt.currentTarget.value))
+          }
         />
       </label>
       <label className="form-control w-full">
@@ -32,6 +40,9 @@ export default function SingleCollectionEdit() {
           className="textarea textarea-bordered h-24"
           placeholder={data ? data.description : 'Description de la collection'}
           value={data ? data.description : ''}
+          onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
+            dispatch(setCollectionDescription(evt.currentTarget.value))
+          }
         ></textarea>
       </label>
       <label className="form-control w-full">
@@ -41,6 +52,9 @@ export default function SingleCollectionEdit() {
         <input
           type="file"
           className="file-input file-input-bordered file-input-neutral w-full"
+          onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+            dispatch(setCollectionImage(evt.currentTarget.value))
+          }
         />
       </label>
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
@@ -82,6 +96,14 @@ export default function SingleCollectionEdit() {
       <button
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
+        onClick={() => {
+          if (data.id) {
+            dispatch(updateCollection(data.id))
+          } else {
+            dispatch(postCollection())
+          }
+        }
+        }
       >
         Mettre à jour
       </button>

@@ -58,8 +58,7 @@ const userReducer = createReducer(initialState, (builder) => {
       console.log('pending', action);
     })
     .addCase(login.fulfilled, (state, action) => {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.setItem('jwt', JSON.stringify(action.payload.token))}`;
-      console.log(localStorage.getItem('jwt'));
+      localStorage.setItem('jwt', JSON.stringify(action.payload.token));
       
     })
     .addCase(login.rejected, (state, action) => {

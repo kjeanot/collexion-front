@@ -69,7 +69,7 @@ export const deleteCollection = createAsyncThunk(
         },
       }
     );
-    
+
     return response.data;
   }
 );
@@ -77,39 +77,48 @@ export const deleteCollection = createAsyncThunk(
 export const updateCollection = createAsyncThunk(
   'collections/updateCollection',
   async (id: number, thunkAPI) => {
-    const response = await axios.delete(
+    const state = thunkAPI.getState() as RootState;
+    const response = await axios.put(
       `${import.meta.env.VITE_API_PATH}collection/update/${id}`,
+      state.collections.currentCollection,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    
+
     return response.data;
   }
 );
 
 export const postCollection = createAsyncThunk(
   'collections/postCollection',
-  async (id: number, thunkAPI) => {
-    const response = await axios.delete(
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
+    const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}collection/create`,
+      state.collections.currentCollection,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    
+
     return response.data;
   }
 );
 
-export const resetCurrentCollection = createAction('collections/resetCurrentCollection');
-export const setCollectionName = createAction('collection/setCollectionName');
-export const setCollectionDescription = createAction('collection/setCollectionDescription');
-export const setCollectionImage = createAction('collection/setCollectionImage');
+export const resetCurrentCollection = createAction(
+  'collections/resetCurrentCollection'
+);
+export const setCollectionName = createAction<string>('collection/setCollectionName');
+export const setCollectionDescription = createAction<string>(
+  'collection/setCollectionDescription'
+);
+export const setCollectionImage = createAction<string>('collection/setCollectionImage');
+export const setCollectionId = createAction<number>('collection/setCollectionId');
 
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
@@ -143,14 +152,41 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(deleteCollection.rejected, (state, action) => {
       console.log('delete rejected');
     })
+    .addCase(postCollection.pending, (state, action) => {
+      console.log('post pending');
+    })
+    .addCase(postCollection.fulfilled, (state, action) => {
+      console.log('post successfully');
+      state.currentCollection = {};
+    })
+    .addCase(postCollection.rejected, (state, action) => {
+      console.log('post rejected');
+    })
+    .addCase(updateCollection.pending, (state, action) => {
+      console.log('update pending');
+    })
+    .addCase(updateCollection.fulfilled, (state, action) => {
+      console.log('updated successfully', action.payload);
+    })
+    .addCase(updateCollection.rejected, (state, action) => {
+      console.log('update rejected');
+    })
     .addCase(resetCurrentCollection, (state) => {
       state.currentCollection = {};
-      console.log('currentCollection reset')
+      console.log('currentCollection reset');
     })
-    .addCase(setCollectionName, (state, action)=> {
+    .addCase(setCollectionName, (state, action) => {
       state.currentCollection.name = action.payload;
+      console.log(state.currentCollection.name);
     })
-    ;
+    .addCase(setCollectionDescription, (state, action) => {
+      state.currentCollection.description = action.payload;
+      console.log(state.currentCollection.description);
+    })
+    .addCase(setCollectionImage, (state, action) => {
+      state.currentCollection.image = action.payload;
+      console.log(state.currentCollection.image);
+    });
 });
 
 export default collectionsReducer;
