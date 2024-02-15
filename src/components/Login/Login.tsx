@@ -91,7 +91,10 @@ export default function Login() {
                   />
                 </div>
                 <div>
-                  <a href="#" className="text-sm text-customred hover:underline">
+                  <a
+                    href="#"
+                    className="text-sm text-customred hover:underline"
+                  >
                     Mot de passe oublié ?
                   </a>
                 </div>
@@ -106,12 +109,14 @@ export default function Login() {
                   Se connecter
                 </button>
                 <div className="text-sm font-medium text-gray-500">
-                  Pas encore enregistré ? Pas encore enregistré ?{' '}
-                  <Link 
-                    to="/subscribe" 
+                  Pas encore enregistré ?{' '}
+                  <Link
+                    to="/subscribe"
                     className="text-customred hover:underline"
                     onClick={() => dispatch(switchLoginDisplay())}
-                    >Créer votre compte</Link>
+                  >
+                    Créer votre compte
+                  </Link>
                 </div>
               </form>
             </div>

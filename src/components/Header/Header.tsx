@@ -52,7 +52,6 @@ export default function Header() {
               aria-controls="navbar-search"
               aria-expanded="false"
               className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
-              className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
             >
               <svg
                 className="w-5 h-5"
@@ -118,10 +117,10 @@ export default function Header() {
                   d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                 />
               </svg>
-              <span className="hidden md:inline-block font-medium text-lg text-customred">
+              <button className="hidden md:inline-block font-medium text-lg text-customred">
                 Se connecter
-              </span>
-            </a>
+              </button>
+            </div>
           </li>
         </div>
       </nav>

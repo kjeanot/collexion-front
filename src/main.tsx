@@ -20,10 +20,12 @@ import { fetchSingleCollection } from './store/reducers/collectionsReducer';
 import Error from './components/Error/Error';
 import axios from 'axios';
 import Subscribe from './components/Subscribe/Subscribe';
+import Home from './components/Home/Home';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
+      <Route index element={<Home />} />
       //Todo : ajouter un errorElement //Todo : ajouter les routes Collections,
       Object, Catégories, User, Mentions...
       <Route path="/categories" />
@@ -35,7 +37,7 @@ const router = createBrowserRouter(
         loader={({ params }) => {
           const token = JSON.parse(localStorage.getItem('jwt'));
           const promise = axios(
-            `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`,
+            `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/${params.id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -46,15 +48,9 @@ const router = createBrowserRouter(
         }}
         // errorElement={<Error />}
       />
-      <Route
-        path='/collection/:id/edit'
-        element={<SingleCollectionEdit />}
-      />
-      <Route
-        path='/collection/new'
-        element={<SingleCollectionEdit />}
-      />
-      <Route path='/subscribe' element={<Subscribe />} />
+      <Route path="/collection/:id/edit" element={<SingleCollectionEdit />} />
+      <Route path="/collection/new" element={<SingleCollectionEdit />} />
+      <Route path="/subscribe" element={<Subscribe />} />
     </Route>
   )
 );

@@ -1,10 +1,12 @@
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { Link } from 'react-router-dom';
 import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
+import { ICollection } from '../../types/types';
+import Rating from '../Rating/Rating';
+import Avatar from '../Avatar/Avatar';
 
-type Props = {};
-
-export default function Carrousel({}: Props) {
+export default function Carrousel({ collection }: { collection: ICollection }) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -41,20 +43,23 @@ export default function Carrousel({}: Props) {
       itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
     >
       <div>
-        <a href="">
-          <div className="card bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img
-                className=""
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
-            </div>
+        <Link
+          to={`/collection/${collection.id}`}
+          className="card bg-base-100 shadow-xl hover:bg-gray-100"
+        >
+          <figure>
+            <img src="https://picsum.photos/1000" alt={collection.name} />
+          </figure>
+          <div className="card-body">
+            <h3 className="card-title text-customred">{collection.name}</h3>
+            <Rating value={collection.rating} />
+            <Avatar
+              picture={collection.user.picture}
+              nickname={collection.user.nickname}
+            />
+            <p className="line-clamp-5">{collection.description}</p>
           </div>
-        </a>
+        </Link>
       </div>
       <div>
         <a href="">
