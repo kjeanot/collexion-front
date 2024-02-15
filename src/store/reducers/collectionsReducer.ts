@@ -6,17 +6,19 @@ import {
 import { ICollection } from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
+import { NavigateFunction } from 'react-router-dom';
 
 interface CollectionsState {
   list: ICollection[];
-  currentCollection: null | ICollection;
+  currentCollection: ICollection;
 }
 
 export const initialState: CollectionsState = {
   list: [],
-  currentCollection: null,
+  currentCollection: {},
 };
 
+const token = JSON.parse(localStorage.getItem('jwt') ?? '');
 /**
  * Middleware for fetching all the collections
  *
@@ -27,7 +29,6 @@ export const initialState: CollectionsState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}collections`,
       {
@@ -46,7 +47,12 @@ export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}collections/${id}`
+      `${import.meta.env.VITE_API_PATH}collection/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return response.data;
   }
@@ -56,11 +62,54 @@ export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}collection/delete/${id}`
+      `${import.meta.env.VITE_API_PATH}collection/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+    
     return response.data;
   }
 );
+
+export const updateCollection = createAsyncThunk(
+  'collections/updateCollection',
+  async (id: number, thunkAPI) => {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_PATH}collection/update/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+    return response.data;
+  }
+);
+
+export const postCollection = createAsyncThunk(
+  'collections/postCollection',
+  async (id: number, thunkAPI) => {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_PATH}collection/create`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+    return response.data;
+  }
+);
+
+export const resetCurrentCollection = createAction('collections/resetCurrentCollection');
+export const setCollectionName = createAction('collection/setCollectionName');
+export const setCollectionDescription = createAction('collection/setCollectionDescription');
+export const setCollectionImage = createAction('collection/setCollectionImage');
 
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
@@ -83,7 +132,25 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchSingleCollection.rejected, (state, action) => {
       console.log('rejected', action);
-    });
+    })
+    .addCase(deleteCollection.pending, (state, action) => {
+      console.log('delete pending');
+    })
+    .addCase(deleteCollection.fulfilled, (state, action) => {
+      console.log('delete successfully');
+      state.currentCollection = {};
+    })
+    .addCase(deleteCollection.rejected, (state, action) => {
+      console.log('delete rejected');
+    })
+    .addCase(resetCurrentCollection, (state) => {
+      state.currentCollection = {};
+      console.log('currentCollection reset')
+    })
+    .addCase(setCollectionName, (state, action)=> {
+      state.currentCollection.name = action.payload;
+    })
+    ;
 });
 
 export default collectionsReducer;
