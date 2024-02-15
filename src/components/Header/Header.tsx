@@ -97,7 +97,7 @@ export default function Header() {
           </li>
           <li className="flex flex-none content-center">
             <div
-              className="flex content-center p-2 ml-2 text-customred rounded hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
+              className="cursor-pointer flex content-center p-2 ml-2 text-customred rounded hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
               onClick={() => dispatch(switchLoginDisplay())}
             >
               <svg

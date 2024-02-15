@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 export default function User() {
-  console.log(import.meta.env.VITE_API);
   return (
     <>
       <section className="mb-6">

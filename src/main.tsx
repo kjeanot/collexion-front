@@ -30,14 +30,29 @@ const router = createBrowserRouter(
       Object, Catégories, User, Mentions...
       <Route path="/categories" />
       <Route path="/category/:id" />
-      <Route path="/collections" element={<Collections />} />
+      <Route 
+      path="/collections" 
+      element={<Collections />} 
+      loader={() => {
+        const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+        const promise = axios(
+          `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collections`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return promise;
+      }}
+      />
       <Route
         path="/collection/:id"
         element={<SingleCollection />}
         loader={({ params }) => {
           const token = JSON.parse(localStorage.getItem('jwt') ?? '');
           const promise = axios(
-            `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`,
+            `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/${params.id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
