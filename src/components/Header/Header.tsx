@@ -9,7 +9,7 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const showLogin = useAppSelector((state) => state.app.showLogin);
   return (
-    <>
+    <header>
       <nav className="navbar bg-base-100 color text-customred">
         <Link
           to="/"
@@ -97,7 +97,7 @@ export default function Header() {
           </li>
           <li className="flex flex-none content-center">
             <div
-              className="flex content-center py-2 md:px-2 text-customred rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-customorange md:p-0"
+              className="cursor-pointer flex content-center p-2 ml-2 text-customred rounded hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
               onClick={() => dispatch(switchLoginDisplay())}
             >
               <svg
@@ -121,6 +121,6 @@ export default function Header() {
         </div>
       </nav>
       {showLogin && <Login />}
-    </>
+    </header>
   );
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import ObjectCard from '../Object/ObjectCard';
-import { ICollection } from '../../types/types';
+import { ICollection, IObject } from '../../types/types';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { findCollection } from '../../store/selectors/collections';
@@ -78,7 +78,7 @@ export default function SingleCollection() {
       </header>
       <h2 className="text-xl mb-6">Objets de cette collection</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-        {data.myobjects.map((object: ICollection) => (
+        {data.myobjects.map((object: IObject) => (
           <ObjectCard id={object.id} name={object.name} image={object.image} />
         ))}
         <button className="btn btn-square h-full w-full">

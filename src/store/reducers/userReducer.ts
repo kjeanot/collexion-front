@@ -33,7 +33,7 @@ export const login = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.post(
-      `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/login_check`,
+      `${import.meta.env.VITE_API_PATH}login_check`,
       state.user.credentials
     );
     return response.data;
@@ -45,7 +45,7 @@ export const fetchUserInfo = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.get(
-      `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/user/${state.user.id}`
+      `${import.meta.env.VITE_API_PATH}${state.user.id}`
     );
     return response.data;
   }
