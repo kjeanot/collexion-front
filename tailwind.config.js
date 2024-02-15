@@ -10,7 +10,29 @@ export default {
     },
   },
   daisyui: {
-    themes: ["light"],
+    themes: [
+      {
+        mytheme: {
+          primary: '#CE2C31',
+
+          secondary: '#F76B15',
+
+          accent: '#00ffff',
+
+          neutral: '#666666',
+
+          'base-100': '#ffffff',
+
+          info: '#0000ff',
+
+          success: '#00ff00',
+
+          warning: '#00ff00',
+
+          error: '#ff0000',
+        },
+      },
+    ],
   },
-  plugins: [require("daisyui")],
+  plugins: [require('daisyui')],
 };

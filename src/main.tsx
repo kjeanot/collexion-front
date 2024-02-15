@@ -14,12 +14,12 @@ import './styles/index.scss';
 import store from './store';
 import Collections from './components/Collection/Collections';
 import SingleCollection from './components/Collection/SingleCollection';
-import singleCollectionLoader from './loaders/singleCollection';
+import SingleCollectionEdit from './components/Collection/SingleCollectionEdit';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { fetchSingleCollection } from './store/reducers/collectionsReducer';
 import Error from './components/Error/Error';
-import ObjectPage from './components/ObjectPage/ObjectPage';
-import Home from './components/Home/Home';
+import axios from 'axios';
+import Subscribe from './components/Subscribe/Subscribe';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,15 +32,29 @@ const router = createBrowserRouter(
       <Route
         path="/collection/:id"
         element={<SingleCollection />}
-        // loader={({ params }) => {
-        //   const promise = fetch(
-        //     `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`
-        //   ).then((res) => res.json);
-        //   return promise;
-        // }}
+        loader={({ params }) => {
+          const token = JSON.parse(localStorage.getItem('jwt'));
+          const promise = axios(
+            `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          return promise;
+        }}
         // errorElement={<Error />}
       />
-      <Route path="/home" element={<Home />} />
+      <Route
+        path='/collection/:id/edit'
+        element={<SingleCollectionEdit />}
+      />
+      <Route
+        path='/collection/new'
+        element={<SingleCollectionEdit />}
+      />
+      <Route path='/subscribe' element={<Subscribe />} />
     </Route>
   )
 );

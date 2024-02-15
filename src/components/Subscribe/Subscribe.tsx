@@ -39,7 +39,7 @@ export default function Subscribe({}: Props) {
         </p>
         <label className="label justify-start cursor-pointer mt-4">
           <span className="label-text">J'accepte les termes</span>
-          <input type="checkbox" checked="checked" className="checkbox ml-2" />
+          <input type="checkbox" checked className="checkbox ml-2" />
         </label>
       </div>
     </div>

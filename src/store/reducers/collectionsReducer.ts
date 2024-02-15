@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { ICollection } from '../../types/types';
 import axios from 'axios';
+import { RootState } from '..';
 
 interface CollectionsState {
   list: ICollection[];
@@ -16,35 +17,30 @@ export const initialState: CollectionsState = {
   currentCollection: null,
 };
 
-// Middleware for fetching all the collections
-
+/**
+ * Middleware for fetching all the collections
+ *
+ * Uses axios to request the /api/collections route and get all the collection from the API.
+ *
+ * @return {Promise} Return a promise with collections when fulfilled.
+ */
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
     const response = await axios.get(
-      'http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collections',
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDc3NDkzODAsImV4cCI6MTcwNzc1Mjk4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.rvuzm8FCMUZMykxKz9TM85PPze55RxdmeGo-VvwE47Fkg-yHtKCCom_gSgxhZJekhfbvNJ2k7MyK2TnjwWgCTPq57L_b0J_LfvV396R8ju6SIK_ULTdTF05UObDfpS-01ZXUvLR9ZsEMNdLewvKfyOVtHmlsr21qkWSlhM12UMc81hIRc9aQa9j0S5fWfQvDVTH2PKBxqVuiK1OzWeuGArvCh8P3ZmKrJucCmPogrNFomphIoli_NwOIiLzYhSYi9iEHMbRbdzykRMiWPR0yYkxM5N1IXLNAqZmqfNk9z9d9eu0-L9BaqiMrWuevmRcO8_RIOKgVzkri2LeovGjujA',
-        },
-        auth: {
-          username: 'admin@admin.com',
-          password: 'admin',
-        },
-      }
+      'http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collections'
     );
     return response.data;
   }
 );
 
-// Middleware for a single Collection CRUD
+// Middlewares for a single Collection CRUD
 
 export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.get(
-      `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${id}`
+      `http://64ed31429cbded49acab4281.cloud.lan:8080/api/collection/${id}`
     );
     return response.data;
   }
@@ -54,7 +50,7 @@ export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
     const response = await axios.delete(
-      `http://64ed31429cbded49acab4281.cloud.lan/Apothéose/collexion/projet-12-collexion-back/public/api/collection/${id}`
+      `http://64ed31429cbded49acab4281.cloud.lan:8080/api/collection/${id}`
     );
     return response.data;
   }

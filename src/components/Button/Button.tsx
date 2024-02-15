@@ -1,10 +1,12 @@
 import React from 'react';
+import { useAppDispatch } from '../../hooks/redux';
 
 type Props = {
   text: string;
 };
 
-export default function Button({ text }: Props) {
+export default function Button({ text, action }: Props) {
+  const dispatch = useAppDispatch();
   return (
     <div>
       <button

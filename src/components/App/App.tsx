@@ -12,12 +12,6 @@ import { login } from '../../store/reducers/userReducer';
 import SingleCollection from '../Collection/SingleCollection';
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(login());
-    console.log('login');
-  }, []);
 
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">

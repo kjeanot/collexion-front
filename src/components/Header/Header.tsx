@@ -3,15 +3,16 @@ import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
 import store from '../../store';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const showLogin = useAppSelector((state) => state.app.showLogin);
   return (
     <>
-      <nav className="navbar bg-base-100">
-        <a
-          href="#"
+      <nav className="navbar bg-base-100 color text-customred">
+        <Link
+          to="/"
           className="flex flex-wrap items-center space-x-3 rtl:space-x-reverse w-1/5 "
         >
           <img
@@ -19,7 +20,7 @@ export default function Header() {
             className="h-32 object-contain"
             alt="Collexion logo"
           />
-        </a>
+        </Link>
         <div className="flex w-4/5">
           <ul className="flex grow menu menu-horizontal px-1 z-50">
             <li>
@@ -50,6 +51,7 @@ export default function Header() {
               data-collapse-toggle="navbar-search"
               aria-controls="navbar-search"
               aria-expanded="false"
+              className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
               className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
             >
               <svg
@@ -97,9 +99,8 @@ export default function Header() {
             </div>
           </li>
           <li className="flex flex-none content-center">
-            <a
-              href="#"
-              className="flex content-center py-2 md:px-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+            <div
+              className="flex content-center py-2 md:px-2 text-customred rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-customorange md:p-0"
               onClick={() => dispatch(switchLoginDisplay())}
             >
               <svg
