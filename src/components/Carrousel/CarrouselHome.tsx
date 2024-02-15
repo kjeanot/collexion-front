@@ -6,7 +6,11 @@ import { ICollection } from '../../types/types';
 import Rating from '../Rating/Rating';
 import Avatar from '../Avatar/Avatar';
 
-export default function Carrousel({ collection }: { collection: ICollection }) {
+export default function Carrousel({
+  collections,
+}: {
+  collections: ICollection[];
+}) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -42,26 +46,28 @@ export default function Carrousel({ collection }: { collection: ICollection }) {
       dotListClass="md:invisible custom-dot-list-style opacity-70"
       itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
     >
-      <div>
-        <Link
-          to={`/collection/${collection.id}`}
-          className="card bg-base-100 shadow-xl hover:bg-gray-100"
-        >
-          <figure>
-            <img src="https://picsum.photos/1000" alt={collection.name} />
-          </figure>
-          <div className="card-body">
-            <h3 className="card-title text-customred">{collection.name}</h3>
-            <Rating value={collection.rating} />
-            <Avatar
-              picture={collection.user.picture}
-              nickname={collection.user.nickname}
-            />
-            <p className="line-clamp-5">{collection.description}</p>
-          </div>
-        </Link>
-      </div>
-      <div>
+      {collections.map((collection) => (
+        <div key={collection.id}>
+          <Link
+            to={`/collection/${collection.id}`}
+            className="card bg-base-100 shadow hover:bg-gray-100"
+          >
+            <figure>
+              <img src="https://picsum.photos/1000" alt={collection.name} />
+            </figure>
+            <div className="card-body">
+              <h3 className="card-title text-customred">{collection.name}</h3>
+              <Rating value={collection.rating} />
+              <Avatar
+                picture={collection.user.picture}
+                nickname={collection.user.nickname}
+              />
+              <p className="line-clamp-5">{collection.description}</p>
+            </div>
+          </Link>
+        </div>
+      ))}
+      {/* <div>
         <a href="">
           <div className="card bg-base-100 shadow hover:contrast-50">
             <figure>
@@ -104,7 +110,7 @@ export default function Carrousel({ collection }: { collection: ICollection }) {
             </div>
           </div>
         </a>
-      </div>
+      </div> */}
     </Carousel>
   );
 }
