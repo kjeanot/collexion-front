@@ -65,7 +65,7 @@ export default function SingleCollectionEdit() {
     let result: IObject[] = [];
     if (data) {
       data?.myobjects?.map((el) => {
-        if (el.id != id) {
+        if (el.id !== undefined && el.id !== id) {
           result.push(el);
         }
       });
@@ -125,9 +125,9 @@ export default function SingleCollectionEdit() {
       </div>
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
       {data.myobjects && data.myobjects.length > 0
-        ? data.myobjects?.map((object, index) => (
+        ? data.myobjects?.map((object: IObject, index) => (
             <div
-              key={object.id}
+              key={index}
               className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
             >
               <img
@@ -139,7 +139,7 @@ export default function SingleCollectionEdit() {
                 className="btn rounded-none h-16"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  handleObjectsRemoving(object.id);
+                  handleObjectsRemoving(object.id as number);
                 }}
               >
                 <svg

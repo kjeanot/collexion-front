@@ -12,7 +12,7 @@ export interface ICollection {
 export interface ICategory {
   id?: number;
   name?: string;
-  image?: string | File;
+  image?: string;
   rating?: number | null;
   myobjects?: IObject[];
 }
@@ -24,15 +24,16 @@ export interface IUser {
   id: number;
   nickname: string;
   picture: null | string;
-  email: string;
-  roles: IRole[];
-  description: null | string;
+  email?: string;
+  roles?: IRole[];
+  description?: null | string;
 }
 
 export interface IObject {
-  id: number;
-  name: string;
-  image: string;
+  id?: number;
+  name?: string;
+  image?: string;
+  description?: string;
 }
 
 export interface IRole {

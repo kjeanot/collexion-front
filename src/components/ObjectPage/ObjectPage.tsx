@@ -88,7 +88,7 @@ export default function ObjectPage({}: Props) {
               {data.name}
             </h1>
             <div className="flex flex-wrap justify-between content-center">
-              <Avatar nickname={data.user.nickname} />
+              {<Avatar nickname={data.user?.nickname} />}
             </div>
             <section className="my-5">
               <h2 className="text-xl">Description</h2>
@@ -104,7 +104,7 @@ export default function ObjectPage({}: Props) {
 
         <h2 className="text-xl mb-6">Autres objets de cette collection</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-          {data.myobjects.map((object) => (
+          {data && data.myobjects?.map((object) => (
             <ObjectCard
               id={object.id}
               name={object.name}
