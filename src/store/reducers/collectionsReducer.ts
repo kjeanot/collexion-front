@@ -113,12 +113,18 @@ export const postCollection = createAsyncThunk(
 export const resetCurrentCollection = createAction(
   'collections/resetCurrentCollection'
 );
-export const setCollectionName = createAction<string>('collection/setCollectionName');
+export const setCollectionName = createAction<string>(
+  'collection/setCollectionName'
+);
 export const setCollectionDescription = createAction<string>(
   'collection/setCollectionDescription'
 );
-export const setCollectionImage = createAction<string>('collection/setCollectionImage');
-export const setCollectionId = createAction<number>('collection/setCollectionId');
+export const setCollectionImage = createAction<string>(
+  'collection/setCollectionImage'
+);
+export const setCollectionId = createAction<number>(
+  'collection/setCollectionId'
+);
 
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder

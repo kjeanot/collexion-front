@@ -37,7 +37,7 @@ export default function SingleCollection() {
       )}
       <header className="flex flex-wrap border border-b-2 mb-6">
         <img
-          src="https://picsum.photos/1000"
+          src={data.image}
           className="w-full md:w-1/3 object-cover"
         />
         <div className="w-full md:w-2/3 p-6">

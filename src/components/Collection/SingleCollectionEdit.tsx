@@ -1,19 +1,60 @@
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation, useParams } from 'react-router-dom';
 import {
-  fetchSingleCollection,
   postCollection,
-  resetCurrentCollection,
   setCollectionDescription,
   setCollectionImage,
   setCollectionName,
   updateCollection,
 } from '../../store/reducers/collectionsReducer';
+import CloudinaryUploadWidget from "../Upload/UploadButton";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
 export default function SingleCollectionEdit() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.collections.currentCollection);
+
+  const [publicId, setPublicId] = useState("");
+  // Replace with your own cloud name
+  const [cloudName] = useState("dpykdy5lp");
+  // Replace with your own upload preset
+  const [uploadPreset] = useState("ml_default");
+
+  // Upload Widget Configuration
+  // Remove the comments from the code below to add
+  // additional functionality.
+  // Note that these are only a few examples, to see
+  // the full list of possible parameters that you
+  // can add see:
+  //   https://cloudinary.com/documentation/upload_widget_reference
+
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset
+    // cropping: true, //add a cropping step
+    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+    // multiple: false,  //restrict upload to a single file
+    // folder: "user_images", //upload files to the specified folder
+    // tags: ["users", "profile"], //add the given tags to the uploaded files
+    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+    // clientAllowedFormats: ["images"], //restrict uploading to image files only
+    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+    // theme: "purple", //change to a purple theme
+  });
+
+  // Create a Cloudinary instance and set your cloud name.
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
+
+  const myImage = cld.image(publicId);
+  console.log(publicId);
 
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
@@ -45,7 +86,7 @@ export default function SingleCollectionEdit() {
           }
         ></textarea>
       </label>
-      <label className="form-control w-full">
+      {/* <label className="form-control w-full">
         <div className="label">
           <span className="label-text">Description de la collection</span>
         </div>
@@ -56,7 +97,32 @@ export default function SingleCollectionEdit() {
             dispatch(setCollectionImage(evt.currentTarget.value))
           }
         />
-      </label>
+      </label> */}
+      <h3>Cloudinary Upload Widget Example</h3>
+      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
+      <p>
+        <a
+          href="https://cloudinary.com/documentation/upload_widget"
+          target="_blank"
+        >
+          Upload Widget User Guide
+        </a>
+      </p>
+      <p>
+        <a
+          href="https://cloudinary.com/documentation/upload_widget_reference"
+          target="_blank"
+        >
+          Upload Widget Reference
+        </a>
+      </p>
+      <div style={{ width: "800px" }}>
+        <AdvancedImage
+          style={{ maxWidth: "100%" }}
+          cldImg={myImage}
+          plugins={[responsive(), placeholder()]}
+        />
+      </div>
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
       {(data?.myobjects ?? []).map((_, index) => (
         <div
