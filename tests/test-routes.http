@@ -19,6 +19,10 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMTIzM
   "image": "https://picsum.photos/1000"
 }
 
+### Route Categories
+GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/category/2 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwOTM1MjYsImV4cCI6MTcwODA5NzEyNiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.bbq8zrtTkN4b1gS0BfOEXZ2tNwkd2vE5Pw3I_KxLvHqrg9BF0N-u1EL8J2O2Ajskd3WAtCoWBY3Lg1z75N6J7-nAlBHm-SY0O0hMqnoVnPpYR0KHWcsBoWOm2johALGIcXBW-meXuf2bFO-L3njzP8Uq2qGq1T_M_52UO6VOjOhw3PPXHrPTOXu3mFh53l7qLGUm3GNUovcTIXnTp4If7Vy7wp4_n2n6ljZ_zkhjOC3Q6yTtSPnnvhUCpQbQXLHo1tFSPTuUUHUyNz0ZbIy6qnppa2PrMeZm6Nh3ZigZhhwIxT5X67FN-IbeDJNOvZe-EeXS9mhHZ0BSlm07dX5ukA
 
 ### Route Login
 POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/login_check HTTP/1.1

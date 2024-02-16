@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { CurrentCollection, ICollection } from '../../types/types';
+import { CurrentCollection, ICollection, IObject } from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
 import { NavigateFunction } from 'react-router-dom';
@@ -127,6 +127,9 @@ export const setCollectionImage = createAction<string>(
 export const setCollectionId = createAction<number>(
   'collection/setCollectionId'
 );
+export const setCollectionObjects = createAction<IObject[]>(
+  'collection/setCollectionId'
+);
 
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
@@ -191,6 +194,10 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCollectionImage, (state, action) => {
       (state.currentCollection as CurrentCollection).image = action.payload;
+    })
+    .addCase(setCollectionObjects, (state, action) => {
+      (state.currentCollection as CurrentCollection).myobjects = action.payload;
+      console.log((state.currentCollection as CurrentCollection))
     });
 });
 
