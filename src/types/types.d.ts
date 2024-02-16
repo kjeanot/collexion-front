@@ -5,7 +5,7 @@ export interface ICollection {
   description?: string;
   rating?: number | null;
   user?: IUser;
-  myobjects?: IObject[];
+  myobjects: IObject[];
   created_at?: string,
 }
 

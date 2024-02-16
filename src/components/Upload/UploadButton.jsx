@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setCollectionImage } from '../../store/reducers/collectionsReducer';
+import { useAppDispatch } from '../../hooks/redux';
 
-function CloudinaryUploadWidget({ uwConfig, setPublicId, dispatch }) {
+function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -47,24 +48,20 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId, dispatch }) {
     }
   };
 
+  const dispatch = useAppDispatch();
+
   return (
     <button
       id="upload_widget"
-      className="cloudinary-button"
+      className="text-white bg-neutral font-semibold rounded-lg text-base px-3 py-2 my-6 mb-2 max-w-56"
       onClick={(evt) => {
         evt.preventDefault();
         initializeCloudinaryWidget();
       }}
     >
-      Upload
+      Télécharger une image
     </button>
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch,
-  };
-};
-
-export default connect(null, mapDispatchToProps)(CloudinaryUploadWidget);
+export default CloudinaryUploadWidget;

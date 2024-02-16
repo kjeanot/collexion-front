@@ -100,22 +100,6 @@ export default function SingleCollectionEdit() {
       </label> */}
       <h3>Cloudinary Upload Widget Example</h3>
       <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
-      <p>
-        <a
-          href="https://cloudinary.com/documentation/upload_widget"
-          target="_blank"
-        >
-          Upload Widget User Guide
-        </a>
-      </p>
-      <p>
-        <a
-          href="https://cloudinary.com/documentation/upload_widget_reference"
-          target="_blank"
-        >
-          Upload Widget Reference
-        </a>
-      </p>
       <div style={{ width: "800px" }}>
         <AdvancedImage
           style={{ maxWidth: "100%" }}
@@ -124,9 +108,9 @@ export default function SingleCollectionEdit() {
         />
       </div>
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
-      {(data?.myobjects ?? []).map((_, index) => (
+      {data && data.myobjects?.length > 0 ? data.myobjects?.map((object, index) => (
         <div
-          key={index}
+          key={object.id}
           className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
         >
           <img
@@ -134,7 +118,7 @@ export default function SingleCollectionEdit() {
             className="max-w-16 mr-4 object-fill"
           />
           <p className="block flex-1">
-            Object avec un nom super long pour tester
+            {object.name}
           </p>
           <button
             className="btn rounded-none h-16"
@@ -158,7 +142,7 @@ export default function SingleCollectionEdit() {
             </svg>
           </button>
         </div>
-      ))}
+      )) : "Aucun objet rattaché pour l'instant"}
       <button
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
