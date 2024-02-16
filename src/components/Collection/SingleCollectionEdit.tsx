@@ -1,6 +1,61 @@
-import React from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useLocation, useParams } from 'react-router-dom';
+import {
+  postCollection,
+  setCollectionDescription,
+  setCollectionImage,
+  setCollectionName,
+  updateCollection,
+} from '../../store/reducers/collectionsReducer';
+import CloudinaryUploadWidget from "../Upload/UploadButton";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
 export default function SingleCollectionEdit() {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.collections.currentCollection);
+
+  const [publicId, setPublicId] = useState("");
+  // Replace with your own cloud name
+  const [cloudName] = useState("dpykdy5lp");
+  // Replace with your own upload preset
+  const [uploadPreset] = useState("ml_default");
+
+  // Upload Widget Configuration
+  // Remove the comments from the code below to add
+  // additional functionality.
+  // Note that these are only a few examples, to see
+  // the full list of possible parameters that you
+  // can add see:
+  //   https://cloudinary.com/documentation/upload_widget_reference
+
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset
+    // cropping: true, //add a cropping step
+    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+    // multiple: false,  //restrict upload to a single file
+    // folder: "user_images", //upload files to the specified folder
+    // tags: ["users", "profile"], //add the given tags to the uploaded files
+    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+    // clientAllowedFormats: ["images"], //restrict uploading to image files only
+    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+    // theme: "purple", //change to a purple theme
+  });
+
+  // Create a Cloudinary instance and set your cloud name.
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
+
+  const myImage = cld.image(publicId);
+  console.log(publicId);
+
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
       <h1 className="text-3xl mb-6">Editer la collection</h1>
@@ -10,8 +65,12 @@ export default function SingleCollectionEdit() {
         </div>
         <input
           type="text"
-          placeholder="Nom de la collection"
+          placeholder={data ? data.name : 'Nom de la collection'}
+          value={data ? data.name : ''}
           className="input input-bordered w-full"
+          onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+            dispatch(setCollectionName(evt.currentTarget.value))
+          }
         />
       </label>
       <label className="form-control w-full">
@@ -20,24 +79,47 @@ export default function SingleCollectionEdit() {
         </div>
         <textarea
           className="textarea textarea-bordered h-24"
-          placeholder="Decription"
+          placeholder={data ? data.description : 'Description de la collection'}
+          value={data ? data.description : ''}
+          onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
+            dispatch(setCollectionDescription(evt.currentTarget.value))
+          }
         ></textarea>
       </label>
-      <label className="form-control w-full">
+      {/* <label className="form-control w-full">
         <div className="label">
           <span className="label-text">Description de la collection</span>
         </div>
         <input
           type="file"
           className="file-input file-input-bordered file-input-neutral w-full"
+          onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+            dispatch(setCollectionImage(evt.currentTarget.value))
+          }
         />
-      </label>
-      <h2 className="text-xl my-6">Objets rattachés</h2>
-      {
-      [...Array(15)].map((_, index) => (
-        <div key={index} className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4">
-          <img src="https://picsum.photos/200" className="max-w-16 mr-4 object-fill" />
-          <p className="block flex-1">Object avec un nom super long pour tester</p>
+      </label> */}
+      <h3>Cloudinary Upload Widget Example</h3>
+      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
+      <div style={{ width: "800px" }}>
+        <AdvancedImage
+          style={{ maxWidth: "100%" }}
+          cldImg={myImage}
+          plugins={[responsive(), placeholder()]}
+        />
+      </div>
+      {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
+      {data && data.myobjects?.length > 0 ? data.myobjects?.map((object, index) => (
+        <div
+          key={object.id}
+          className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
+        >
+          <img
+            src="https://picsum.photos/200"
+            className="max-w-16 mr-4 object-fill"
+          />
+          <p className="block flex-1">
+            {object.name}
+          </p>
           <button
             className="btn rounded-none h-16"
             onClick={(evt) => {
@@ -60,11 +142,18 @@ export default function SingleCollectionEdit() {
             </svg>
           </button>
         </div>
-      ))
-      }
+      )) : "Aucun objet rattaché pour l'instant"}
       <button
         type="button"
-        className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center mb-2 mx-auto"
+        className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
+        onClick={() => {
+          if (data.id) {
+            dispatch(updateCollection(data.id))
+          } else {
+            dispatch(postCollection())
+          }
+        }
+        }
       >
         Mettre à jour
       </button>

@@ -13,8 +13,8 @@ export default function CollectionCard({
 }) {
   return (
     <Link to={`/collection/${collection.id}`} className="card bg-base-100 shadow-xl hover:bg-gray-100">
-      <figure>
-        <img src="https://picsum.photos/1000" alt={collection.name} />
+      <figure className="h-64">
+        <img src={collection.image} alt={collection.name} className="object-cover h-full w-full" />
       </figure>
       <div className="card-body">
         <h3 className="card-title text-customred">{collection.name}</h3>

@@ -1,11 +1,11 @@
 export interface ICollection {
   id?: number;
   name?: string;
-  image?: string | File;
+  image?: string;
   description?: string;
   rating?: number | null;
   user?: IUser;
-  myobjects?: IObject[];
+  myobjects: IObject[];
   created_at?: string,
 }
 

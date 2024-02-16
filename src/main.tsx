@@ -33,18 +33,18 @@ const router = createBrowserRouter(
       <Route 
       path="/collections" 
       element={<Collections />} 
-      loader={() => {
-        const token = JSON.parse(localStorage.getItem('jwt') ?? '');
-        const promise = axios(
-          `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collections`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        return promise;
-      }}
+      // loader={() => {
+      //   const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+      //   const promise = axios(
+      //     `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collections`,
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${token}`,
+      //       },
+      //     }
+      //   );
+      //   return promise;
+      // }}
       />
       <Route
         path="/collection/:id"

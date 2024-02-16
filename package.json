@@ -11,6 +11,8 @@
 		"lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix"
 	},
 	"dependencies": {
+		"@cloudinary/react": "^1.13.0",
+		"@cloudinary/url-gen": "^1.16.1",
 		"@reduxjs/toolkit": "^2.1.0",
 		"axios": "^1.6.7",
 		"react": "^18.2.0",
