@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import { ICollection } from '../../types/types';
-import { Link } from 'react-router-dom';
 
 type Props = {};
 
@@ -19,10 +19,12 @@ export default function CollectionCard({
       <div className="card-body">
         <h3 className="card-title text-customred">{collection.name}</h3>
         <Rating value={collection.rating} />
-        {collection.user && <Avatar
-          picture={collection.user.picture}
-          nickname={collection.user.nickname}
-        />}
+        {collection.user && (
+          <Avatar
+            picture={collection.user.picture}
+            nickname={collection.user.nickname}
+          />
+        )}
         <p className="line-clamp-5">{collection.description}</p>
       </div>
     </Link>

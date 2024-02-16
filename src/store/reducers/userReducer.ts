@@ -51,15 +51,20 @@ export const fetchUserInfo = createAsyncThunk<StateFromReducersMapObject<any>>(
   }
 );
 
-
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(login.pending, (state, action) => {
       console.log('pending', action);
     })
     .addCase(login.fulfilled, (state, action) => {
-      localStorage.setItem('jwt', JSON.stringify(action.payload.token));
-      
+      console.log('fulfilled', action);
+      state.token = action.payload.token;
+      axios.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${localStorage.setItem(
+        'jwt',
+        JSON.stringify(action.payload.token)
+      )}`;
     })
     .addCase(login.rejected, (state, action) => {
       console.log('rejected', action);

@@ -2,7 +2,7 @@ import React from 'react';
 import { IObject } from '../../types/types';
 import { Link } from 'react-router-dom';
 
-export default function ObjectCard({ id, name, image } : IObject) {
+export default function ObjectCard({ id, name, image }: IObject) {
   return (
     <>
     <Link to={`/object/${id}`}>
