@@ -62,7 +62,9 @@ export default function Carrousel({
                 picture={collection.user.picture}
                 nickname={collection.user.nickname}
               />
-              <p className="line-clamp-5">{collection.description}</p>
+              <div className="h-28">
+                <p className="line-clamp-5">{collection.description}</p>
+              </div>
             </div>
           </Link>
         </div>

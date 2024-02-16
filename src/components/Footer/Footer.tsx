@@ -19,7 +19,9 @@ export default function Footer() {
       </nav>
       <nav>
         <h6 className="footer-title">Trouver l'inspiration</h6>
-        <a className="link link-hover">Catégories</a>
+        <NavLink className="link link-hover" to={'/Categories'}>
+          Catégories
+        </NavLink>
         <NavLink className="link link-hover" to={'/collections'}>
           Collections
         </NavLink>
@@ -31,7 +33,9 @@ export default function Footer() {
         <NavLink className="link link-hover" to={'/user/2'}>
           Mon profil
         </NavLink>
-        <a className="link link-hover">Mentions légales & CGU</a>
+        <NavLink className="link link-hover" to={'/mentions'}>
+          Mentions légales & CGU
+        </NavLink>
       </nav>
     </footer>
   );

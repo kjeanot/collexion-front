@@ -1,4 +1,5 @@
 import React from 'react';
+import Carrousel from '../Carrousel/Carrousel';
 
 type Props = {};
 
@@ -15,7 +16,7 @@ export default function Gallery({}: Props) {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title justify-center">Category x</h2>
+            <h3 className="card-title justify-center">Category x</h3>
           </div>
         </div>
       </a>
@@ -29,7 +30,7 @@ export default function Gallery({}: Props) {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title justify-center">Category x</h2>
+            <h3 className="card-title justify-center">Category x</h3>
           </div>
         </div>
       </a>
@@ -43,7 +44,7 @@ export default function Gallery({}: Props) {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title justify-center">Category x</h2>
+            <h3 className="card-title justify-center">Category x</h3>
           </div>
         </div>
       </a>
@@ -57,7 +58,7 @@ export default function Gallery({}: Props) {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title justify-center">Category x</h2>
+            <h3 className="card-title justify-center">Category x</h3>
           </div>
         </div>
       </a>
@@ -71,7 +72,7 @@ export default function Gallery({}: Props) {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title justify-center">Category x</h2>
+            <h3 className="card-title justify-center">Category x</h3>
           </div>
         </div>
       </a>
@@ -85,7 +86,7 @@ export default function Gallery({}: Props) {
             />
           </figure>
           <div className="card-body">
-            <h2 className="card-title justify-center">Category x</h2>
+            <h3 className="card-title justify-center">Category x</h3>
           </div>
         </div>
       </a>

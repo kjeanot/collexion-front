@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Background from '../Background/Background';
 import CarrouselHome from '../Carrousel/CarrouselHome';
 import CollectionCTA from '../Collection/CollectionCTA';
@@ -15,8 +15,8 @@ export default function Home() {
   }, []);
   return (
     <div>
-      {/* bandeau */}
-      <h1 className="md:h-20 p-5 text-center text-2xl font-semibold text-white bg-gradient-to-r from-customred to-customorange">
+      {/* banner */}
+      <h1 className="md:h-20 p-5 text-center text-2xl font-bold text-white bg-gradient-to-r from-customred to-customorange">
         Chaque objet a son histoire, et chaque collection raconte votre parcours
         !
       </h1>
