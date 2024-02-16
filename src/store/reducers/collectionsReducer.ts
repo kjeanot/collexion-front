@@ -3,15 +3,17 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { ICollection } from '../../types/types';
+import { CurrentCollection, ICollection } from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
 import { NavigateFunction } from 'react-router-dom';
 
 interface CollectionsState {
   list: ICollection[];
-  currentCollection: ICollection;
+  currentCollection: ICollection | {};
 }
+
+
 
 export const initialState: CollectionsState = {
   list: [],
@@ -182,16 +184,13 @@ const collectionsReducer = createReducer(initialState, (builder) => {
       console.log('currentCollection reset');
     })
     .addCase(setCollectionName, (state, action) => {
-      state.currentCollection.name = action.payload;
-      console.log(state.currentCollection.name);
+      (state.currentCollection as CurrentCollection).name = action.payload;
     })
     .addCase(setCollectionDescription, (state, action) => {
-      state.currentCollection.description = action.payload;
-      console.log(state.currentCollection.description);
+      (state.currentCollection as CurrentCollection).description = action.payload;
     })
     .addCase(setCollectionImage, (state, action) => {
-      state.currentCollection.image = action.payload;
-      console.log(state.currentCollection.image);
+      (state.currentCollection as CurrentCollection).image = action.payload;
     });
 });
 

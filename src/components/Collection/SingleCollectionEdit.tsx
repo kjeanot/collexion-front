@@ -11,10 +11,13 @@ import {
 import CloudinaryUploadWidget from "../Upload/UploadButton";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+import { ICollection } from '../../types/types';
+
+type CurrentCollection = ICollection & {};
 
 export default function SingleCollectionEdit() {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.collections.currentCollection);
+  const data: CurrentCollection  = useAppSelector((state) => state.collections.currentCollection);
 
   const [publicId, setPublicId] = useState("");
   // Replace with your own cloud name
@@ -108,7 +111,7 @@ export default function SingleCollectionEdit() {
         />
       </div>
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
-      {data && data.myobjects?.length > 0 ? data.myobjects?.map((object, index) => (
+      {(data.myobjects && data.myobjects.length > 0) ? data.myobjects?.map((object, index) => (
         <div
           key={object.id}
           className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
