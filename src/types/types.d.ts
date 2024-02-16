@@ -1,7 +1,7 @@
 export interface ICollection {
   id?: number;
   name?: string;
-  image?: string | File;
+  image?: string;
   description?: string;
   rating?: number | null;
   user?: IUser;
@@ -16,6 +16,8 @@ export interface ICategory {
   rating?: number | null;
   myobjects?: IObject[];
 }
+
+export type CurrentCollection = ICollection & {};
 
 export interface IUser {
   id: number;

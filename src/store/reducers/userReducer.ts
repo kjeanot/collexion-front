@@ -17,8 +17,8 @@ interface userState {
 }
 export const initialState: userState = {
   credentials: {
-    username: 'admin@admin.com',
-    password: 'admin',
+    username: null,
+    password: null,
   },
   id: null,
   token: null,

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CollectionsList from './CollectionsList';
 import CollectionCTA from './CollectionCTA';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLoaderData } from 'react-router-dom';
 import { ICollection } from '../../types/types';
+import { fetchCollections } from '../../store/reducers/collectionsReducer';
 
 export default function Collections() {
-  const { data } = useLoaderData() as { data?: ICollection[] };
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.collections.list);
+
+  useEffect(() => {
+    dispatch(fetchCollections());
+  }, []);
+
+
 
   console.log(data);
   return (
