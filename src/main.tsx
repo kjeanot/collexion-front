@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
@@ -19,12 +20,17 @@ import UserCollectionsList from './components/User/UserCollectionsList';
 import User from './components/User/User';
 import { collectionsLoader, singleCollectionLoader } from './loaders/loaders';
 import Error from './components/Error/Error';
-import axios from 'axios';
 import Subscribe from './components/Subscribe/Subscribe';
+import Home from './components/Home/Home';
+import Content from './components/Content/Content';
+import Gallery from './components/Gallery/Gallery';
+import Categories from './components/Category/Categories';
+import ObjectPage from './components/ObjectPage/ObjectPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
+      <Route index element={<Home />} />
       //Todo : ajouter un errorElement //Todo : ajouter les routes Collections,
       Object, Catégories, User, Mentions...
       <Route path="/categories" element={<Categories />} />
@@ -46,12 +52,8 @@ const router = createBrowserRouter(
       <Route path="/object/:id" element={<ObjectPage />} />
       <Route path="/subscribe" element={<Subscribe />} />
       <Route path="/user/:id" element={<User />}>
-        <Route 
-          index 
-          element={<UserCollectionsList />} />
-        <Route 
-          path="/user/:id/favorites" 
-          element={<Subscribe />} />
+        <Route index element={<UserCollectionsList />} />
+        <Route path="/user/:id/favorites" element={<Subscribe />} />
       </Route>
       <Route path="/mentions" element={<Content />} />
       <Route path="/*" element={<Error />} />

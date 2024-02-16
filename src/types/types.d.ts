@@ -5,8 +5,16 @@ export interface ICollection {
   description?: string;
   rating?: number | null;
   user?: IUser;
-  myobjects?: IObject[] | [];
-  created_at?: string,
+  myobjects?: IObject[];
+  created_at?: string;
+}
+
+export interface ICategory {
+  id?: number;
+  name?: string;
+  image?: string | File;
+  rating?: number | null;
+  myobjects?: IObject[];
 }
 
 export type CurrentCollection = ICollection & {};
@@ -16,9 +24,9 @@ export interface IUser {
   id: number;
   nickname: string;
   picture: null | string;
-  email: string,
-  roles: IRole[],
-  description: null | string,
+  email: string;
+  roles: IRole[];
+  description: null | string;
 }
 
 export interface IObject {
@@ -28,5 +36,5 @@ export interface IObject {
 }
 
 export interface IRole {
-  role: string
+  role: string;
 }

@@ -51,7 +51,7 @@ export default function Carrousel({}: Props) {
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Category x</h3>
             </div>
           </div>
         </a>
@@ -67,7 +67,7 @@ export default function Carrousel({}: Props) {
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Category x</h3>
             </div>
           </div>
         </a>
@@ -79,14 +79,14 @@ export default function Carrousel({}: Props) {
               <img className="" src={banner} alt="Shoes" />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Category x</h3>
             </div>
           </div>
         </a>
       </div>
       <div>
         <a href="">
-          <div className="card bg-base-100 shadow hover:contrast-50">
+          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
             <figure>
               <img
                 className=""
@@ -95,7 +95,7 @@ export default function Carrousel({}: Props) {
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Category x</h3>
             </div>
           </div>
         </a>

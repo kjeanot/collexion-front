@@ -1,5 +1,5 @@
+import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
-import logo from '../../assets/logo.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchCollections } from '../../store/reducers/collectionsReducer';
 import CollectionsList from '../Collection/CollectionsList';
@@ -8,8 +8,8 @@ import Footer from '../Footer/Footer';
 import Gallery from '../Gallery/Gallery';
 import Header from '../Header/Header';
 import './App.scss';
-import { Outlet } from 'react-router-dom';
 import { login } from '../../store/reducers/userReducer';
+import SingleCollection from '../Collection/SingleCollection';
 
 function App() {
 

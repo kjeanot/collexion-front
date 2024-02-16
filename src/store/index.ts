@@ -10,7 +10,7 @@ const store = configureStore({
   reducer: {
     objects: objectsReducer,
     collections: collectionsReducer,
-    // categories: categoriesReducer,
+    categories: categoriesReducer,
     user: userReducer,
     app: appReducer,
   },
@@ -20,4 +20,3 @@ export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-

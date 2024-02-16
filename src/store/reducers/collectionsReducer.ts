@@ -30,6 +30,7 @@ const token = JSON.parse(localStorage.getItem('jwt') ?? '');
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}collections`,
       {

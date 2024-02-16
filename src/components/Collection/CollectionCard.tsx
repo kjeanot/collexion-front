@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import { ICollection } from '../../types/types';
-import { Link } from 'react-router-dom';
 
 export default function CollectionCard({
   collection,
