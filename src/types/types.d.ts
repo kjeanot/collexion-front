@@ -10,6 +10,7 @@ export interface ICollection {
 }
 
 export type CurrentCollection = ICollection & {};
+export type CurrentObject = IObject & {};
 
 export interface IUser {
   id: number;

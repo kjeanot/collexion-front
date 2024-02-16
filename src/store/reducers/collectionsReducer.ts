@@ -6,7 +6,6 @@ import {
 import { CurrentCollection, ICollection, IObject } from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
-import { NavigateFunction } from 'react-router-dom';
 
 interface CollectionsState {
   list: ICollection[];
