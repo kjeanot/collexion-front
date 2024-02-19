@@ -130,8 +130,12 @@ export const postObject = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}object/create`,
-      state.objects.currentObject,
+      `${import.meta.env.VITE_API_PATH}object`,
+      {
+        ...state.objects.currentObject,
+        relatedCollections: state.objects.currentObject.relatedCollections,
+        title: state.objects.currentObject.name,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -172,7 +176,7 @@ export const setObjectState = createAction<string>('object/setObjectState');
 export const setObjectCategory = createAction<string>(
   'object/setObjectCategory'
 );
-export const setObjectCollections = createAction<ICollection[]>(
+export const setObjectCollections = createAction<[any]>(
   'object/setObjectCollections'
 );
 

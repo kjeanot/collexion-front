@@ -39,7 +39,7 @@ export interface IObject {
   state?: string;
   category?: string;
   myCollections?: ICollection[] | [];
-  relatedCollections?: ICollection[] | [];
+  relatedCollections: ICollection[] | [any];
   comments?: IComment[] | [];
   category: ICategory;
 }

@@ -94,22 +94,24 @@ export default function SingleObjectEdit() {
    *
    * @return {void}
    */
-  // function handleObjectsRemoving(id: number): void {
-  //   let result: IObject[] = [];
-  //   if (data) {
-  //     data?.myobjects?.map((el) => {
-  //       if (el.id !== undefined && el.id !== id) {
-  //         result.push(el);
-  //       }
-  //     });
-  //   }
-  //   dispatch(setCollectionObjects(result));
-  // }
+  function handleCollectionsRemoving(id: number): void {
+    let result: ICollection[] = [];
+    if (data) {
+      data?.mycollections?.map((el) => {
+        if (el.id !== undefined && el.id !== id) {
+          result.push(el);
+        }
+      });
+    }
+    dispatch(setCollectionCollections(result));
+  }
 
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchCollections());
-    !data.id && dispatch(setObjectCollections([currentCollection]))
+
+    // If it's not an existing object, affect the current collection to the object
+    !data.id && dispatch(setObjectCollections([{ id: currentCollection.id }]));
   }, []);
 
   return (

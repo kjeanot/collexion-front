@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setCollectionImage } from '../../store/reducers/collectionsReducer';
 import { useAppDispatch } from '../../hooks/redux';
+import { setObjectImage } from '../../store/reducers/objectsReducer';
 
 function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
   const [loaded, setLoaded] = useState(false);
@@ -34,6 +35,7 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
             console.log('Done! Here is the image info: ', result.info);
             setPublicId(result.info.public_id);
             dispatch(setCollectionImage(result.info.secure_url));
+            dispatch(setObjectImage(result.info.secure_url));
           }
         }
       );
