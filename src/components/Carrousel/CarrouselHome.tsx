@@ -56,7 +56,9 @@ export default function Carrousel({
               <img src="https://picsum.photos/1000" alt={collection.name} />
             </figure>
             <div className="card-body">
-              <h3 className="card-title text-customred">{collection.name}</h3>
+              <h3 className="card-title line-clamp-1 text-customred">
+                {collection.name}
+              </h3>
               <Rating value={collection.rating} />
               <Avatar
                 picture={collection.user.picture}

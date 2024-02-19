@@ -27,6 +27,7 @@ import Content from './components/Content/Content';
 import Gallery from './components/Gallery/Gallery';
 import Categories from './components/Category/Categories';
 import ObjectPage from './components/ObjectPage/ObjectPage';
+import Objects from './components/Object/Objects';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
       Object, Catégories, User, Mentions...
       <Route path="/categories" element={<Categories />} />
       <Route path="/category/:id" element={<ObjectPage />} />
+      <Route path="/objects" element={<Objects />} />
       <Route
         path="/collections"
         element={<Collections />}
