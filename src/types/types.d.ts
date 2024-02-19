@@ -6,6 +6,7 @@ export interface ICollection {
   rating?: number | null;
   user?: IUser;
   myobjects?: IObject[];
+  relatedObjects?: IObject[];
   created_at?: string;
 }
 
@@ -37,7 +38,10 @@ export interface IObject {
   description?: string;
   state?: string;
   category?: string;
-  collections?: ICollection[] | [];
+  myCollections?: ICollection[] | [];
+  relatedCollections?: ICollection[] | [];
+  comments?: IComment[] | [];
+  category: ICategory;
 }
 
 export interface IRole {
@@ -45,6 +49,7 @@ export interface IRole {
 }
 
 export interface IComment {
-  id: number;
-  content: string;
+  id?: number;
+  content?: string;
+  user?: IUser;
 }

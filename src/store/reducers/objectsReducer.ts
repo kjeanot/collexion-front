@@ -3,7 +3,12 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { CurrentObject, IComment, IObject } from '../../types/types';
+import {
+  CurrentObject,
+  ICollection,
+  IComment,
+  IObject,
+} from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
 import { NavigateFunction } from 'react-router-dom';
@@ -11,13 +16,15 @@ import { NavigateFunction } from 'react-router-dom';
 interface ObjectsState {
   list: IObject[];
   currentObject: CurrentObject;
-  comments:IComment[];
+  comments: IComment[];
+  currentComment: IComment;
 }
 
 export const initialState: ObjectsState = {
   list: [],
   currentObject: {},
-  comments:[]
+  comments: [],
+  currentComment: {},
 };
 
 const token = JSON.parse(localStorage.getItem('jwt') ?? '');
@@ -66,8 +73,6 @@ export const fetchComments = createAsyncThunk(
     return response.data;
   }
 );
-
-
 
 // Middlewares for a single Object CRUD
 
@@ -138,26 +143,37 @@ export const postObject = createAsyncThunk(
   }
 );
 
-export const resetCurrentObject = createAction(
-  'objects/resetCurrentObject'
+export const postComment = createAsyncThunk(
+  'objects/postComment',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_PATH}comment/create`,
+      state.objects.currentComment,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  }
 );
-export const setObjectName = createAction<string>(
-  'object/setObjectName'
-);
+
+export const resetCurrentObject = createAction('objects/resetCurrentObject');
+export const setObjectName = createAction<string>('object/setObjectName');
 export const setObjectDescription = createAction<string>(
   'object/setObjectDescription'
 );
-export const setObjectImage = createAction<string>(
-  'object/setObjectImage'
-);
-export const setObjectId = createAction<number>(
-  'object/setObjectId'
-);
-export const setObjectState = createAction<string>(
-  'object/setObjectState'
-);
+export const setObjectImage = createAction<string>('object/setObjectImage');
+export const setObjectId = createAction<number>('object/setObjectId');
+export const setObjectState = createAction<string>('object/setObjectState');
 export const setObjectCategory = createAction<string>(
   'object/setObjectCategory'
+);
+export const setObjectCollections = createAction<ICollection[]>(
+  'object/setObjectCollections'
 );
 
 const objectsReducer = createReducer(initialState, (builder) => {
@@ -226,21 +242,28 @@ const objectsReducer = createReducer(initialState, (builder) => {
       console.log('currentObject reset');
     })
     .addCase(setObjectName, (state, action) => {
-      (state.currentObject as CurrentObject).name = action.payload;
+      state.currentObject.name = action.payload;
+      console.log(state.currentObject.name);
     })
     .addCase(setObjectDescription, (state, action) => {
-      (state.currentObject as CurrentObject).description = action.payload;
+      state.currentObject.description = action.payload;
+      console.log(state.currentObject.description);
     })
     .addCase(setObjectImage, (state, action) => {
-      (state.currentObject as CurrentObject).image = action.payload;
+      state.currentObject.image = action.payload;
+      console.log(state.currentObject.image);
     })
     .addCase(setObjectState, (state, action) => {
-      (state.currentObject as CurrentObject).state = action.payload;
-      console.log((state.currentObject as CurrentObject).state)
+      state.currentObject.state = action.payload;
+      console.log(state.currentObject.state);
     })
     .addCase(setObjectCategory, (state, action) => {
-      (state.currentObject as CurrentObject).category = action.payload;
-      console.log((state.currentObject as CurrentObject).category)
+      state.currentObject.category = action.payload;
+      console.log(state.currentObject.category);
+    })
+    .addCase(setObjectCollections, (state, action) => {
+      state.currentObject.relatedCollections = action.payload;
+      console.log(state.currentObject.relatedCollections);
     });
 });
 

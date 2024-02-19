@@ -58,6 +58,7 @@ const router = createBrowserRouter(
         errorElement={<Error />}
       />
       <Route path="/object/:id/edit" element={<SingleObjectEdit />} />
+      <Route path="/object/new" element={<SingleObjectEdit />} />
       <Route path="/subscribe" element={<Subscribe />} />
       <Route path="/user/:id" element={<User />}>
         <Route index element={<UserCollectionsList />} />
