@@ -61,8 +61,8 @@ export default function Carrousel({
               </h3>
               <Rating value={collection.rating} />
               <Avatar
-                picture={collection.user.picture}
-                nickname={collection.user.nickname}
+                picture={collection.user?.picture}
+                nickname={collection.user?.nickname}
               />
               <div className="h-28">
                 <p className="line-clamp-5">{collection.description}</p>
