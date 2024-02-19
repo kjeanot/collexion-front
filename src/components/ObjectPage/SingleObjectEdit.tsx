@@ -2,24 +2,24 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation, useParams } from 'react-router-dom';
 import {
-  postCollection,
-  setCollectionDescription,
-  setCollectionImage,
-  setCollectionName,
-  setCollectionObjects,
-  updateCollection,
-} from '../../store/reducers/collectionsReducer';
+  postObject,
+  setObjectDescription,
+  setObjectImage,
+  setObjectName,
+  setObjectCollections,
+  updateObject,
+} from '../../store/reducers/objectsReducer';
 import CloudinaryUploadWidget from '../Upload/UploadButton';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import { ICollection, IObject } from '../../types/types';
 
-type CurrentCollection = ICollection & {};
+type CurrentObject = IObject & {};
 
-export default function SingleCollectionEdit() {
+export default function SingleObjectEdit() {
   const dispatch = useAppDispatch();
-  const data: CurrentCollection = useAppSelector(
-    (state) => state.collections.currentCollection
+  const data: CurrentObject = useAppSelector(
+    (state) => state.objects.currentObject
   );
 
   const [publicId, setPublicId] = useState('');
@@ -39,7 +39,6 @@ export default function SingleCollectionEdit() {
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
-    sources: [ "local" ],
     // cropping: true, //add a cropping step
     // showAdvancedOptions: true,  //add advanced options (public_id and tag)
     // sources: [ "local", "url"], // restrict the upload sources to URL and local files
@@ -69,21 +68,21 @@ export default function SingleCollectionEdit() {
  * 
  * @return {void}
  */
-  function handleObjectsRemoving(id: number): void {
-    let result: IObject[] = [];
-    if (data) {
-      data?.myobjects?.map((el) => {
-        if (el.id !== undefined && el.id !== id) {
-          result.push(el);
-        }
-      });
-    }
-    dispatch(setCollectionObjects(result));
-  }
+  // function handleObjectsRemoving(id: number): void {
+  //   let result: IObject[] = [];
+  //   if (data) {
+  //     data?.myobjects?.map((el) => {
+  //       if (el.id !== undefined && el.id !== id) {
+  //         result.push(el);
+  //       }
+  //     });
+  //   }
+  //   dispatch(setCollectionObjects(result));
+  // }
 
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
-      <h1 className="text-3xl mb-6">Editer la collection</h1>
+      <h1 className="text-3xl mb-6">Editer l'objet</h1>
       <label className="form-control w-full">
         <div className="label">
           <span className="label-text">Nom de la collection</span>
@@ -94,7 +93,7 @@ export default function SingleCollectionEdit() {
           value={data ? data.name : ''}
           className="input input-bordered w-full"
           onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-            dispatch(setCollectionName(evt.currentTarget.value))
+            dispatch(setObjectName(evt.currentTarget.value))
           }
         />
       </label>
@@ -107,7 +106,7 @@ export default function SingleCollectionEdit() {
           placeholder={data ? data.description : 'Description de la collection'}
           value={data ? data.description : ''}
           onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
-            dispatch(setCollectionDescription(evt.currentTarget.value))
+            dispatch(setObjectDescription(evt.currentTarget.value))
           }
         ></textarea>
       </label>
@@ -161,7 +160,7 @@ export default function SingleCollectionEdit() {
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
         onClick={() => {
-          data.id ? dispatch(updateCollection(data.id)) : dispatch(postCollection())
+          data.id ? dispatch(updateObject(data.id)) : dispatch(postObject());
         }}
       >
         Mettre à jour

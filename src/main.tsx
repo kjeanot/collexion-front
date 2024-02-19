@@ -18,7 +18,11 @@ import SingleCollection from './components/Collection/SingleCollection';
 import SingleCollectionEdit from './components/Collection/SingleCollectionEdit';
 import UserCollectionsList from './components/User/UserCollectionsList';
 import User from './components/User/User';
-import { collectionsLoader, singleCollectionLoader } from './loaders/loaders';
+import {
+  collectionsLoader,
+  singleCollectionLoader,
+  singleObjectLoader,
+} from './loaders/loaders';
 import Error from './components/Error/Error';
 import Subscribe from './components/Subscribe/Subscribe';
 import Home from './components/Home/Home';
@@ -49,7 +53,12 @@ const router = createBrowserRouter(
       />
       <Route path="/collection/:id/edit" element={<SingleCollectionEdit />} />
       <Route path="/collection/new" element={<SingleCollectionEdit />} />
-      <Route path="/object/:id" element={<ObjectPage />} />
+      <Route
+        path="/object/:id"
+        loader={singleObjectLoader}
+        element={<ObjectPage />}
+        errorElement={<Error />}
+      />
       <Route path="/subscribe" element={<Subscribe />} />
       <Route path="/user/:id" element={<User />}>
         <Route index element={<UserCollectionsList />} />
