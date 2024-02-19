@@ -31,18 +31,8 @@ export default function SingleObjectEdit() {
     (state) => state.collections.currentCollection
   );
 
-  const collections: ICollection[] = useAppSelector(
-    (state) => state.collections.list
-  );
-
   // Retreive collections which contains the current object
-  const relatedCollections = collections.filter(
-    (collection) =>
-      collection.myobjects &&
-      collection.myobjects.some((object) => object.id === data.id)
-  );
-
-  console.log(relatedCollections);
+  const relatedCollections = useAppSelector(state => state.objects.currentObject.myCollections);
 
   const categories: ICategory[] = useAppSelector(
     (state) => state.categories.list
@@ -97,13 +87,13 @@ export default function SingleObjectEdit() {
   function handleCollectionsRemoving(id: number): void {
     let result: ICollection[] = [];
     if (data) {
-      data?.mycollections?.map((el) => {
+      data?.relatedMyCollections?.map((el) => {
         if (el.id !== undefined && el.id !== id) {
-          result.push(el);
+          result.push({id: el.id});
         }
       });
     }
-    dispatch(setCollectionCollections(result));
+    dispatch(setObjectCollections(result));
   }
 
   useEffect(() => {
@@ -171,7 +161,7 @@ export default function SingleObjectEdit() {
           id="object-category"
           value={data.category}
           onChange={(evt) =>
-            dispatch(setObjectCategory(evt.currentTarget.value))
+            dispatch(setObjectCategory(parseInt(evt.currentTarget.value)))
           }
         >
           {/* <optgroup label="Animaux">
@@ -199,8 +189,8 @@ export default function SingleObjectEdit() {
       </div>
 
       {data && <h2 className="text-xl my-6">Collection(s) rattachée(s)</h2>}
-      {relatedCollections.length > 0 ? (
-        relatedCollections.map((object: IObject, index) => (
+      {relatedCollections?.length > 0 ? (
+        relatedCollections.map((object: ICollection, index) => (
           <div
             key={index}
             className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
@@ -214,7 +204,7 @@ export default function SingleObjectEdit() {
               className="btn rounded-none h-16"
               onClick={(evt) => {
                 evt.preventDefault();
-                handleObjectsRemoving(object.id as number);
+                handleCollectionsRemoving(object.id as number);
               }}
             >
               <svg

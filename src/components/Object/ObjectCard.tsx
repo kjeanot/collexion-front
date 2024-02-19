@@ -10,7 +10,7 @@ export default function ObjectCard({ id, name, image }: IObject) {
         <figure>
           <img
             className=""
-            src="https://picsum.photos/1000"
+            src={image}
             alt={name}
           />
         </figure>
