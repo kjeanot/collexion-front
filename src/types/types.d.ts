@@ -30,12 +30,21 @@ export interface IUser {
 }
 
 export interface IObject {
+  state: string;
   id?: number;
   name?: string;
   image?: string;
   description?: string;
+  state?: string;
+  category?: string;
+  collections?: ICollection[] | [];
 }
 
 export interface IRole {
   role: string;
+}
+
+export interface IComment {
+  id: number;
+  content: string;
 }

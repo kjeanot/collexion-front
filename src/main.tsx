@@ -27,16 +27,14 @@ import Error from './components/Error/Error';
 import Subscribe from './components/Subscribe/Subscribe';
 import Home from './components/Home/Home';
 import Content from './components/Content/Content';
-import Gallery from './components/Gallery/Gallery';
 import Categories from './components/Category/Categories';
 import ObjectPage from './components/ObjectPage/ObjectPage';
+import SingleObjectEdit from './components/ObjectPage/SingleObjectEdit';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
-      //Todo : ajouter un errorElement //Todo : ajouter les routes Collections,
-      Object, Catégories, User, Mentions...
       <Route path="/categories" element={<Categories />} />
       <Route path="/category/:id" element={<ObjectPage />} />
       <Route
@@ -59,6 +57,7 @@ const router = createBrowserRouter(
         element={<ObjectPage />}
         errorElement={<Error />}
       />
+      <Route path="/object/:id/edit" element={<SingleObjectEdit />} />
       <Route path="/subscribe" element={<Subscribe />} />
       <Route path="/user/:id" element={<User />}>
         <Route index element={<UserCollectionsList />} />

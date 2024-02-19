@@ -9,7 +9,7 @@ import { RootState } from '..';
 
 interface CollectionsState {
   list: ICollection[];
-  currentCollection: ICollection | {};
+  currentCollection: CurrentCollection;
 }
 
 

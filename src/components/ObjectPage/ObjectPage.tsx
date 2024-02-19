@@ -1,19 +1,21 @@
 import { ICollection, IObject } from '../../types/types';
 import Avatar from '../Avatar/Avatar';
 import ObjectCard from '../Object/ObjectCard';
-import Comment from '../Comment/Comment';
 import Background from '../Background/Background';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useEffect } from 'react';
-import { deleteObject, fetchSingleObject } from '../../store/reducers/objectsReducer';
+import { deleteObject, fetchComments, fetchSingleObject } from '../../store/reducers/objectsReducer';
 import Modal from '../Modal/Modal';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
+import Comments from '../Comment/Comments';
 
 export default function ObjectPage() {
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
   const dispatch = useAppDispatch();
   const showModal = useAppSelector((state) => state.app.showModal);
+  const comments = useAppSelector(state => state.objects.comments);
+  console.log(comments);
 
   const handleDelete = () => {
     dispatch(deleteObject(data.id));
@@ -21,6 +23,7 @@ export default function ObjectPage() {
 
   useEffect(() => {
     dispatch(fetchSingleObject(data.id));
+    dispatch(fetchComments());
   }, []);
   return (
     <>
@@ -102,21 +105,18 @@ export default function ObjectPage() {
           </div>
         </header>
 
-        <h2 className="text-xl mb-6">Autres objets de cette collection</h2>
+        <h2 className="text-xl mb-6">Objets similaires</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-          {data &&
+          {data.myobjects ?
             data.myobjects?.map((object: IObject) => (
               <ObjectCard
                 id={object.id}
                 name={object.name}
                 image={object.image}
               />
-            ))}
-          <button className="btn btn-square h-full w-full">
-            + Ajouter un objet
-          </button>
+            )): 'Aucune recommandation pour l\'instant'}
         </div>
-        <Comment />
+        <Comments comments={comments}/>
       </div>
     </>
   );

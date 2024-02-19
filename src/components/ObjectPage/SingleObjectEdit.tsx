@@ -8,11 +8,14 @@ import {
   setObjectName,
   setObjectCollections,
   updateObject,
+  setObjectState,
+  setObjectCategory,
 } from '../../store/reducers/objectsReducer';
 import CloudinaryUploadWidget from '../Upload/UploadButton';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
-import { ICollection, IObject } from '../../types/types';
+import { ICategory, IObject } from '../../types/types';
+import { fetchCategories } from '../../store/reducers/categoriesReducer';
 
 type CurrentObject = IObject & {};
 
@@ -21,6 +24,8 @@ export default function SingleObjectEdit() {
   const data: CurrentObject = useAppSelector(
     (state) => state.objects.currentObject
   );
+
+  const categories: ICategory[] = useAppSelector(state => state.categories.list);
 
   const [publicId, setPublicId] = useState('');
   // Replace with your own cloud name
@@ -61,13 +66,13 @@ export default function SingleObjectEdit() {
 
   const myImage = cld.image(publicId);
 
- /**
- * 
- * Returns an updated array of the objects associated to the collection, less the deleted ones.
- * Dispatches the array to the state.
- * 
- * @return {void}
- */
+  /**
+   *
+   * Returns an updated array of the objects associated to the collection, less the deleted ones.
+   * Dispatches the array to the state.
+   *
+   * @return {void}
+   */
   // function handleObjectsRemoving(id: number): void {
   //   let result: IObject[] = [];
   //   if (data) {
@@ -80,16 +85,21 @@ export default function SingleObjectEdit() {
   //   dispatch(setCollectionObjects(result));
   // }
 
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [])
+
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
       <h1 className="text-3xl mb-6">Editer l'objet</h1>
-      <label className="form-control w-full">
+      <label className="form-control w-full" htmlFor="object-name">
         <div className="label">
-          <span className="label-text">Nom de la collection</span>
+          <span className="label-text">Nom de l'objet</span>
         </div>
         <input
+          id="object-name"
           type="text"
-          placeholder={data ? data.name : 'Nom de la collection'}
+          placeholder={data ? data.name : "Nom de l'objet"}
           value={data ? data.name : ''}
           className="input input-bordered w-full"
           onChange={(evt: ChangeEvent<HTMLInputElement>) =>
@@ -97,20 +107,63 @@ export default function SingleObjectEdit() {
           }
         />
       </label>
-      <label className="form-control w-full">
+      <label className="form-control w-full" htmlFor="object-description">
         <div className="label">
-          <span className="label-text">Description de la collection</span>
+          <span className="label-text">Description de l'objet</span>
         </div>
         <textarea
+          id="object-description"
           className="textarea textarea-bordered h-24"
-          placeholder={data ? data.description : 'Description de la collection'}
+          placeholder={data ? data.description : "Description de l'objet"}
           value={data ? data.description : ''}
           onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
             dispatch(setObjectDescription(evt.currentTarget.value))
           }
         ></textarea>
       </label>
-      
+      <label className="form-control w-full" htmlFor="object-state">
+        <div className="label">
+          <span className="label-text">État de l'objet</span>
+        </div>
+        <select
+          className="select select-bordered w-full max-w-xs"
+          id="object-state"
+          value={data.state}
+          onChange={(evt) => dispatch(setObjectState(evt.currentTarget.value))}
+        >
+          <option value="Excellent">Excellent</option>
+          <option value="Bon">Bon</option>
+          <option value="Moyen">Moyen</option>
+          <option value="À restaurer">À restaurer</option>
+        </select>
+      </label>
+      <label className="form-control w-full" htmlFor="object-category">
+        <div className="label">
+          <span className="label-text">Catégorie de l'objet</span>
+        </div>
+        <select
+          className="select select-bordered w-full max-w-xs"
+          id="object-category"
+          value={data.category}
+          onChange={(evt) => dispatch(setObjectCategory(evt.currentTarget.value))}
+        >
+          {/* <optgroup label="Animaux">
+              <option value="Canards">Canards</option>
+              <option value="Poissons">Poissons</option>
+          </optgroup>
+          <optgroup label="Figurines">
+              <option value="Figurines de films">Figurines de films</option>
+              <option value="Figurines d'anime">Figurines d'anime</option>
+              <option value="Figurines de jeux-video">Category 1</option>
+          </optgroup> */}
+          {
+            [...categories].map(category => (
+              <option value={category.id}>{category.name}</option>
+            ))
+          }
+        </select>
+      </label>
+
       <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
       <div style={{ width: '800px' }}>
         <AdvancedImage
@@ -120,8 +173,8 @@ export default function SingleObjectEdit() {
         />
       </div>
 
-      {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
-      {data.myobjects && data.myobjects.length > 0
+      {/* {data && <h2 className="text-xl my-6">Collection(s) rattachée(s)</h2>}
+      {data.mycollections && data.mycollections.length > 0
         ? data.myobjects?.map((object: IObject, index) => (
             <div
               key={index}
@@ -155,7 +208,7 @@ export default function SingleObjectEdit() {
               </button>
             </div>
           ))
-        : "Aucun objet rattaché pour l'instant"}
+        : "Aucun objet rattaché pour l'instant"} */}
       <button
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
@@ -163,7 +216,7 @@ export default function SingleObjectEdit() {
           data.id ? dispatch(updateObject(data.id)) : dispatch(postObject());
         }}
       >
-        Mettre à jour
+        {data.id ? 'Mettre à jour' : 'Publier'}
       </button>
     </form>
   );

@@ -3,21 +3,21 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { CurrentObject, IObject } from '../../types/types';
+import { CurrentObject, IComment, IObject } from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
 import { NavigateFunction } from 'react-router-dom';
 
 interface ObjectsState {
   list: IObject[];
-  currentObject: IObject | {};
+  currentObject: CurrentObject;
+  comments:IComment[];
 }
-
-
 
 export const initialState: ObjectsState = {
   list: [],
   currentObject: {},
+  comments:[]
 };
 
 const token = JSON.parse(localStorage.getItem('jwt') ?? '');
@@ -43,6 +43,31 @@ export const fetchObjects = createAsyncThunk(
     return response.data;
   }
 );
+
+/**
+ * Middleware for fetching all comments
+ *
+ * Uses axios to request the /api/comments route and get all the comments from the API.
+ *
+ * @return {Promise} Return a promise with comments when fulfilled.
+ */
+export const fetchComments = createAsyncThunk(
+  'objects/fetchComments',
+  async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}comments`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
+
 
 // Middlewares for a single Object CRUD
 
@@ -128,6 +153,12 @@ export const setObjectImage = createAction<string>(
 export const setObjectId = createAction<number>(
   'object/setObjectId'
 );
+export const setObjectState = createAction<string>(
+  'object/setObjectState'
+);
+export const setObjectCategory = createAction<string>(
+  'object/setObjectCategory'
+);
 
 const objectsReducer = createReducer(initialState, (builder) => {
   builder
@@ -139,6 +170,16 @@ const objectsReducer = createReducer(initialState, (builder) => {
       state.list = action.payload;
     })
     .addCase(fetchObjects.rejected, (state, action) => {
+      console.log('rejected', action);
+    })
+    .addCase(fetchComments.pending, (state, action) => {
+      console.log('pending', action);
+    })
+    .addCase(fetchComments.fulfilled, (state, action) => {
+      console.log('fulfilled', action);
+      state.comments = action.payload;
+    })
+    .addCase(fetchComments.rejected, (state, action) => {
       console.log('rejected', action);
     })
     .addCase(fetchSingleObject.pending, (state, action) => {
@@ -192,6 +233,14 @@ const objectsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setObjectImage, (state, action) => {
       (state.currentObject as CurrentObject).image = action.payload;
+    })
+    .addCase(setObjectState, (state, action) => {
+      (state.currentObject as CurrentObject).state = action.payload;
+      console.log((state.currentObject as CurrentObject).state)
+    })
+    .addCase(setObjectCategory, (state, action) => {
+      (state.currentObject as CurrentObject).category = action.payload;
+      console.log((state.currentObject as CurrentObject).category)
     });
 });
 
