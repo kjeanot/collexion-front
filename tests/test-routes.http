@@ -4,14 +4,14 @@ content-type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMDU4OTgsImV4cCI6MTcwODAwOTQ5OCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uxNvhdjUxuLkWDIEWN2IDAolQAiEuos2PioahqhbLDEaBqR9c-TJW4Ol0eN-jzCc87-Y6xcdflDd1STbpqbJQucTykx-Jw9hLp2BPTxR-bgEl1osTzv4FyrjH5x_FsRyBjq9HEmQeJmeVd6V1jKnGfi1FI824VZbD5rRhGj-13k4Z6LTy-5P_AKbpKydQvAjJVxIm6Lon4UUV7qM-WQ0htGkWI15DFyZyyqV8r4kePnG5aK66wVeOPjkHVheuRTvJ5sbGc0gHH0xP4DufZMOfEPaKxLsi-qYb-hGDV8rRJU2t77r-f-jlVXnpC7Sgxth9IO_be-lQIZ2eKOPPcfUBw
 
 ### Route GET Collection
-GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/2 HTTP/1.1
+GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/4 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMDU4OTgsImV4cCI6MTcwODAwOTQ5OCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uxNvhdjUxuLkWDIEWN2IDAolQAiEuos2PioahqhbLDEaBqR9c-TJW4Ol0eN-jzCc87-Y6xcdflDd1STbpqbJQucTykx-Jw9hLp2BPTxR-bgEl1osTzv4FyrjH5x_FsRyBjq9HEmQeJmeVd6V1jKnGfi1FI824VZbD5rRhGj-13k4Z6LTy-5P_AKbpKydQvAjJVxIm6Lon4UUV7qM-WQ0htGkWI15DFyZyyqV8r4kePnG5aK66wVeOPjkHVheuRTvJ5sbGc0gHH0xP4DufZMOfEPaKxLsi-qYb-hGDV8rRJU2t77r-f-jlVXnpC7Sgxth9IO_be-lQIZ2eKOPPcfUBw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgxMDEwMDMsImV4cCI6MTcwODEwNDYwMywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.pLtntOU8a032q-Uf6DH72ZzdtXjEcVcMVYNzkJ5hHJXwPeotd3-i75b8JGHhRRJgD5maJtwqcEXwNff6CE5I6izuv6GxcB5wb6G0wKoKZamR7p--bAaIKAFOxr2yGvf8JvRNK4ECrJ8BxDIxFVRBCxmQifeQnay8I24UfrvqvnyA1hD5mrItSc9wrWygTqW_Hk9rZpHcuAmwqWMFvtub2lhNm7h7GaY9IAJfDs4nkTXpqXKLUlDT5K9Ys0Qd51DB_pmHnEdkWYvnV8NovLCJ6ETaq1C9O1N0niS9KLsXBgCFer3aHKR5Af2w5LM7PfliCkW5OM2cSgzmVlBgpjNAOA
 
 ### Route POST Collection
 POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/create HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMTIzMDAsImV4cCI6MTcwODAxNTkwMCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.fw18HfQWQfNj2kJ8lMeMJ9xHpxkRgGZHclI-x0J7JOShsNUJZpyUmSPFuK0eAbiiC1E8apha4kGcpRc7X5GT8s7Vc6Hhy0EKf2ov2opnOdCXCWKIPzyyrbRHqxIMthoyIwPpE6wzSqlsjUmqZ-4hFIJ0Eds6SmFeBv5E1ZIzJkts8ZIVfPkEzsNVcHY87vWyFwjzXx9ntb96VKVVdhckeYEtYGXAKKvCqGHEmAjDPAEIMRjNLU9JPuCdjSQdYoMA69GATagY1OyADbSPaGl-3Q3LA88PmzqjM0RzaH6NO-WzXWHnpgEhzovJwaTPc3f_aafhu6YXEbNpPE3o2583pQ
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgxMDEwMDMsImV4cCI6MTcwODEwNDYwMywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.pLtntOU8a032q-Uf6DH72ZzdtXjEcVcMVYNzkJ5hHJXwPeotd3-i75b8JGHhRRJgD5maJtwqcEXwNff6CE5I6izuv6GxcB5wb6G0wKoKZamR7p--bAaIKAFOxr2yGvf8JvRNK4ECrJ8BxDIxFVRBCxmQifeQnay8I24UfrvqvnyA1hD5mrItSc9wrWygTqW_Hk9rZpHcuAmwqWMFvtub2lhNm7h7GaY9IAJfDs4nkTXpqXKLUlDT5K9Ys0Qd51DB_pmHnEdkWYvnV8NovLCJ6ETaq1C9O1N0niS9KLsXBgCFer3aHKR5Af2w5LM7PfliCkW5OM2cSgzmVlBgpjNAOA
 
 {
   "name": "nouvelle collection test",
@@ -19,6 +19,30 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMTIzM
   "image": "https://picsum.photos/1000"
 }
 
+### Route Categories
+GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/categories HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgxMDQyMTAsImV4cCI6MTcwODEwNzgxMCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.Oh9O9JbB8s1WU2xV0ar78tbVwA0Uje5K8ieyssKV-Ya8JwNOKf_N3DtIaLsFvy7RLHmMZdAtmnlM3F7fUv3prnpen0j5yX71xyIV6UJrHe5eyoAjU7VTrYuibWIeNHCv1DJPZpElYBjrjMCX7mAJY3uzBncIG7ZZW_pzB96GdP-fDuTiwWNtLvVwp8TPpxt-YZgNzEiJ-cn-JxZshMAwlK0po33LMk2NSKM_tVkiikP3CYVo4xRsBRrbErDzT-3tPUgD3vpjxIe0u35CjuuukF4JXYAn7QQTt6qHHZ9af1S2Z9DxLqrjBngmcnhuCfJzTVUTtHe9qJ---M4X44XSUQ
+
+### Route UPDATE Collection
+PUT http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/update/4 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgxMDEwMDMsImV4cCI6MTcwODEwNDYwMywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.pLtntOU8a032q-Uf6DH72ZzdtXjEcVcMVYNzkJ5hHJXwPeotd3-i75b8JGHhRRJgD5maJtwqcEXwNff6CE5I6izuv6GxcB5wb6G0wKoKZamR7p--bAaIKAFOxr2yGvf8JvRNK4ECrJ8BxDIxFVRBCxmQifeQnay8I24UfrvqvnyA1hD5mrItSc9wrWygTqW_Hk9rZpHcuAmwqWMFvtub2lhNm7h7GaY9IAJfDs4nkTXpqXKLUlDT5K9Ys0Qd51DB_pmHnEdkWYvnV8NovLCJ6ETaq1C9O1N0niS9KLsXBgCFer3aHKR5Af2w5LM7PfliCkW5OM2cSgzmVlBgpjNAOA
+
+{
+  "myobjects": [
+    {
+      "id": 10,
+      "name": "Object 0",
+      "image": "https:\/\/via.placeholder.com\/150"
+    },
+    {
+      "id": 11,
+      "name": "Object 1",
+      "image": "https:\/\/via.placeholder.com\/150"
+    },
+  ]
+}
 
 ### Route Login
 POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/login_check HTTP/1.1
