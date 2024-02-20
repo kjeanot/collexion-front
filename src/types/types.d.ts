@@ -40,8 +40,8 @@ export interface IObject {
   relatedMyCollections?: ICollection[] | [any];
   myCollections?: ICollection[];
   comments?: IComment[] | [];
-  category: ICategory;
-  relatedCategory: number;
+  category?: ICategory;
+  relatedCategory?: number;
 }
 
 export interface IRole {

@@ -159,7 +159,7 @@ export default function SingleObjectEdit() {
         <select
           className="select select-bordered w-full max-w-xs"
           id="object-category"
-          value={data.category}
+          value={data.category?.id ? data.category.id : ''}
           onChange={(evt) =>
             dispatch(setObjectCategory(parseInt(evt.currentTarget.value)))
           }
@@ -189,7 +189,7 @@ export default function SingleObjectEdit() {
       </div>
 
       {data && <h2 className="text-xl my-6">Collection(s) rattachée(s)</h2>}
-      {relatedCollections?.length > 0 ? (
+      {( relatedCollections && relatedCollections?.length > 0) ? (
         relatedCollections.map((object: ICollection, index) => (
           <div
             key={index}
