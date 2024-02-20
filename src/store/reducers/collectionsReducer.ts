@@ -17,7 +17,6 @@ export const initialState: CollectionsState = {
   currentCollection: {},
 };
 
-const token = JSON.parse(localStorage.getItem('jwt') ?? '');
 /**
  * Middleware for fetching all the collections
  *
