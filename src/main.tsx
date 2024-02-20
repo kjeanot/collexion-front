@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
@@ -29,6 +28,7 @@ import Subscribe from './components/Subscribe/Subscribe';
 import Home from './components/Home/Home';
 import Content from './components/Content/Content';
 import Categories from './components/Category/Categories';
+import Objects from './components/Object/Objects';
 import ObjectPage from './components/ObjectPage/ObjectPage';
 import SingleObjectEdit from './components/ObjectPage/SingleObjectEdit';
 
@@ -38,6 +38,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/category/:id" element={<ObjectPage />} />
+      <Route path="/objects" element={<Objects />} />
       <Route
         path="/collections"
         element={<Collections />}

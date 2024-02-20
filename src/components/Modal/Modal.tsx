@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
-import Button from '../Button/Button';
 
 interface Props {
   actionLabel: string;

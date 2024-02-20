@@ -1,6 +1,6 @@
 import React from 'react';
 import CollectionTile from '../Collection/CollectionTile';
-import { Link, useLoaderData, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
 import { useAppSelector } from '../../hooks/redux';

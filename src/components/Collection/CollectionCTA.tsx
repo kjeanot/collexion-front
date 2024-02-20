@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 
 export default function CollectionCTA() {
@@ -22,7 +22,9 @@ export default function CollectionCTA() {
               fier(e) ? Publiez-la sur Collexion pour enchanter toute la
               communauté de collectionneurs en quête d'inspiration !
             </p>
-            {<Button text={'Je crée ma collection !'} />}
+            <Link to="/collection/:id/edit">
+              <Button text={'Je crée ma collection !'} />
+            </Link>
           </div>
         </div>
       </div>

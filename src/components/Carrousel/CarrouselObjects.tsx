@@ -2,7 +2,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
 
-export default function Carrousel() {
+export default function CarrouselObjects() {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -49,7 +49,7 @@ export default function Carrousel() {
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>
@@ -65,7 +65,7 @@ export default function Carrousel() {
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>
@@ -77,14 +77,14 @@ export default function Carrousel() {
               <img className="" src={banner} alt="Shoes" />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>
       </div>
       <div>
         <a href="">
-          <div className="card bg-base-100 shadow hover:contrast-50">
+          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
             <figure>
               <img
                 className=""
@@ -93,7 +93,7 @@ export default function Carrousel() {
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title justify-center">Category x</h2>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>

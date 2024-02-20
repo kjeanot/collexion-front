@@ -1,14 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchCollections } from '../../store/reducers/collectionsReducer';
-import CollectionsList from '../Collection/CollectionsList';
-import CollectionCTA from '../Collection/CollectionCTA';
 import Footer from '../Footer/Footer';
-import Gallery from '../Gallery/Gallery';
 import Header from '../Header/Header';
 import './App.scss';
 import SingleCollection from '../Collection/SingleCollection';
+import { useAppDispatch } from '../../hooks/redux';
+import { useEffect } from 'react';
+import { fetchCollections } from '../../store/reducers/collectionsReducer';
 
 
 

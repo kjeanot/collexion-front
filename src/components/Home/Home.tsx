@@ -51,12 +51,14 @@ export default function Home() {
         ))}
       </div>
       <div className="flex justify-end">
-        <button
-          type="button"
-          className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-lg px-8 py-2 text-center me-2 mb-2 mt-6"
-        >
-          Tous les objets
-        </button>
+        <Link to="/objects">
+          <button
+            type="button"
+            className="relative text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-lg px-8 py-2 text-center me-2 mb-2 mt-6"
+          >
+            Tous les objets
+          </button>
+        </Link>
       </div>
       <CollectionCTA />
       <h2 className="font-bold text-2xl text-customred mt-10">
