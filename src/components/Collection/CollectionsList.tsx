@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchCollections } from '../../store/reducers/collectionsReducer';
 import CollectionCard from './CollectionCard';
 import { ICollection } from '../../types/types';
-import { useLoaderData } from 'react-router-dom';
 
-export default function CollectionsList({ collections }: { collections : ICollection[]}) {
+export default function CollectionsList({
+  collections,
+}: {
+  collections: ICollection[];
+}) {
   console.log(collections);
 
   return (

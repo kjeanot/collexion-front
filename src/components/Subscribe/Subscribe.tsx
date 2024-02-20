@@ -1,8 +1,4 @@
-import React from 'react';
-
-type Props = {};
-
-export default function Subscribe({}: Props) {
+export default function Subscribe() {
   return (
     <div className="my-8">
       <p className="text-xl font-medium uppercase text-customred">
