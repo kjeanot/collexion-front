@@ -93,7 +93,7 @@ export const updateCollection = createAsyncThunk(
           name: state.collections.currentCollection.name,
           description: state.collections.currentCollection.description,
           image: state.collections.currentCollection.image,
-          releddatedObjects: state.collections.currentCollection.relatedObjects,
+          relatedObjects: state.collections.currentCollection.relatedObjects,
         },
         {
           headers: {
