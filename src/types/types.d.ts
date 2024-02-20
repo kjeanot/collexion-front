@@ -22,12 +22,15 @@ export type CurrentCollection = ICollection & {};
 export type CurrentObject = IObject & {};
 
 export interface IUser {
-  id: number;
-  nickname: string;
-  picture: null | string;
+  id?: number;
+  nickname?: string;
+  username?: string;
+  picture?: null | string;
   email?: string;
   roles?: IRole[];
   description?: null | string;
+  token?: string;
+  password?: string;
 }
 
 export interface IObject {
@@ -44,9 +47,7 @@ export interface IObject {
   relatedCategory?: number;
 }
 
-export interface IRole {
-  role: string;
-}
+export type IRole = string;
 
 export interface IComment {
   id?: number;

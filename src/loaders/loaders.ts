@@ -39,3 +39,17 @@ export function singleObjectLoader({ params }: { params: Params }): any {
     return promise;
   }
 }
+
+export function userLoader({ params }: { params: Params }): any {
+  if (params.id) {
+    const promise = axios.get(
+      `${import.meta.env.VITE_API_PATH}user/${params.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return promise;
+  }
+}

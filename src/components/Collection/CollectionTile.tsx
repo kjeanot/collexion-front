@@ -1,13 +1,14 @@
 import React from 'react';
+import { ICollection } from '../../types/types';
 
-export default function CollectionTile() {
+export default function CollectionTile({ data }: { data: ICollection }) {
   return (
-    <article className="card sm:card-side bg-base-100 shadow-xl flex-col sm:flex-row">
-      <figure>
+    <article className="card sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row">
+      <figure className="h-60 md:w-60 w-full flex-none">
         <img
-          src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
-          alt="Movie"
-          className="object-cover h-60 sm:h-full w-full"
+          src={data.image}
+          alt={data.name}
+          className="object-cover h-60 md:w-60 w-full"
         />
       </figure>
       <div className="card-body pt-2 pr-2">
@@ -74,8 +75,8 @@ export default function CollectionTile() {
             </svg>
           </button>
         </div>
-        <h2 className="card-title">New movie is released!</h2>
-        <p>Click the button to watch on Jetflix app.</p>
+        <h2 className="card-title">{data.name}</h2>
+        <p className="line-clamp-4">{data.description}</p>
       </div>
     </article>
   );
