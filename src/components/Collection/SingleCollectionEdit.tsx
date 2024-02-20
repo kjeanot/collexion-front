@@ -39,6 +39,7 @@ export default function SingleCollectionEdit() {
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
+    sources: [ "local" ],
     // cropping: true, //add a cropping step
     // showAdvancedOptions: true,  //add advanced options (public_id and tag)
     // sources: [ "local", "url"], // restrict the upload sources to URL and local files
@@ -52,7 +53,7 @@ export default function SingleCollectionEdit() {
     // theme: "purple", //change to a purple theme
   });
 
-  // Create a Cloudinary instance and set your cloud name.
+  // Create a Cloudinary instance and set the cloud name.
   const cld = new Cloudinary({
     cloud: {
       cloudName,
@@ -61,7 +62,14 @@ export default function SingleCollectionEdit() {
 
   const myImage = cld.image(publicId);
 
-  function handleObjectsRemoving(id: number) {
+ /**
+ * 
+ * Returns an updated array of the objects associated to the collection, less the deleted ones.
+ * Dispatches the array to the state.
+ * 
+ * @return {void}
+ */
+  function handleObjectsRemoving(id: number): void {
     let result: IObject[] = [];
     if (data) {
       data?.myobjects?.map((el) => {
@@ -103,18 +111,7 @@ export default function SingleCollectionEdit() {
           }
         ></textarea>
       </label>
-      {/* <label className="form-control w-full">
-        <div className="label">
-          <span className="label-text">Description de la collection</span>
-        </div>
-        <input
-          type="file"
-          className="file-input file-input-bordered file-input-neutral w-full"
-          onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-            dispatch(setCollectionImage(evt.currentTarget.value))
-          }
-        />
-      </label> */}
+      
       <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
       <div style={{ width: '800px' }}>
         <AdvancedImage
@@ -123,6 +120,7 @@ export default function SingleCollectionEdit() {
           plugins={[responsive(), placeholder()]}
         />
       </div>
+
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
       {data.myobjects && data.myobjects.length > 0
         ? data.myobjects?.map((object: IObject, index) => (
@@ -163,11 +161,7 @@ export default function SingleCollectionEdit() {
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
         onClick={() => {
-          if (data.id) {
-            dispatch(updateCollection(data.id));
-          } else {
-            dispatch(postCollection());
-          }
+          data.id ? dispatch(updateCollection(data.id)) : dispatch(postCollection())
         }}
       >
         Mettre à jour

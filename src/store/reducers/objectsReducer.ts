@@ -3,19 +3,28 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { CurrentObject, IObject } from '../../types/types';
+import {
+  CurrentObject,
+  ICollection,
+  IComment,
+  IObject,
+} from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
 import { NavigateFunction } from 'react-router-dom';
 
 interface ObjectsState {
   list: IObject[];
-  currentObject: IObject | {};
+  currentObject: CurrentObject;
+  comments: IComment[];
+  currentComment: IComment;
 }
 
 export const initialState: ObjectsState = {
   list: [],
   currentObject: {},
+  comments: [],
+  currentComment: {},
 };
 
 const token = JSON.parse(localStorage.getItem('jwt') ?? '');
@@ -32,6 +41,29 @@ export const fetchObjects = createAsyncThunk(
     const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}objects`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
+/**
+ * Middleware for fetching all comments
+ *
+ * Uses axios to request the /api/comments route and get all the comments from the API.
+ *
+ * @return {Promise} Return a promise with comments when fulfilled.
+ */
+export const fetchComments = createAsyncThunk(
+  'objects/fetchComments',
+  async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}comments`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -63,7 +95,7 @@ export const deleteObject = createAsyncThunk(
   'objects/deleteObject',
   async (id: number, thunkAPI) => {
     const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}object/delete/${id}`,
+      `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -80,7 +112,7 @@ export const updateObject = createAsyncThunk(
   async (id: number, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
-      `${import.meta.env.VITE_API_PATH}object/update/${id}`,
+      `${import.meta.env.VITE_API_PATH}object/${id}`,
       state.objects.currentObject,
       {
         headers: {
@@ -98,8 +130,29 @@ export const postObject = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}object/create`,
-      state.objects.currentObject,
+      `${import.meta.env.VITE_API_PATH}object`,
+      {
+        ...state.objects.currentObject,
+        title: state.objects.currentObject.name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  }
+);
+
+export const postComment = createAsyncThunk(
+  'objects/postComment',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_PATH}comment/create`,
+      state.objects.currentComment,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -118,6 +171,13 @@ export const setObjectDescription = createAction<string>(
 );
 export const setObjectImage = createAction<string>('object/setObjectImage');
 export const setObjectId = createAction<number>('object/setObjectId');
+export const setObjectState = createAction<string>('object/setObjectState');
+export const setObjectCategory = createAction<number>(
+  'object/setObjectCategory'
+);
+export const setObjectCollections = createAction<any>(
+  'object/setObjectCollections'
+);
 
 const objectsReducer = createReducer(initialState, (builder) => {
   builder
@@ -129,6 +189,16 @@ const objectsReducer = createReducer(initialState, (builder) => {
       state.list = action.payload;
     })
     .addCase(fetchObjects.rejected, (state, action) => {
+      console.log('rejected', action);
+    })
+    .addCase(fetchComments.pending, (state, action) => {
+      console.log('pending', action);
+    })
+    .addCase(fetchComments.fulfilled, (state, action) => {
+      console.log('fulfilled', action);
+      state.comments = action.payload;
+    })
+    .addCase(fetchComments.rejected, (state, action) => {
       console.log('rejected', action);
     })
     .addCase(fetchSingleObject.pending, (state, action) => {
@@ -175,13 +245,28 @@ const objectsReducer = createReducer(initialState, (builder) => {
       console.log('currentObject reset');
     })
     .addCase(setObjectName, (state, action) => {
-      (state.currentObject as CurrentObject).name = action.payload;
+      state.currentObject.name = action.payload;
+      console.log(state.currentObject.name);
     })
     .addCase(setObjectDescription, (state, action) => {
-      (state.currentObject as CurrentObject).description = action.payload;
+      state.currentObject.description = action.payload;
+      console.log(state.currentObject.description);
     })
     .addCase(setObjectImage, (state, action) => {
-      (state.currentObject as CurrentObject).image = action.payload;
+      state.currentObject.image = action.payload;
+      console.log(state.currentObject.image);
+    })
+    .addCase(setObjectState, (state, action) => {
+      state.currentObject.state = action.payload;
+      console.log(state.currentObject.state);
+    })
+    .addCase(setObjectCategory, (state, action) => {
+      state.currentObject.relatedCategory = action.payload;
+      console.log(state.currentObject.relatedCategory);
+    })
+    .addCase(setObjectCollections, (state, action) => {
+      state.currentObject.relatedMyCollections = action.payload;
+      console.log(state.currentObject.relatedMyCollections);
     });
 });
 

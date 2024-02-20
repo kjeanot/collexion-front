@@ -25,3 +25,17 @@ export function collectionsLoader(): Promise<AxiosResponse<any, any>> {
   });
   return promise;
 }
+
+export function singleObjectLoader({ params }: { params: Params }): any {
+  if (params.id) {
+    const promise = axios.get(
+      `${import.meta.env.VITE_API_PATH}object/${params.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return promise;
+  }
+}

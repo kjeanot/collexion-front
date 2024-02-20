@@ -9,10 +9,8 @@ import { RootState } from '..';
 
 interface CollectionsState {
   list: ICollection[];
-  currentCollection: ICollection | {};
+  currentCollection: CurrentCollection;
 }
-
-
 
 export const initialState: CollectionsState = {
   list: [],
@@ -81,7 +79,7 @@ export const updateCollection = createAsyncThunk(
   async (id: number, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
-      `${import.meta.env.VITE_API_PATH}collection/update/${id}`,
+      `${import.meta.env.VITE_API_PATH}collection/${id}`,
       state.collections.currentCollection,
       {
         headers: {
@@ -190,14 +188,15 @@ const collectionsReducer = createReducer(initialState, (builder) => {
       (state.currentCollection as CurrentCollection).name = action.payload;
     })
     .addCase(setCollectionDescription, (state, action) => {
-      (state.currentCollection as CurrentCollection).description = action.payload;
+      (state.currentCollection as CurrentCollection).description =
+        action.payload;
     })
     .addCase(setCollectionImage, (state, action) => {
       (state.currentCollection as CurrentCollection).image = action.payload;
     })
     .addCase(setCollectionObjects, (state, action) => {
       (state.currentCollection as CurrentCollection).myobjects = action.payload;
-      console.log((state.currentCollection as CurrentCollection))
+      console.log(state.currentCollection as CurrentCollection);
     });
 });
 
