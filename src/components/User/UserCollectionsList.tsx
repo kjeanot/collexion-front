@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
 import { useAppSelector } from '../../hooks/redux';
 import { ICollection } from '../../types/types';
+import { useParams } from 'react-router-dom';
 
 export default function UserCollectionsList() {
 
