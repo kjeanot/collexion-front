@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
+import { IObject } from '../../types/types';
 
-export default function CarrouselObjects() {
+export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -38,6 +40,27 @@ export default function CarrouselObjects() {
       dotListClass="md:invisible custom-dot-list-style opacity-70"
       itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
     >
+      {objects.map((object) => (
+        <div key={object.id}>
+          <Link
+            to={`/object/${object.id}`}
+            className="card h-80 bg-base-100 shadow hover:bg-gray-100"
+          >
+            <figure>
+              <img
+                className="object-cover h-72 w-full"
+                src={object.image}
+                alt={object.name}
+              />
+            </figure>
+            <div className="card-body">
+              <h3 className="card-title text-center line-clamp-1">
+                {object.name}
+              </h3>
+            </div>
+          </Link>
+        </div>
+      ))}
       <div>
         <a href="">
           <div className="card h-80 bg-base-100 shadow hover:contrast-50">

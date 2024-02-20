@@ -19,6 +19,7 @@ import UserCollectionsList from './components/User/UserCollectionsList';
 import User from './components/User/User';
 import {
   collectionsLoader,
+  randomCollectionLoader,
   singleCollectionLoader,
   singleObjectLoader,
 } from './loaders/loaders';
@@ -48,6 +49,12 @@ const router = createBrowserRouter(
         path="/collection/:id"
         element={<SingleCollection />}
         loader={singleCollectionLoader}
+        errorElement={<Error />}
+      />
+      <Route
+        path="/collection/random"
+        element={<SingleCollection />}
+        loader={randomCollectionLoader}
         errorElement={<Error />}
       />
       <Route path="/collection/:id/edit" element={<SingleCollectionEdit />} />

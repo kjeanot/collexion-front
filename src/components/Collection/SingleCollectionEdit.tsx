@@ -39,7 +39,7 @@ export default function SingleCollectionEdit() {
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
-    sources: [ "local" ],
+    sources: ['local'],
     // cropping: true, //add a cropping step
     // showAdvancedOptions: true,  //add advanced options (public_id and tag)
     // sources: [ "local", "url"], // restrict the upload sources to URL and local files
@@ -62,13 +62,13 @@ export default function SingleCollectionEdit() {
 
   const myImage = cld.image(publicId);
 
- /**
- * 
- * Returns an updated array of the objects associated to the collection, less the deleted ones.
- * Dispatches the array to the state.
- * 
- * @return {void}
- */
+  /**
+   *
+   * Returns an updated array of the objects associated to the collection, less the deleted ones.
+   * Dispatches the array to the state.
+   *
+   * @return {void}
+   */
   function handleObjectsRemoving(id: number): void {
     let result: IObject[] = [];
     if (data) {
@@ -111,7 +111,7 @@ export default function SingleCollectionEdit() {
           }
         ></textarea>
       </label>
-      
+
       <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
       <div style={{ width: '800px' }}>
         <AdvancedImage
@@ -161,7 +161,9 @@ export default function SingleCollectionEdit() {
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
         onClick={() => {
-          data.id ? dispatch(updateCollection(data.id)) : dispatch(postCollection())
+          data.id
+            ? dispatch(updateCollection(data.id))
+            : dispatch(postCollection());
         }}
       >
         Mettre à jour

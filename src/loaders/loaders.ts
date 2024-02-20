@@ -17,6 +17,18 @@ export function singleCollectionLoader({ params }: { params: Params }): any {
   }
 }
 
+export function randomCollectionLoader(): Promise<AxiosResponse<any, any>> {
+  const promise = axios.get(
+    `${import.meta.env.VITE_API_PATH}collection_random`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return promise;
+}
+
 export function collectionsLoader(): Promise<AxiosResponse<any, any>> {
   const promise = axios.get(`${import.meta.env.VITE_API_PATH}collections`, {
     headers: {

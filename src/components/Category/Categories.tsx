@@ -4,7 +4,6 @@ import GalleryCategories from '../Gallery/GalleryCategories';
 import CarrouselCategories from '../Carrousel/CarrouselCategories';
 import Background from '../Background/Background';
 import { fetchCategories } from '../../store/reducers/categoriesReducer';
-import Filter from '../Filter/Filter';
 
 export default function Categories() {
   const dispatch = useAppDispatch();
@@ -23,15 +22,13 @@ export default function Categories() {
           <h2 className="font-bold text-2xl text-customred mt-10">
             Catégories à la une
           </h2>
-          <CarrouselCategories />
-          <div className="flex justify-between">
-            <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
-              Toutes les catégories
-            </h2>
-            <Filter />
-          </div>
-          <GalleryCategories categories={data} />
+          <CarrouselCategories categories={data} />
+
+          <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
+            Toutes les catégories
+          </h2>
         </div>
+        <GalleryCategories categories={data} />
       </div>
     </div>
   );

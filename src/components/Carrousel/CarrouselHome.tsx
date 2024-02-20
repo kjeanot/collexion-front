@@ -52,7 +52,11 @@ export default function Carrousel({
             className="card bg-base-100 shadow hover:bg-gray-100"
           >
             <figure>
-              <img src="https://picsum.photos/1000" alt={collection.name} />
+              <img
+                className="object-cover h-72 w-full"
+                src={collection.image}
+                alt={collection.name}
+              />
             </figure>
             <div className="card-body">
               <h3 className="card-title line-clamp-1 text-customred">

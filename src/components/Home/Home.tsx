@@ -6,12 +6,19 @@ import CarrouselHome from '../Carrousel/CarrouselHome';
 import CollectionCTA from '../Collection/CollectionCTA';
 import ObjectCard from '../Object/ObjectCard';
 import { fetchCollections } from '../../store/reducers/collectionsReducer';
+import { fetchObjects } from '../../store/reducers/objectsReducer';
+import { fetchCategories } from '../../store/reducers/categoriesReducer';
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.collections.list);
+  const dataCollections = useAppSelector((state) => state.collections.list);
+  const dataObjects = useAppSelector((state) => state.objects.list);
+  const dataCategories = useAppSelector((state) => state.categories.list);
+
   useEffect(() => {
     dispatch(fetchCollections());
+    dispatch(fetchObjects());
+    dispatch(fetchCategories());
   }, []);
   return (
     <div>
@@ -26,7 +33,7 @@ export default function Home() {
       <h2 className="font-bold text-2xl text-customred mt-10">
         Collection à la une
       </h2>
-      <CarrouselHome collections={data} />
+      <CarrouselHome collections={dataCollections} />
       <div className="flex justify-end">
         <Link to="/collections">
           <button
@@ -41,12 +48,12 @@ export default function Home() {
         Les derniers objets ajoutés
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-10">
-        {[...Array(6)].map((_, index) => (
+        {dataObjects.slice(-6).map((objet, _) => (
           <ObjectCard
-            key={index}
-            id={index}
-            name="object"
-            image="https://picsum.photos/1000"
+            key={objet.id}
+            id={objet.id}
+            name={objet.name}
+            image={objet.image}
           />
         ))}
       </div>
@@ -65,12 +72,12 @@ export default function Home() {
         Les catégories phares
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-10">
-        {[...Array(6)].map((_, index) => (
+        {dataCategories.slice(-6).map((category, _) => (
           <ObjectCard
-            key={index}
-            id={index}
-            name="category"
-            image="https://picsum.photos/1000"
+            key={category.id}
+            id={category.id}
+            name={category.name}
+            image={category.image}
           />
         ))}
       </div>

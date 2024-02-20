@@ -24,7 +24,9 @@ export default function Footer() {
         <NavLink className="link link-hover" to={'/collections'}>
           Collections
         </NavLink>
-        <a className="link link-hover">Collection au hasard</a>
+        <NavLink className="link link-hover" to={'/collection/random'}>
+          Collection au hasard
+        </NavLink>
         <a className="link link-hover">Objet au hasard</a>
       </nav>
       <nav>
