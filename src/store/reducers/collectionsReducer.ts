@@ -17,6 +17,8 @@ export const initialState: CollectionsState = {
   currentCollection: {},
 };
 
+const storedToken = localStorage.getItem("jwt");
+
 /**
  * Middleware for fetching all the collections
  *
@@ -27,16 +29,17 @@ export const initialState: CollectionsState = {
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}collections`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
     return response.data;
+    }
   }
 );
 
@@ -45,74 +48,74 @@ export const fetchCollections = createAsyncThunk(
 export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}collection/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
     return response.data;
-  }
+  }}
 );
 
 export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.delete(
       `${import.meta.env.VITE_API_PATH}collection/delete/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
 
     return response.data;
-  }
+  }}
 );
 
 export const updateCollection = createAsyncThunk(
   'collections/updateCollection',
   
   async (id: number, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
       `${import.meta.env.VITE_API_PATH}collection/${id}`,
       state.collections.currentCollection,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
 
     return response.data;
-  }
+  }}
 );
 
 export const postCollection = createAsyncThunk(
   'collections/postCollection',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
+    const state = thunkAPI.getState() as RootState
     const response = await axios.post(
       
       `${import.meta.env.VITE_API_PATH}collection/create`,
       state.collections.currentCollection,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
 
     return response.data;
-  }
+  }}
 );
 
 export const resetCurrentCollection = createAction(

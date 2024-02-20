@@ -17,6 +17,7 @@ export const initialState: CategoriesState = {
   currentCategory: null,
 };
 
+const storedToken = localStorage.getItem("jwt");
 /**
  * Middleware for fetching all the categories
  *
@@ -27,17 +28,17 @@ export const initialState: CategoriesState = {
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}categories`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
     return response.data;
-  }
+  }}
 );
 
 // Middlewares for a single Categories CRUD
@@ -45,11 +46,12 @@ export const fetchCategories = createAsyncThunk(
 export const fetchSingleCategory = createAsyncThunk(
   'categories/fetchSingleCategory',
   async (id: number, thunkAPI) => {
+    if (storedToken) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}categories/${id}`
     );
     return response.data;
-  }
+  }}
 );
 
 const collectionsReducer = createReducer(initialState, (builder) => {

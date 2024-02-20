@@ -27,6 +27,7 @@ export const initialState: ObjectsState = {
   currentComment: {},
 };
 
+const storedToken = localStorage.getItem("jwt");
 /**
  * Middleware for fetching all the objects
  *
@@ -37,17 +38,17 @@ export const initialState: ObjectsState = {
 export const fetchObjects = createAsyncThunk(
   'objects/fetchObjects',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}objects`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
     return response.data;
-  }
+  }}
 );
 
 /**
@@ -60,17 +61,17 @@ export const fetchObjects = createAsyncThunk(
 export const fetchComments = createAsyncThunk(
   'objects/fetchComments',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}comments`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
     return response.data;
-  }
+  }}
 );
 
 // Middlewares for a single Object CRUD
@@ -78,40 +79,40 @@ export const fetchComments = createAsyncThunk(
 export const fetchSingleObject = createAsyncThunk(
   'objects/fetchSingleObject',
   async (id: number, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
     return response.data;
-  }
+  }}
 );
 
 export const deleteObject = createAsyncThunk(
   'objects/deleteObject',
   async (id: number, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const response = await axios.delete(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
 
     return response.data;
-  }
+  }}
 );
 
 export const updateObject = createAsyncThunk(
   'objects/updateObject',
   async (id: number, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
@@ -121,19 +122,19 @@ export const updateObject = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
 
     return response.data;
-  }
+  }}
 );
 
 export const postObject = createAsyncThunk(
   'objects/postObject',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}object`,
@@ -143,32 +144,32 @@ export const postObject = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
 
     return response.data;
-  }
+  }}
 );
 
 export const postComment = createAsyncThunk(
   'objects/postComment',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    if (storedToken) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}comment/create`,
       state.objects.currentComment,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       }
     );
 
     return response.data;
-  }
+  }}
 );
 
 export const resetCurrentObject = createAction('objects/resetCurrentObject');
