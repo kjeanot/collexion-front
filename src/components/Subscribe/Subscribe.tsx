@@ -13,24 +13,40 @@ export default function Subscribe({}: Props) {
       <div className="border mt-6" />
       {/* form */}
       <div className="mt-6">
-        <label className="form-control w-full max-w-xs">
+      <label className="form-control w-full max-w-xs" htmlFor="user-nickname">
+          <div className="label">
+            <span className="label-text">Pseudo</span>
+          </div>
+          <input
+            id="user-email"
+            type="text"
+            placeholder="email@gmail.com"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+        </label>
+        <label className="form-control w-full max-w-xs" htmlFor="user-email">
           <div className="label">
             <span className="label-text">Email</span>
           </div>
           <input
+            id="user-email"
             type="text"
             placeholder="email@gmail.com"
             className="input input-bordered w-full max-w-xs"
+            required
           />
         </label>
-        <label className="form-control w-full max-w-xs">
+        <label className="form-control w-full max-w-xs" htmlFor="user-password">
           <div className="label">
             <span className="label-text">Mot de passe</span>
           </div>
           <input
+            id="password"
             type="password"
             placeholder="••••••••"
             className="input input-bordered w-full max-w-xs"
+            required
           />
         </label>
         <p className="text-sm ml-1 mt-6">
