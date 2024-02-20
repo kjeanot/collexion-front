@@ -12,6 +12,7 @@ import {
 } from '../../store/reducers/collectionsReducer';
 import Modal from '../Modal/Modal';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
+import { resetCurrentObject } from '../../store/reducers/objectsReducer';
 
 export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
@@ -100,9 +101,11 @@ export default function SingleCollection() {
         {data.myobjects.map((object: IObject) => (
           <ObjectCard id={object.id} name={object.name} image={object.image} />
         ))}
+        <Link to="/object/new" onClick={()=> dispatch(resetCurrentObject())}>
         <button className="btn btn-square h-full w-full">
           + Ajouter un objet
         </button>
+        </Link>
       </div>
     </>
   );
