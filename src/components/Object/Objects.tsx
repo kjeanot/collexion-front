@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import GalleryCategories from '../Gallery/GalleryCategories';
-import CarrouselCategories from '../Carrousel/CarrouselCategories';
 import Background from '../Background/Background';
-import { fetchCategories } from '../../store/reducers/categoriesReducer';
+import { fetchObjects } from '../../store/reducers/objectsReducer';
+import GalleryObjects from '../Gallery/GalleryObjects';
+import CarrouselObjects from '../Carrousel/CarrouselObjects';
 
 export default function Objects() {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.categories.list);
+  const data = useAppSelector((state) => state.objects.list);
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchObjects());
   }, []);
   return (
     <div>
@@ -17,16 +17,16 @@ export default function Objects() {
         <Background />
         <div>
           <h1 className="md:h-20 p-5 text-center text-2xl font-bold text-white bg-gradient-to-r from-customred to-customorange">
-            Catégories
+            Objets
           </h1>
           <h2 className="font-bold text-2xl text-customred mt-10">
-            Catégories à la une
+            Objets à la une
           </h2>
-          <CarrouselCategories />
+          <CarrouselObjects />
           <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
-            Toutes les catégories
+            Toutes les Objets
           </h2>
-          <GalleryCategories categories={data} />
+          <GalleryObjects objects={data} />
         </div>
       </div>
     </div>

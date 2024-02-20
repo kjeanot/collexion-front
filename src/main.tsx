@@ -23,7 +23,6 @@ import Error from './components/Error/Error';
 import Subscribe from './components/Subscribe/Subscribe';
 import Home from './components/Home/Home';
 import Content from './components/Content/Content';
-import Gallery from './components/Gallery/Gallery';
 import Categories from './components/Category/Categories';
 import ObjectPage from './components/ObjectPage/ObjectPage';
 import Objects from './components/Object/Objects';

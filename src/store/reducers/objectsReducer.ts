@@ -13,8 +13,6 @@ interface ObjectsState {
   currentObject: IObject | {};
 }
 
-
-
 export const initialState: ObjectsState = {
   list: [],
   currentObject: {},
@@ -113,21 +111,13 @@ export const postObject = createAsyncThunk(
   }
 );
 
-export const resetCurrentObject = createAction(
-  'objects/resetCurrentObject'
-);
-export const setObjectName = createAction<string>(
-  'object/setObjectName'
-);
+export const resetCurrentObject = createAction('objects/resetCurrentObject');
+export const setObjectName = createAction<string>('object/setObjectName');
 export const setObjectDescription = createAction<string>(
   'object/setObjectDescription'
 );
-export const setObjectImage = createAction<string>(
-  'object/setObjectImage'
-);
-export const setObjectId = createAction<number>(
-  'object/setObjectId'
-);
+export const setObjectImage = createAction<string>('object/setObjectImage');
+export const setObjectId = createAction<number>('object/setObjectId');
 
 const objectsReducer = createReducer(initialState, (builder) => {
   builder

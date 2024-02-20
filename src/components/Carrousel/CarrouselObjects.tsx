@@ -4,7 +4,7 @@ import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting
 
 type Props = {};
 
-export default function CarrouselCategories({}: Props) {
+export default function CarrouselObjects({}: Props) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -51,7 +51,7 @@ export default function CarrouselCategories({}: Props) {
               />
             </figure>
             <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>
@@ -67,7 +67,7 @@ export default function CarrouselCategories({}: Props) {
               />
             </figure>
             <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>
@@ -79,7 +79,7 @@ export default function CarrouselCategories({}: Props) {
               <img className="" src={banner} alt="Shoes" />
             </figure>
             <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>
@@ -95,7 +95,7 @@ export default function CarrouselCategories({}: Props) {
               />
             </figure>
             <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
+              <h3 className="card-title justify-center">Objet x</h3>
             </div>
           </div>
         </a>

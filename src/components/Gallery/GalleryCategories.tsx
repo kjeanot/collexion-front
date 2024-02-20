@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ICategory } from '../../types/types';
 
-export default function Gallery({ categories }: { categories: ICategory[] }) {
+export default function GalleryCategories({
+  categories,
+}: {
+  categories: ICategory[];
+}) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
       {categories.map((category) => (
