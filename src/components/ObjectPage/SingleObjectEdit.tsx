@@ -103,8 +103,14 @@ export default function SingleObjectEdit() {
     dispatch(fetchCollections());
 
     data.category?.id && dispatch(setObjectCategory(data.category.id));
-    data.myCollections && dispatch(setObjectCollections(data.myCollections.map((collection) => { return {"id" : collection.id };})))
-    
+    data.myCollections &&
+      dispatch(
+        setObjectCollections(
+          data.myCollections.map((collection) => {
+            return { id: collection.id };
+          })
+        )
+      );
 
     // If it's not an existing object, affect the current collection to the object
     !data.id && dispatch(setObjectCollections([{ id: currentCollection.id }]));
@@ -185,7 +191,11 @@ export default function SingleObjectEdit() {
         </select>
       </label>
 
-      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} entity="object"/>
+      <CloudinaryUploadWidget
+        uwConfig={uwConfig}
+        setPublicId={setPublicId}
+        entity="object"
+      />
       <div style={{ width: '800px' }}>
         <AdvancedImage
           style={{ maxWidth: '100%' }}
@@ -195,16 +205,13 @@ export default function SingleObjectEdit() {
       </div>
 
       {data && <h2 className="text-xl my-6">Collection(s) rattachée(s)</h2>}
-      {( relatedCollections && relatedCollections?.length > 0) ? (
+      {relatedCollections && relatedCollections?.length > 0 ? (
         relatedCollections.map((object: ICollection, index) => (
           <div
             key={index}
             className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
           >
-            <img
-              src="https://picsum.photos/200"
-              className="max-w-16 mr-4 object-fill"
-            />
+            <img src={object.image} className="max-w-16 mr-4 object-fill" />
             <p className="block flex-1">{object.name}</p>
             <button
               className="btn rounded-none h-16"
