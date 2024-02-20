@@ -1,9 +1,4 @@
-import React from 'react';
-import Carrousel from '../Carrousel/Carrousel';
-
-type Props = {};
-
-export default function Gallery({}: Props) {
+export default function Gallery() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
       <a href="">

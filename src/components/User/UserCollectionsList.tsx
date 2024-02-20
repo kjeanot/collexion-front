@@ -1,7 +1,6 @@
-import React from 'react';
-import CollectionTile from '../Collection/CollectionTile';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import CollectionTile from '../Collection/CollectionTile';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
 
 export default function UserCollectionsList() {

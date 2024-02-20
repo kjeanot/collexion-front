@@ -1,11 +1,15 @@
+import { useEffect } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
+import {
+  deleteObject,
+  fetchComments,
+  fetchSingleObject,
+} from '../../store/reducers/objectsReducer';
 import { ICollection, IObject } from '../../types/types';
 import Avatar from '../Avatar/Avatar';
 import ObjectCard from '../Object/ObjectCard';
 import Background from '../Background/Background';
-import { Link, useLoaderData } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useEffect } from 'react';
-import { deleteObject, fetchComments, fetchSingleObject } from '../../store/reducers/objectsReducer';
 import Modal from '../Modal/Modal';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import Comments from '../Comment/Comments';
@@ -14,7 +18,7 @@ export default function ObjectPage() {
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
   const dispatch = useAppDispatch();
   const showModal = useAppSelector((state) => state.app.showModal);
-  const comments = useAppSelector(state => state.objects.comments);
+  const comments = useAppSelector((state) => state.objects.comments);
   console.log(comments);
 
   const handleDelete = () => {
@@ -29,7 +33,7 @@ export default function ObjectPage() {
     <>
       {showModal && (
         <Modal
-          actionLabel={'Supprimer l\'objet'}
+          actionLabel={"Supprimer l'objet"}
           action={() => handleDelete()}
         />
       )}
@@ -63,9 +67,9 @@ export default function ObjectPage() {
                   </svg>
                 </button>
               </Link>
-              <button 
-              className="btn btn-circle"
-              onClick={() => dispatch(switchModalDisplay())}
+              <button
+                className="btn btn-circle"
+                onClick={() => dispatch(switchModalDisplay())}
               >
                 <svg
                   className="w-6 h-6 text-gray-800"
@@ -107,16 +111,17 @@ export default function ObjectPage() {
 
         <h2 className="text-xl mb-6">Objets similaires</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-6">
-          {data.myobjects ?
-            data.myobjects?.map((object: IObject) => (
-              <ObjectCard
-                id={object.id}
-                name={object.name}
-                image={object.image}
-              />
-            )): 'Aucune recommandation pour l\'instant'}
+          {data.myobjects
+            ? data.myobjects?.map((object: IObject) => (
+                <ObjectCard
+                  id={object.id}
+                  name={object.name}
+                  image={object.image}
+                />
+              ))
+            : "Aucune recommandation pour l'instant"}
         </div>
-        <Comments comments={comments}/>
+        <Comments comments={comments} />
       </div>
     </>
   );
