@@ -112,7 +112,7 @@ export default function SingleCollectionEdit() {
         ></textarea>
       </label>
       
-      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
+      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} entity="collection"/>
       <div style={{ width: '800px' }}>
         <AdvancedImage
           style={{ maxWidth: '100%' }}

@@ -113,7 +113,10 @@ export const updateObject = createAsyncThunk(
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
-      state.objects.currentObject,
+      {
+        ...state.objects.currentObject,
+        relatedMyCollections: state.objects.currentObject.relatedMyCollections,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,

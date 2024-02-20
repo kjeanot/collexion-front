@@ -100,6 +100,10 @@ export default function SingleObjectEdit() {
     dispatch(fetchCategories());
     dispatch(fetchCollections());
 
+    data.category?.id && dispatch(setObjectCategory(data.category.id));
+    data.myCollections && dispatch(setObjectCollections(data.myCollections.map((collection) => { return {"id" : collection.id };})))
+    
+
     // If it's not an existing object, affect the current collection to the object
     !data.id && dispatch(setObjectCollections([{ id: currentCollection.id }]));
   }, []);
@@ -179,7 +183,7 @@ export default function SingleObjectEdit() {
         </select>
       </label>
 
-      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
+      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} entity="object"/>
       <div style={{ width: '800px' }}>
         <AdvancedImage
           style={{ maxWidth: '100%' }}

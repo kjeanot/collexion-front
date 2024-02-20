@@ -49,8 +49,8 @@ POST http://adrien-forbice.vpnuser.lan/projet-12-collexion-back/public/api/login
 content-type: application/json
 
 {
-  "username": "admin@admin.com",
-  "password": "admin"
+  "username": "kevin.jeanot@oclock.school",
+  "password": "canard"
 }
 
 ### Route Get User
@@ -181,6 +181,16 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgzNDU1N
 {
   "content": "Nouveau commentaire test",
   "myobject": "2",
+}
+
+### Route Login
+POST http://adrien-forbice.vpnuser.lan/projet-12-collexion-back/public/register HTTP/1.1
+content-type: application/json
+
+{
+  "nickname": "user3000",
+  "password": "3000",
+  "email": "3000@oclock.school"
 }
 
 
