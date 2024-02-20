@@ -27,7 +27,6 @@ export const initialState: ObjectsState = {
   currentComment: {},
 };
 
-const token = JSON.parse(localStorage.getItem('jwt') ?? '');
 /**
  * Middleware for fetching all the objects
  *
@@ -79,6 +78,7 @@ export const fetchComments = createAsyncThunk(
 export const fetchSingleObject = createAsyncThunk(
   'objects/fetchSingleObject',
   async (id: number, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
@@ -94,6 +94,7 @@ export const fetchSingleObject = createAsyncThunk(
 export const deleteObject = createAsyncThunk(
   'objects/deleteObject',
   async (id: number, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.delete(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
@@ -110,6 +111,7 @@ export const deleteObject = createAsyncThunk(
 export const updateObject = createAsyncThunk(
   'objects/updateObject',
   async (id: number, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
@@ -131,6 +133,7 @@ export const updateObject = createAsyncThunk(
 export const postObject = createAsyncThunk(
   'objects/postObject',
   async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}object`,
@@ -152,6 +155,7 @@ export const postObject = createAsyncThunk(
 export const postComment = createAsyncThunk(
   'objects/postComment',
   async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}comment/create`,
