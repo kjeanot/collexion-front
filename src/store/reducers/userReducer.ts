@@ -19,44 +19,50 @@ export const initialState: IUser = {
   picture: undefined,
 };
 
+const storedToken = localStorage.getItem('jwt');
+
 export const setEmail = createAction<string>('user/setUsername');
 export const setPassword = createAction<string>('user/setPassword');
 export const setNickname = createAction<string>('user/setNickname');
 export const setPicture = createAction<string>('user/setPicture');
 export const setRoles = createAction<IRole[]>('user/setRoles');
-export const setUserDescription = createAction<string>('user/setUserDescription');
+export const setUserDescription = createAction<string>(
+  'user/setUserDescription'
+);
 
 export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
   'user/login_check',
   async (_, thunkAPI) => {
     // Retreive the state to pass the stored informations into the API request body
     const state = thunkAPI.getState() as RootState;
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}login_check`,
-      {
-        username: state.user.email,
-        password: state.user.password,
-      }
-    );
-    return response.data;
+    if (storedToken) {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}login_check`,
+        {
+          username: state.user.email,
+          password: state.user.password,
+        }
+      );
+      return response.data;
+    }
   }
 );
 
 export const fetchUserInfo = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}user/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
+    if (storedToken) {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        }
+      );
+      return response.data;
+    }
   }
 );
 
