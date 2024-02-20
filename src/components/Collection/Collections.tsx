@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import CollectionsList from './CollectionsList';
 import CollectionCTA from './CollectionCTA';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useLoaderData } from 'react-router-dom';
 import { ICollection } from '../../types/types';
 import { fetchCollections } from '../../store/reducers/collectionsReducer';
 
@@ -13,8 +13,6 @@ export default function Collections() {
   useEffect(() => {
     dispatch(fetchCollections());
   }, []);
-
-
 
   console.log(data);
   return (

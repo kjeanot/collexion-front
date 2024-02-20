@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function CollectionTile() {
   return (
     <article className="card sm:card-side bg-base-100 shadow-xl flex-col sm:flex-row">

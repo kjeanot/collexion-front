@@ -2,9 +2,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
 
-type Props = {};
-
-export default function CarrouselCategories({}: Props) {
+export default function CarrouselCategories() {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.

@@ -1,5 +1,3 @@
-import React from 'react';
-
 type Props = {
   value: number | null | undefined;
 };
@@ -9,7 +7,7 @@ export default function Rating({ value }: Props) {
     <div className="h-fit flex">
       {
         // Adding stars depending on the collection rating value
-        (value != null && value > 0) ? (
+        value != null && value > 0 ? (
           // Creating an array from the collection rating value to be able to map it and generate stars
           [...Array(value)].map((_, index) => (
             <svg

@@ -1,6 +1,6 @@
+import { useLocation, useParams } from 'react-router-dom';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useLocation, useParams } from 'react-router-dom';
 import {
   postObject,
   setObjectDescription,
@@ -32,7 +32,9 @@ export default function SingleObjectEdit() {
   );
 
   // Retreive collections which contains the current object
-  const relatedCollections = useAppSelector(state => state.objects.currentObject.myCollections);
+  const relatedCollections = useAppSelector(
+    (state) => state.objects.currentObject.myCollections
+  );
 
   const categories: ICategory[] = useAppSelector(
     (state) => state.categories.list
@@ -89,7 +91,7 @@ export default function SingleObjectEdit() {
     if (data) {
       data?.relatedMyCollections?.map((el) => {
         if (el.id !== undefined && el.id !== id) {
-          result.push({id: el.id});
+          result.push({ id: el.id });
         }
       });
     }

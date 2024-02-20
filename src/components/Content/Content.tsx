@@ -1,6 +1,4 @@
-type Props = {};
-
-export default function Content({}: Props) {
+export default function Content() {
   return (
     <div className="text-justify my-8">
       <h1 className="text-xl text-center font-bold uppercase mb-6 text-customred">
