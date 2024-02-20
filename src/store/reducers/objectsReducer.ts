@@ -95,7 +95,7 @@ export const deleteObject = createAsyncThunk(
   'objects/deleteObject',
   async (id: number, thunkAPI) => {
     const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}object/delete/${id}`,
+      `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -112,7 +112,7 @@ export const updateObject = createAsyncThunk(
   async (id: number, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
-      `${import.meta.env.VITE_API_PATH}object/update/${id}`,
+      `${import.meta.env.VITE_API_PATH}object/${id}`,
       state.objects.currentObject,
       {
         headers: {
@@ -133,7 +133,6 @@ export const postObject = createAsyncThunk(
       `${import.meta.env.VITE_API_PATH}object`,
       {
         ...state.objects.currentObject,
-        relatedCollections: state.objects.currentObject.relatedCollections,
         title: state.objects.currentObject.name,
       },
       {
@@ -173,10 +172,10 @@ export const setObjectDescription = createAction<string>(
 export const setObjectImage = createAction<string>('object/setObjectImage');
 export const setObjectId = createAction<number>('object/setObjectId');
 export const setObjectState = createAction<string>('object/setObjectState');
-export const setObjectCategory = createAction<string>(
+export const setObjectCategory = createAction<number>(
   'object/setObjectCategory'
 );
-export const setObjectCollections = createAction<[any]>(
+export const setObjectCollections = createAction<any>(
   'object/setObjectCollections'
 );
 
@@ -262,12 +261,12 @@ const objectsReducer = createReducer(initialState, (builder) => {
       console.log(state.currentObject.state);
     })
     .addCase(setObjectCategory, (state, action) => {
-      state.currentObject.category = action.payload;
-      console.log(state.currentObject.category);
+      state.currentObject.relatedCategory = action.payload;
+      console.log(state.currentObject.relatedCategory);
     })
     .addCase(setObjectCollections, (state, action) => {
-      state.currentObject.relatedCollections = action.payload;
-      console.log(state.currentObject.relatedCollections);
+      state.currentObject.relatedMyCollections = action.payload;
+      console.log(state.currentObject.relatedMyCollections);
     });
 });
 

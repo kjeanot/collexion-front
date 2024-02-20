@@ -37,11 +37,11 @@ export interface IObject {
   image?: string;
   description?: string;
   state?: string;
-  category?: string;
-  myCollections?: ICollection[] | [];
-  relatedCollections: ICollection[] | [any];
+  relatedMyCollections?: ICollection[] | [any];
+  myCollections?: ICollection[];
   comments?: IComment[] | [];
   category: ICategory;
+  relatedCategory: number;
 }
 
 export interface IRole {
