@@ -26,7 +26,7 @@ export default function Home() {
       <h2 className="font-bold text-2xl text-customred mt-10">
         Collection à la une
       </h2>
-      <CarrouselHome collections={data} />
+      {data && <CarrouselHome collections={data} />}
       <div className="flex justify-end">
         <Link to="/collections">
           <button

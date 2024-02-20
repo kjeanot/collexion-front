@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import { LoaderFunction, Params } from 'react-router-dom';
 
-const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+const storedToken = localStorage.getItem('jwt');
+const token = storedToken ? JSON.parse(storedToken) : '';
 
 export function singleCollectionLoader({ params }: { params: Params }): any {
   if (params.id) {
@@ -30,6 +31,20 @@ export function singleObjectLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(
       `${import.meta.env.VITE_API_PATH}object/${params.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return promise;
+  }
+}
+
+export function userLoader({ params }: { params: Params }): any {
+  if (params.id) {
+    const promise = axios.get(
+      `${import.meta.env.VITE_API_PATH}user/${params.id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

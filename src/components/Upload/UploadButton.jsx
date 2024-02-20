@@ -4,7 +4,7 @@ import { setCollectionImage } from '../../store/reducers/collectionsReducer';
 import { useAppDispatch } from '../../hooks/redux';
 import { setObjectImage } from '../../store/reducers/objectsReducer';
 
-function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
+function CloudinaryUploadWidget({ uwConfig, setPublicId, entity }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -34,8 +34,11 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
           if (!error && result && result.event === 'success') {
             console.log('Done! Here is the image info: ', result.info);
             setPublicId(result.info.public_id);
-            dispatch(setCollectionImage(result.info.secure_url));
-            dispatch(setObjectImage(result.info.secure_url));
+
+            entity === 'collection' &&
+              dispatch(setCollectionImage(result.info.secure_url));
+            entity === 'object' &&
+              dispatch(setObjectImage(result.info.secure_url));
           }
         }
       );

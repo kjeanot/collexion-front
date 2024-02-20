@@ -21,6 +21,7 @@ import {
   collectionsLoader,
   singleCollectionLoader,
   singleObjectLoader,
+  userLoader,
 } from './loaders/loaders';
 import Error from './components/Error/Error';
 import Subscribe from './components/Subscribe/Subscribe';
@@ -61,7 +62,7 @@ const router = createBrowserRouter(
       <Route path="/object/:id/edit" element={<SingleObjectEdit />} />
       <Route path="/object/new" element={<SingleObjectEdit />} />
       <Route path="/subscribe" element={<Subscribe />} />
-      <Route path="/user/:id" element={<User />}>
+      <Route path="/user/:id" loader={userLoader} element={<User />} errorElement={<Error />}>
         <Route index element={<UserCollectionsList />} />
         <Route path="/user/:id/favorites" element={<Subscribe />} />
       </Route>

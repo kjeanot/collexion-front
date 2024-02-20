@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
 import {
-  login,
+  loginCheck,
+  setEmail,
   setPassword,
-  setUsername,
 } from '../../store/reducers/userReducer';
 
 export default function Login() {
@@ -65,7 +65,7 @@ export default function Login() {
                   placeholder="email@gmail.com"
                   required
                   onChange={(evt) => {
-                    dispatch(setUsername(evt.currentTarget.value));
+                    dispatch(setEmail(evt.currentTarget.value));
                   }}
                 />
               </div>
@@ -97,7 +97,7 @@ export default function Login() {
                 className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
                 onClick={(evt) => {
                   evt.preventDefault();
-                  dispatch(login());
+                  dispatch(loginCheck());
                   dispatch(switchLoginDisplay());
                 }}
               >
