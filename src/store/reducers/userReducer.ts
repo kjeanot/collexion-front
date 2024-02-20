@@ -20,6 +20,7 @@ export const initialState: IUser = {
 };
 
 const storedToken = localStorage.getItem('jwt');
+const token = storedToken ? storedToken : '';
 
 export const setEmail = createAction<string>('user/setUsername');
 export const setPassword = createAction<string>('user/setPassword');
@@ -30,34 +31,50 @@ export const setUserDescription = createAction<string>(
   'user/setUserDescription'
 );
 
+export const register = createAsyncThunk<StateFromReducersMapObject<any>>(
+  'user/register',
+  async (_, thunkAPI) => {
+    // Retreive the state to pass the stored informations into the API request body
+    const state = thunkAPI.getState() as RootState;
+
+    const response = await axios.post(
+      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/register`,
+      {
+        nickname: state.user.nickname,
+        email: state.user.email,
+        password: state.user.password,
+      }
+    );
+    return response.data;
+  }
+);
+
 export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
   'user/login_check',
   async (_, thunkAPI) => {
     // Retreive the state to pass the stored informations into the API request body
     const state = thunkAPI.getState() as RootState;
 
-    if (storedToken) {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}login_check`,
-        {
-          username: state.user.email,
-          password: state.user.password,
-        }
-      );
-      return response.data;
-    }
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_PATH}login_check`,
+      {
+        username: state.user.email,
+        password: state.user.password,
+      }
+    );
+    return response.data;
   }
 );
 
 export const fetchUserInfo = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
       const response = await axios.get(
         `${import.meta.env.VITE_API_PATH}user/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${storedToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -68,18 +85,31 @@ export const fetchUserInfo = createAsyncThunk(
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(register.pending, (state, action) => {
+      console.log('register pending', action);
+    })
+    .addCase(register.fulfilled, (state, action) => {
+      console.log('register fulfilled', action);
+      loginCheck();
+    })
+    .addCase(register.rejected, (state, action) => {
+      console.log('register rejected', action);
+    })
     .addCase(loginCheck.pending, (state, action) => {
       console.log('pending', action);
     })
     .addCase(loginCheck.fulfilled, (state, action) => {
       console.log('fulfilled', action);
-      state = action.payload;
-      axios.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${localStorage.setItem(
-        'jwt',
-        JSON.stringify(action.payload.token)
-      )}`;
+      state.id = (action.payload as IUser).id;
+      state.nickname = (action.payload as IUser).nickname;
+      state.email = (action.payload as IUser).email;
+      state.description = (action.payload as IUser).description;
+      state.picture = (action.payload as IUser).picture;
+      state.roles = (action.payload as IUser).roles;
+      state.token = (action.payload as IUser).token;
+      state.username = (action.payload as IUser).username;
+      localStorage.setItem('jwt', JSON.stringify(state.token));
+      localStorage.setItem('uid', JSON.stringify(state.id));
     })
     .addCase(loginCheck.rejected, (state, action) => {
       console.log('rejected', action);

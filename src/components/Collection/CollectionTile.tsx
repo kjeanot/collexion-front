@@ -3,12 +3,12 @@ import { ICollection } from '../../types/types';
 
 export default function CollectionTile({ data }: { data: ICollection }) {
   return (
-    <article className="card sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row">
-      <figure className="h-60 md:w-60 w-full flex-none">
+    <article className="card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row">
+      <figure className="h-full md:w-60 w-full flex-none">
         <img
           src={data.image}
           alt={data.name}
-          className="object-cover h-60 md:w-60 w-full"
+          className="object-cover h-full"
         />
       </figure>
       <div className="card-body pt-2 pr-2">
@@ -75,8 +75,8 @@ export default function CollectionTile({ data }: { data: ICollection }) {
             </svg>
           </button>
         </div>
-        <h2 className="card-title">{data.name}</h2>
-        <p className="line-clamp-4">{data.description}</p>
+        <h2 className="card-title pr-4">{data.name}</h2>
+        <p className="line-clamp-3 pr-4">{data.description}</p>
       </div>
     </article>
   );

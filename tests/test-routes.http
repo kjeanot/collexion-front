@@ -45,12 +45,12 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgxMDEwM
 }
 
 ### Route Login
-POST http://adrien-forbice.vpnuser.lan/projet-12-collexion-back/public/api/login_check HTTP/1.1
+POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/login_check HTTP/1.1
 content-type: application/json
 
 {
-  "username": "kevin.jeanot@oclock.school",
-  "password": "canard"
+  "username": "admin@admin.com",
+  "password": "admin"
 }
 
 ### Route Get User
@@ -183,8 +183,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgzNDU1N
   "myobject": "2",
 }
 
-### Route Login
-POST http://adrien-forbice.vpnuser.lan/projet-12-collexion-back/public/register HTTP/1.1
+### Route register
+POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/register HTTP/1.1
 content-type: application/json
 
 {

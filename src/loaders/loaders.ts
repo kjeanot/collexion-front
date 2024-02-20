@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 import { LoaderFunction, Params } from 'react-router-dom';
 
-const token = localStorage.getItem('jwt');
+const storedToken = localStorage.getItem('jwt');
+const token = storedToken ? JSON.parse(storedToken) : '';
 
 export function singleCollectionLoader({ params }: { params: Params }): any {
   if (params.id) {

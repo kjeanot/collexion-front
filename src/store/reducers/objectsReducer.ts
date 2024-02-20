@@ -28,6 +28,7 @@ export const initialState: ObjectsState = {
 };
 
 const storedToken = localStorage.getItem("jwt");
+const token = storedToken ? JSON.parse(storedToken) : '';
 /**
  * Middleware for fetching all the objects
  *
@@ -38,12 +39,12 @@ const storedToken = localStorage.getItem("jwt");
 export const fetchObjects = createAsyncThunk(
   'objects/fetchObjects',
   async (_, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}objects`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -61,12 +62,12 @@ export const fetchObjects = createAsyncThunk(
 export const fetchComments = createAsyncThunk(
   'objects/fetchComments',
   async (_, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}comments`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -79,12 +80,12 @@ export const fetchComments = createAsyncThunk(
 export const fetchSingleObject = createAsyncThunk(
   'objects/fetchSingleObject',
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -95,12 +96,12 @@ export const fetchSingleObject = createAsyncThunk(
 export const deleteObject = createAsyncThunk(
   'objects/deleteObject',
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.delete(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -112,7 +113,7 @@ export const deleteObject = createAsyncThunk(
 export const updateObject = createAsyncThunk(
   'objects/updateObject',
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
       `${import.meta.env.VITE_API_PATH}object/${id}`,
@@ -122,7 +123,7 @@ export const updateObject = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -134,7 +135,7 @@ export const updateObject = createAsyncThunk(
 export const postObject = createAsyncThunk(
   'objects/postObject',
   async (_, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}object`,
@@ -144,7 +145,7 @@ export const postObject = createAsyncThunk(
       },
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -156,14 +157,14 @@ export const postObject = createAsyncThunk(
 export const postComment = createAsyncThunk(
   'objects/postComment',
   async (_, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}comment/create`,
       state.objects.currentComment,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

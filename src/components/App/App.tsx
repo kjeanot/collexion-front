@@ -3,7 +3,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import './App.scss';
 import SingleCollection from '../Collection/SingleCollection';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useEffect } from 'react';
 import { fetchCollections } from '../../store/reducers/collectionsReducer';
 

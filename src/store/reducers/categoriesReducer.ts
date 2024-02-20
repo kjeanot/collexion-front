@@ -18,6 +18,7 @@ export const initialState: CategoriesState = {
 };
 
 const storedToken = localStorage.getItem("jwt");
+const token = storedToken ? JSON.parse(storedToken) : '';
 /**
  * Middleware for fetching all the categories
  *
@@ -28,12 +29,12 @@ const storedToken = localStorage.getItem("jwt");
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
   async (_, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}categories`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -46,7 +47,7 @@ export const fetchCategories = createAsyncThunk(
 export const fetchSingleCategory = createAsyncThunk(
   'categories/fetchSingleCategory',
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}categories/${id}`
     );

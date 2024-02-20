@@ -18,6 +18,7 @@ export const initialState: CollectionsState = {
 };
 
 const storedToken = localStorage.getItem("jwt");
+const token = storedToken ? JSON.parse(storedToken) : '';
 
 /**
  * Middleware for fetching all the collections
@@ -29,12 +30,12 @@ const storedToken = localStorage.getItem("jwt");
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}collections`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -48,12 +49,12 @@ export const fetchCollections = createAsyncThunk(
 export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}collection/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -64,12 +65,12 @@ export const fetchSingleCollection = createAsyncThunk(
 export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}collection/delete/${id}`,
+      `${import.meta.env.VITE_API_PATH}collection/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -82,14 +83,14 @@ export const updateCollection = createAsyncThunk(
   'collections/updateCollection',
   
   async (id: number, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
       `${import.meta.env.VITE_API_PATH}collection/${id}`,
       state.collections.currentCollection,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -101,7 +102,7 @@ export const updateCollection = createAsyncThunk(
 export const postCollection = createAsyncThunk(
   'collections/postCollection',
   async (_, thunkAPI) => {
-    if (storedToken) {
+    if (token) {
     const state = thunkAPI.getState() as RootState
     const response = await axios.post(
       
@@ -109,7 +110,7 @@ export const postCollection = createAsyncThunk(
       state.collections.currentCollection,
       {
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
