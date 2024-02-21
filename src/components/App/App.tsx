@@ -6,16 +6,24 @@ import SingleCollection from '../Collection/SingleCollection';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useEffect } from 'react';
 import { fetchCollections } from '../../store/reducers/collectionsReducer';
+import { fetchUserInfo } from '../../store/reducers/userReducer';
 
 
 
 function App() {
 
   const dispatch = useAppDispatch();
+  const isUserLogged = useAppSelector((state) => state.user.isUserlogged);
+  const userId = useAppSelector((state) => state.user.id)
+
   
   useEffect(() => {
     dispatch(fetchCollections());
   }, []);
+
+  useEffect(() => {
+    isUserLogged && dispatch(fetchUserInfo(userId as number));
+  }, [isUserLogged]);
 
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">

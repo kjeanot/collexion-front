@@ -5,10 +5,27 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { RootState } from '..';
-import { IRole, IUser } from '../../types/types';
+import store, { RootState } from '..';
+import { ICollection, IRole, IUser } from '../../types/types';
+import { useAppDispatch } from '../../hooks/redux';
+import appReducer from './appReducer';
 
-export const initialState: IUser = {
+interface IUserState {
+  id?: number;
+  nickname?: string;
+  username?: string;
+  picture?: null | string;
+  email?: string;
+  roles?: IRole[];
+  description?: null | string;
+  token?: string;
+  password?: string;
+  mycollections?: ICollection[];
+  myfavoritescollections?: ICollection[];
+  isUserlogged: boolean;
+}
+
+export const initialState: IUserState = {
   id: undefined,
   token: undefined,
   nickname: undefined,
@@ -17,10 +34,11 @@ export const initialState: IUser = {
   password: undefined,
   description: undefined,
   picture: undefined,
+  isUserlogged: false,
 };
 
 const storedToken = localStorage.getItem('jwt');
-const token = storedToken ? storedToken : '';
+const token = storedToken ? JSON.parse(storedToken) : '';
 
 export const setEmail = createAction<string>('user/setUsername');
 export const setPassword = createAction<string>('user/setPassword');
@@ -62,6 +80,7 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
         password: state.user.password,
       }
     );
+
     return response.data;
   }
 );
@@ -110,8 +129,20 @@ const userReducer = createReducer(initialState, (builder) => {
       state.username = (action.payload as IUser).username;
       localStorage.setItem('jwt', JSON.stringify(state.token));
       localStorage.setItem('uid', JSON.stringify(state.id));
+      state.isUserlogged = true;
     })
     .addCase(loginCheck.rejected, (state, action) => {
+      console.log('rejected', action);
+    })
+    .addCase(fetchUserInfo.pending, (state, action) => {
+      console.log('pending', action);
+    })
+    .addCase(fetchUserInfo.fulfilled, (state, action) => {
+      console.log('fulfilled', action);
+      state = action.payload;
+      console.log(state.mycollections);
+    })
+    .addCase(fetchUserInfo.rejected, (state, action) => {
       console.log('rejected', action);
     })
     .addCase(setEmail, (state, action) => {

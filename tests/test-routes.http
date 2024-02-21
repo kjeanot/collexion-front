@@ -54,9 +54,9 @@ content-type: application/json
 }
 
 ### Route Get User
-GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/users HTTP/1.1
+GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/user/1 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMDU4OTgsImV4cCI6MTcwODAwOTQ5OCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uxNvhdjUxuLkWDIEWN2IDAolQAiEuos2PioahqhbLDEaBqR9c-TJW4Ol0eN-jzCc87-Y6xcdflDd1STbpqbJQucTykx-Jw9hLp2BPTxR-bgEl1osTzv4FyrjH5x_FsRyBjq9HEmQeJmeVd6V1jKnGfi1FI824VZbD5rRhGj-13k4Z6LTy-5P_AKbpKydQvAjJVxIm6Lon4UUV7qM-WQ0htGkWI15DFyZyyqV8r4kePnG5aK66wVeOPjkHVheuRTvJ5sbGc0gHH0xP4DufZMOfEPaKxLsi-qYb-hGDV8rRJU2t77r-f-jlVXnpC7Sgxth9IO_be-lQIZ2eKOPPcfUBw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDg1MjM3NTksImV4cCI6MTcwODUyNzM1OSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uHp2h6LtI-kJ8fqGlAW5WzjvGwn8SCtvqt_cZSWX2H7yvtfjZIKz7u5o0DUJIz7xAZq-dW0BWLm4OlOzMXJQENFRCv4kTjytzddVtFJBryFFUqTy3DtQP3JV_z0hqv5LTVoqhjrPz1RhO_TmfqOPA_jkjEF4RK9BkCLoiefsOTS53uCOqzyeh_j_eda6C4dW15-h4hNtE3zHrHlnwF-6chQiVxrbWlfJn26vXjznJ4JW2yJHdhrzHtdQ9eY2NFJUi3wjHA6kzWbtls0ItH8EYGtf2w4GsqKX9rrvEUDPibUK7zmoNtlKmIpgPsHIa8visAKlX4EF3iNkck0v7hgwVw
 
 ### Route Delete Collection
 DELETE http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/delete/2 HTTP/1.1
@@ -193,6 +193,10 @@ content-type: application/json
   "email": "3000@oclock.school"
 }
 
+### Route ADD Favorite
+POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/add/4/favorite HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDg1MjM3NTksImV4cCI6MTcwODUyNzM1OSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uHp2h6LtI-kJ8fqGlAW5WzjvGwn8SCtvqt_cZSWX2H7yvtfjZIKz7u5o0DUJIz7xAZq-dW0BWLm4OlOzMXJQENFRCv4kTjytzddVtFJBryFFUqTy3DtQP3JV_z0hqv5LTVoqhjrPz1RhO_TmfqOPA_jkjEF4RK9BkCLoiefsOTS53uCOqzyeh_j_eda6C4dW15-h4hNtE3zHrHlnwF-6chQiVxrbWlfJn26vXjznJ4JW2yJHdhrzHtdQ9eY2NFJUi3wjHA6kzWbtls0ItH8EYGtf2w4GsqKX9rrvEUDPibUK7zmoNtlKmIpgPsHIa8visAKlX4EF3iNkck0v7hgwVw
 
 
 
