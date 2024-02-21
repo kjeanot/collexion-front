@@ -26,7 +26,7 @@ export default function Objects() {
           <CarrouselObjects objects={data} />
           <div className="flex justify-between">
             <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
-              Toutes les Objets
+              Tous les Objets
             </h2>
             <Filter />
           </div>

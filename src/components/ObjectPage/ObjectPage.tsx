@@ -42,7 +42,7 @@ export default function ObjectPage() {
       </div>
       <div className="relative z-10">
         <header className="flex flex-wrap border border-b-2 mb-6 bg-white">
-          <img src={data.image} className="w-full md:w-1/3 object-cover" />
+          <img src={data.image} className="w-full md:w-1/3 object-contain" />
           <div className="w-full md:w-2/3 p-6">
             <div className="flex justify-end">
               <Link to={`/object/${data.id}/edit`}>
