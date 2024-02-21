@@ -17,7 +17,9 @@ export const initialState: CollectionsState = {
   currentCollection: {},
 };
 
-const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+const storedToken = localStorage.getItem('jwt');
+const token = storedToken ? JSON.parse(storedToken) : '';
+
 /**
  * Middleware for fetching all the collections
  *
@@ -28,16 +30,17 @@ const token = JSON.parse(localStorage.getItem('jwt') ?? '');
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}collections`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
+    if (token) {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}collections`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
   }
 );
 
@@ -46,67 +49,81 @@ export const fetchCollections = createAsyncThunk(
 export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}collection/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
+    if (token) {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}collection/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
   }
 );
 
 export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
-    const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}collection/delete/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    if (token) {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_PATH}collection/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    return response.data;
+      return response.data;
+    }
   }
 );
 
 export const updateCollection = createAsyncThunk(
   'collections/updateCollection',
-  async (id: number, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    const response = await axios.put(
-      `${import.meta.env.VITE_API_PATH}collection/${id}`,
-      state.collections.currentCollection,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
 
-    return response.data;
+  async (id: number, thunkAPI) => {
+    if (token) {
+      const state = thunkAPI.getState() as RootState;
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_PATH}collection/${id}`,
+        {
+          name: state.collections.currentCollection.name,
+          description: state.collections.currentCollection.description,
+          image: state.collections.currentCollection.image,
+          relatedObjects: state.collections.currentCollection.relatedObjects,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    }
   }
 );
 
 export const postCollection = createAsyncThunk(
   'collections/postCollection',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}collection/create`,
-      state.collections.currentCollection,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    if (token) {
+      const state = thunkAPI.getState() as RootState;
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}collection/create`,
+        state.collections.currentCollection,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    return response.data;
+      return response.data;
+    }
   }
 );
 
@@ -142,7 +159,10 @@ export const setCollectionId = createAction<number>(
   'collection/setCollectionId'
 );
 export const setCollectionObjects = createAction<IObject[]>(
-  'collection/setCollectionId'
+  'collection/setCollectionObjects'
+);
+export const setCollectionRelatedObjects = createAction<IObject[]>(
+  'collection/setCollectionRelatedObjects'
 );
 
 const collectionsReducer = createReducer(initialState, (builder) => {
@@ -222,7 +242,12 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCollectionObjects, (state, action) => {
       (state.currentCollection as CurrentCollection).myobjects = action.payload;
-      console.log(state.currentCollection as CurrentCollection);
+      console.log(state.currentCollection.relatedObjects);
+    })
+    .addCase(setCollectionRelatedObjects, (state, action) => {
+      (state.currentCollection as CurrentCollection).relatedObjects =
+        action.payload;
+      console.log(state.currentCollection.relatedObjects);
     });
 });
 

@@ -1,6 +1,13 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, Outlet, useLoaderData, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { fetchUserInfo } from '../../store/reducers/userReducer';
+import { ICollection } from '../../types/types';
 
 export default function User() {
+  
+  const { data }: any = useLoaderData();
+
   return (
     <>
       <section className="mb-6">
@@ -11,7 +18,7 @@ export default function User() {
             </div>
           </div>
           <hgroup className="text-center md:text-left flex-1">
-            <h1 className="text-3xl">Jeanne_17</h1>
+            <h1 className="text-3xl">{data.nickname}</h1>
             <p>Membre depuis 2024</p>
           </hgroup>
           <div className="my-4 md:m-0">
@@ -48,20 +55,15 @@ export default function User() {
             </button>
           </div>
         </div>
-        <h2 className="text-xl">Description</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-          tempora incidunt odit ex nisi tenetur neque qui aspernatur, illo
-          molestiae sint, dolorum pariatur laboriosam quaerat. Ipsa adipisci
-          maiores tempora officiis!
-        </p>
+        { data.description && <h2 className="text-xl">Description</h2>}
+        <p>{data.description}</p>
       </section>
       <div
         role="tablist"
         className="tabs tabs-bordered sm:flex divide-y border-b-2 mb-4"
       >
         <NavLink
-          to="/user/2"
+          to={`/user/${data.id}`}
           end
           role="tab"
           className={({ isActive, isPending }) =>
@@ -75,7 +77,7 @@ export default function User() {
           <h3>Collections créées</h3>
         </NavLink>
         <NavLink
-          to="/user/2/favorites"
+          to={`/user/${data.id}/favorites`}
           role="tab"
           className={({ isActive, isPending }) =>
             isPending

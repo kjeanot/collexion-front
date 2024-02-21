@@ -188,6 +188,16 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgzNDU1N
   "myobject": "2",
 }
 
+### Route register
+POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/register HTTP/1.1
+content-type: application/json
+
+{
+  "nickname": "user3000",
+  "password": "3000",
+  "email": "3000@oclock.school"
+}
+
 
 
 

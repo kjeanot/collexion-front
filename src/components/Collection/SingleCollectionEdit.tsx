@@ -7,6 +7,7 @@ import {
   setCollectionImage,
   setCollectionName,
   setCollectionObjects,
+  setCollectionRelatedObjects,
   updateCollection,
 } from '../../store/reducers/collectionsReducer';
 import CloudinaryUploadWidget from '../Upload/UploadButton';
@@ -73,13 +74,22 @@ export default function SingleCollectionEdit() {
     let result: IObject[] = [];
     if (data) {
       data?.myobjects?.map((el) => {
-        if (el.id !== undefined && el.id !== id) {
+        if (el.id !== undefined && el.id === id) {
           result.push(el);
         }
       });
     }
-    dispatch(setCollectionObjects(result));
+    dispatch(setCollectionRelatedObjects(result));
   }
+
+  const relatedMyCollections = useAppSelector(
+    (state) => state.objects.currentObject.relatedMyCollections
+  );
+  console.log(relatedMyCollections);
+
+  useEffect(() => {
+    dispatch(setCollectionRelatedObjects([]));
+  }, [])
 
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
@@ -112,7 +122,11 @@ export default function SingleCollectionEdit() {
         ></textarea>
       </label>
 
-      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} />
+      <CloudinaryUploadWidget
+        uwConfig={uwConfig}
+        setPublicId={setPublicId}
+        entity="collection"
+      />
       <div style={{ width: '800px' }}>
         <AdvancedImage
           style={{ maxWidth: '100%' }}
@@ -129,7 +143,7 @@ export default function SingleCollectionEdit() {
               className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
             >
               <img
-                src="https://picsum.photos/200"
+                src={object.image}
                 className="max-w-16 mr-4 object-fill"
               />
               <p className="block flex-1">{object.name}</p>

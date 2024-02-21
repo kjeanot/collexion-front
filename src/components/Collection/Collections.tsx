@@ -10,9 +10,7 @@ export default function Collections() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.collections.list);
 
-  useEffect(() => {
-    dispatch(fetchCollections());
-  }, []);
+
 
   console.log(data);
   return (
