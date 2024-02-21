@@ -64,7 +64,7 @@ const router = createBrowserRouter(
       <Route path="/subscribe" element={<Subscribe />} />
       <Route path="/user/:id" loader={userLoader} element={<User />} errorElement={<Error />}>
         <Route index element={<UserCollectionsList />} />
-        <Route path="/user/:id/favorites" element={<Subscribe />} />
+        <Route path="/user/:id/favorites" element={<UserCollectionsList />} />
       </Route>
       <Route path="/mentions" element={<Content />} />
       <Route path="/*" element={<Error />} />

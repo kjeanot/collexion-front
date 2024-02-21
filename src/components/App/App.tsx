@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     isUserLogged && dispatch(fetchUserInfo(userId as number));
-  }, [isUserLogged]);
+  });
 
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">

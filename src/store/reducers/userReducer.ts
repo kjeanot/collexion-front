@@ -10,7 +10,7 @@ import { ICollection, IRole, IUser } from '../../types/types';
 import { useAppDispatch } from '../../hooks/redux';
 import appReducer from './appReducer';
 
-interface IUserState {
+interface loggedUser {
   id?: number;
   nickname?: string;
   username?: string;
@@ -25,16 +25,45 @@ interface IUserState {
   isUserlogged: boolean;
 }
 
-export const initialState: IUserState = {
-  id: undefined,
-  token: undefined,
-  nickname: undefined,
-  email: undefined,
-  roles: ['ROLE_USER'],
-  password: undefined,
-  description: undefined,
-  picture: undefined,
-  isUserlogged: false,
+interface currentUser {
+  id?: number;
+  nickname?: string;
+  username?: string;
+  picture?: null | string;
+  email?: string;
+  roles?: IRole[];
+  description?: null | string;
+  mycollections?: ICollection[];
+}
+
+interface UserState {
+  loggedUser : loggedUser;
+  currentUser : currentUser;
+}
+
+export const initialState: UserState = {
+  loggedUser : {
+    id: undefined,
+    token: undefined,
+    nickname: undefined,
+    email: undefined,
+    roles: ['ROLE_USER'],
+    password: undefined,
+    description: undefined,
+    picture: undefined,
+    isUserlogged: false,
+    mycollections: undefined,
+    myfavoritescollections: undefined,
+  },
+  currentUser : {
+    id: undefined,
+    nickname: undefined,
+    email: undefined,
+    roles: ['ROLE_USER'],
+    description: undefined,
+    picture: undefined,
+    mycollections: undefined,
+  }
 };
 
 const storedToken = localStorage.getItem('jwt');
@@ -58,9 +87,9 @@ export const register = createAsyncThunk<StateFromReducersMapObject<any>>(
     const response = await axios.post(
       `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/register`,
       {
-        nickname: state.user.nickname,
-        email: state.user.email,
-        password: state.user.password,
+        nickname: state.user.loggedUser.nickname,
+        email: state.user.loggedUser.email,
+        password: state.user.loggedUser.password,
       }
     );
     return response.data;
@@ -76,8 +105,8 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}login_check`,
       {
-        username: state.user.email,
-        password: state.user.password,
+        username: state.user.loggedUser.email,
+        password: state.user.loggedUser.password,
       }
     );
 
@@ -119,17 +148,17 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(loginCheck.fulfilled, (state, action) => {
       console.log('fulfilled', action);
-      state.id = (action.payload as IUser).id;
-      state.nickname = (action.payload as IUser).nickname;
-      state.email = (action.payload as IUser).email;
-      state.description = (action.payload as IUser).description;
-      state.picture = (action.payload as IUser).picture;
-      state.roles = (action.payload as IUser).roles;
-      state.token = (action.payload as IUser).token;
-      state.username = (action.payload as IUser).username;
-      localStorage.setItem('jwt', JSON.stringify(state.token));
-      localStorage.setItem('uid', JSON.stringify(state.id));
-      state.isUserlogged = true;
+      state.loggedUser.id = (action.payload as IUser).id;
+      state.loggedUser.nickname = (action.payload as IUser).nickname;
+      state.loggedUser.email = (action.payload as IUser).email;
+      state.loggedUser.description = (action.payload as IUser).description;
+      state.loggedUser.picture = (action.payload as IUser).picture;
+      state.loggedUser.roles = (action.payload as IUser).roles;
+      state.loggedUser.token = (action.payload as IUser).token;
+      state.loggedUser.username = (action.payload as IUser).username;
+      localStorage.setItem('jwt', JSON.stringify(state.loggedUser.token));
+      localStorage.setItem('uid', JSON.stringify(state.loggedUser.id));
+      state.loggedUser.isUserlogged = true;
     })
     .addCase(loginCheck.rejected, (state, action) => {
       console.log('rejected', action);
@@ -139,32 +168,32 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchUserInfo.fulfilled, (state, action) => {
       console.log('fulfilled', action);
-      state = action.payload;
-      console.log(state.mycollections);
+      state.currentUser = action.payload;
+      console.log(state.currentUser.mycollections);
     })
     .addCase(fetchUserInfo.rejected, (state, action) => {
       console.log('rejected', action);
     })
     .addCase(setEmail, (state, action) => {
       console.log('new username :', action.payload);
-      state.username = action.payload;
-      state.email = action.payload;
+      state.loggedUser.username = action.payload;
+      state.loggedUser.email = action.payload;
     })
     .addCase(setPassword, (state, action) => {
       console.log('new password :', action.payload);
-      state.password = action.payload;
+      state.loggedUser.password = action.payload;
     })
     .addCase(setNickname, (state, action) => {
-      state.nickname = action.payload;
+      state.loggedUser.nickname = action.payload;
     })
     .addCase(setPicture, (state, action) => {
-      state.picture = action.payload;
+      state.loggedUser.picture = action.payload;
     })
     .addCase(setRoles, (state, action) => {
-      state.roles = action.payload;
+      state.loggedUser.roles = action.payload;
     })
     .addCase(setUserDescription, (state, action) => {
-      state.description = action.payload;
+      state.loggedUser.description = action.payload;
     });
 });
 

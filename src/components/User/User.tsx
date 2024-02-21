@@ -1,12 +1,38 @@
 import React, { useEffect } from 'react';
-import { NavLink, Outlet, useLoaderData, useParams } from 'react-router-dom';
+import {
+  NavLink,
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUserInfo } from '../../store/reducers/userReducer';
 import { ICollection } from '../../types/types';
+import { useDispatch } from 'react-redux';
 
 export default function User() {
-  
   const { data }: any = useLoaderData();
+
+  console.log(data);
+
+  const dispatch: any = useDispatch();
+
+  const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+
+  const userCollections = useAppSelector(
+    (state) => state.user.currentUser.mycollections
+  );
+
+  const userFavoriteCollections = useAppSelector(
+    (state) => state.user.loggedUser.myfavoritescollections
+  );
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    data.id && dispatch(fetchUserInfo(data.id));
+  }, []);
 
   return (
     <>
@@ -55,7 +81,7 @@ export default function User() {
             </button>
           </div>
         </div>
-        { data.description && <h2 className="text-xl">Description</h2>}
+        {data.description && <h2 className="text-xl">Description</h2>}
         <p>{data.description}</p>
       </section>
       <div
@@ -76,19 +102,22 @@ export default function User() {
         >
           <h3>Collections créées</h3>
         </NavLink>
-        <NavLink
-          to={`/user/${data.id}/favorites`}
-          role="tab"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
-              : isActive
-              ? 'bg-gray-400 w-60 p-2 rounded-tl-xl sm:-ml-2'
-              : 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
-          }
-        >
-          <h3>Collections favorites</h3>
-        </NavLink>
+
+        {
+          <NavLink
+            to={`/user/${data.id}/favorites`}
+            role="tab"
+            className={({ isActive, isPending }) =>
+              isPending
+                ? 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
+                : isActive
+                ? 'bg-gray-400 w-60 p-2 rounded-tl-xl sm:-ml-2'
+                : 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
+            }
+          >
+            <h3>Collections favorites</h3>
+          </NavLink>
+        }
       </div>
       <Outlet />
     </>
