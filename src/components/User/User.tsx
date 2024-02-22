@@ -49,7 +49,9 @@ export default function User() {
                 <path d="M17.5 3A3.5 3.5 0 0 0 14 7L8.1 9.8A3.5 3.5 0 0 0 2 12a3.5 3.5 0 0 0 6.1 2.3l6 2.7-.1.5a3.5 3.5 0 1 0 1-2.3l-6-2.7a3.5 3.5 0 0 0 0-1L15 9a3.5 3.5 0 0 0 6-2.4c0-2-1.6-3.5-3.5-3.5Z" />
               </svg>
             </button>
-            {data.id === loggedUserId && (
+            {
+            //display edit and delete buttons only if the id of the current user page corresponds to the logged user id
+            data.id === loggedUserId && (
               <button className="btn btn-circle">
                 <svg
                   className="w-6 h-6 text-gray-800"
@@ -95,7 +97,9 @@ export default function User() {
           <h3>Collections créées</h3>
         </NavLink>
 
-        {data.id === loggedUserId && (
+        {
+        // Dispay favorite collections only if the id of the current user page corresponds to the logged user id. So the user can handle his favorites.
+        data.id === loggedUserId && (
           <NavLink
             to={`/user/${data.id}/favorites`}
             role="tab"

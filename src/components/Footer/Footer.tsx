@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks/redux';
 
 export default function Footer() {
 
-  const userId = useAppSelector((state) => state.user.id);
+  const userId = useAppSelector((state) => state.user.loggedUser.id);
 
   return (
     <footer className="footer relative p-10 bg-base-200 text-base-content mt-6">

@@ -13,17 +13,18 @@ import { fetchUserInfo } from '../../store/reducers/userReducer';
 function App() {
 
   const dispatch = useAppDispatch();
-  const isUserLogged = useAppSelector((state) => state.user.isUserlogged);
-  const userId = useAppSelector((state) => state.user.id)
+  const isUserLogged = useAppSelector((state) => state.user.loggedUser.isUserlogged);
+  const userId = useAppSelector((state) => state.user.loggedUser.id)
 
+  useEffect(() => {
+    isUserLogged && dispatch(fetchUserInfo(userId as number));
+  }, []);
   
   useEffect(() => {
     dispatch(fetchCollections());
   }, []);
 
-  useEffect(() => {
-    isUserLogged && dispatch(fetchUserInfo(userId as number));
-  });
+ 
 
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">
