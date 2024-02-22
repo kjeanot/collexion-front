@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation, useParams } from 'react-router-dom';
 import {
+  fetchSingleCollection,
   postCollection,
   setCollectionDescription,
   setCollectionImage,
@@ -22,6 +23,7 @@ export default function SingleCollectionEdit() {
   const data: CurrentCollection = useAppSelector(
     (state) => state.collections.currentCollection
   );
+  
 
   const [publicId, setPublicId] = useState('');
   // Replace with your own cloud name
@@ -71,25 +73,27 @@ export default function SingleCollectionEdit() {
    * @return {void}
    */
   function handleObjectsRemoving(id: number): void {
-    let result: IObject[] = [];
+    let extractedObjects: IObject[] = [];
+    let remainingObjects: IObject[] = [];
     if (data) {
       data?.myobjects?.map((el) => {
         if (el.id !== undefined && el.id === id) {
-          result.push(el);
+          extractedObjects.push(el);
+        } else {
+          remainingObjects.push(el);
         }
       });
     }
-    dispatch(setCollectionRelatedObjects(result));
-  }
+    dispatch(setCollectionRelatedObjects(extractedObjects));
+    dispatch(setCollectionObjects(remainingObjects));
 
-  const relatedMyCollections = useAppSelector(
-    (state) => state.objects.currentObject.relatedMyCollections
-  );
-  console.log(relatedMyCollections);
+  }
 
   useEffect(() => {
     dispatch(setCollectionRelatedObjects([]));
   }, [])
+
+ 
 
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">

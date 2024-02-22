@@ -63,8 +63,8 @@ const router = createBrowserRouter(
       <Route path="/object/new" element={<SingleObjectEdit />} />
       <Route path="/subscribe" element={<Subscribe />} />
       <Route path="/user/:id" loader={userLoader} element={<User />} errorElement={<Error />}>
-        <Route index element={<UserCollectionsList />} />
-        <Route path="/user/:id/favorites" element={<Subscribe />} />
+        <Route index element={<UserCollectionsList collectionType='created'/>} />
+        <Route path="/user/:id/favorites" element={<UserCollectionsList collectionType='favorite'/>} />
       </Route>
       <Route path="/mentions" element={<Content />} />
       <Route path="/*" element={<Error />} />

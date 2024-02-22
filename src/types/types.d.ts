@@ -31,6 +31,8 @@ export interface IUser {
   description?: null | string;
   token?: string;
   password?: string;
+  mycollections?: ICollection[];
+  myfavoritescollections?: ICollection[];
 }
 
 export interface IObject {

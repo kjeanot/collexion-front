@@ -7,6 +7,10 @@ interface Props {
   action: any;
 }
 
+/**
+ * The modal receive the name of the action to trigger and the function to execute when the confirm button of the modal is clicked
+ *
+ */
 export default function Modal({ actionLabel, action }: Props) {
   const dispatch = useAppDispatch();
   return (
@@ -20,6 +24,7 @@ export default function Modal({ actionLabel, action }: Props) {
           <button
             type="button"
             className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
+            // When clicked, we dispatch the switchModalDisplay action to switch the display state of the modal component.
             onClick={() => dispatch(switchModalDisplay())}
           >
             <svg
