@@ -25,7 +25,7 @@ export interface IUser {
   id?: number;
   nickname?: string;
   username?: string;
-  picture?: null | string | File;
+  picture?: null | string;
   email?: string;
   roles?: IRole[];
   description?: null | string;
