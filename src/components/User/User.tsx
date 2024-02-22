@@ -20,16 +20,6 @@ export default function User() {
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
-  const userCollections = useAppSelector(
-    (state) => state.user.currentUser.mycollections
-  );
-
-  const userFavoriteCollections = useAppSelector(
-    (state) => state.user.loggedUser.myfavoritescollections
-  );
-
-  const { pathname } = useLocation();
-
   useEffect(() => {
     data.id && dispatch(fetchUserInfo(data.id));
   }, []);
@@ -59,26 +49,28 @@ export default function User() {
                 <path d="M17.5 3A3.5 3.5 0 0 0 14 7L8.1 9.8A3.5 3.5 0 0 0 2 12a3.5 3.5 0 0 0 6.1 2.3l6 2.7-.1.5a3.5 3.5 0 1 0 1-2.3l-6-2.7a3.5 3.5 0 0 0 0-1L15 9a3.5 3.5 0 0 0 6-2.4c0-2-1.6-3.5-3.5-3.5Z" />
               </svg>
             </button>
-            <button className="btn btn-circle">
-              <svg
-                className="w-6 h-6 text-gray-800"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z"
-                  clipRule="evenodd"
-                />
-                <path
-                  fillRule="evenodd"
-                  d="M19.8 4.3a2.1 2.1 0 0 0-1-1.1 2 2 0 0 0-2.2.4l-.6.6 2.9 3 .5-.6a2.1 2.1 0 0 0 .6-1.5c0-.2 0-.5-.2-.8Zm-2.4 4.4-2.8-3-4.8 5-.1.3-.7 3c0 .3.3.7.6.6l2.7-.6.3-.1 4.7-5Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
+            {data.id === loggedUserId && (
+              <button className="btn btn-circle">
+                <svg
+                  className="w-6 h-6 text-gray-800"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z"
+                    clipRule="evenodd"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    d="M19.8 4.3a2.1 2.1 0 0 0-1-1.1 2 2 0 0 0-2.2.4l-.6.6 2.9 3 .5-.6a2.1 2.1 0 0 0 .6-1.5c0-.2 0-.5-.2-.8Zm-2.4 4.4-2.8-3-4.8 5-.1.3-.7 3c0 .3.3.7.6.6l2.7-.6.3-.1 4.7-5Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
         {data.description && <h2 className="text-xl">Description</h2>}
@@ -103,7 +95,7 @@ export default function User() {
           <h3>Collections créées</h3>
         </NavLink>
 
-        {
+        {data.id === loggedUserId && (
           <NavLink
             to={`/user/${data.id}/favorites`}
             role="tab"
@@ -117,7 +109,7 @@ export default function User() {
           >
             <h3>Collections favorites</h3>
           </NavLink>
-        }
+        )}
       </div>
       <Outlet />
     </>

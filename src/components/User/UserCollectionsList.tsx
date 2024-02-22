@@ -10,9 +10,13 @@ import { fetchUserInfo } from '../../store/reducers/userReducer';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { AsyncThunkConfig } from '@reduxjs/toolkit/dist/createAsyncThunk';
 
-export default function UserCollectionsList() {
+export default function UserCollectionsList({
+  collectionType,
+}: {
+  collectionType: string;
+}) {
   const { id } = useParams();
-  const numId = id ? parseInt(id) : '';
+  const numId = id ? parseInt(id) : undefined;
   const dispatch: any = useDispatch();
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
@@ -33,26 +37,34 @@ export default function UserCollectionsList() {
 
   return (
     <div className="grid lg:grid-cols-2 gap-4">
-      {pathname === `/user/${numId}` && userCollections
+      {collectionType === 'created' && userCollections
         ? userCollections.map((collection: ICollection, index) => (
-            <CollectionTile key={index} data={collection} />
+            <Link to={`/collection/${collection.id}`}><CollectionTile key={index} data={collection} userId={numId}/></Link>
           ))
-        : 'Pas encore de collection'}
+        : collectionType === 'created'
+        ? 'Pas encore de collection'
+        : ''}
 
-      {numId === loggedUserId && pathname === `/user/${numId}/favorites` && userFavoriteCollections
+      {numId === loggedUserId &&
+      collectionType === 'favorite' &&
+      userFavoriteCollections
         ? userFavoriteCollections.map((collection: ICollection, index) => (
             <CollectionTile key={index} data={collection} />
           ))
-        : 'Pas encore de collection favorite'}
+        : collectionType === 'favorite'
+        ? 'Pas encore de collection favorite'
+        : ''}
 
-      <Link
-        to="/collection/new"
-        onClick={() => dispatch(resetCurrentCollection())}
-      >
-        <button className="btn btn-square h-full w-full">
-          + Ajouter une collection
-        </button>
-      </Link>
+      {numId === loggedUserId && collectionType === 'created' &&
+        <Link
+          to="/collection/new"
+          onClick={() => dispatch(resetCurrentCollection())}
+        >
+          <button className="btn btn-square h-full w-full">
+            + Ajouter une collection
+          </button>
+        </Link>
+      }
     </div>
   );
 }
