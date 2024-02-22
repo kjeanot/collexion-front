@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {
+  Link,
   NavLink,
   Outlet,
   useLoaderData,
@@ -52,6 +53,7 @@ export default function User() {
             {
             //display edit and delete buttons only if the id of the current user page corresponds to the logged user id
             data.id === loggedUserId && (
+              <Link to={`/user/${loggedUserId}/edit`}>
               <button className="btn btn-circle">
                 <svg
                   className="w-6 h-6 text-gray-800"
@@ -72,6 +74,7 @@ export default function User() {
                   />
                 </svg>
               </button>
+              </Link>
             )}
           </div>
         </div>

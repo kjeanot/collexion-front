@@ -5,16 +5,14 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
-import store, { RootState } from '..';
 import { ICollection, IRole, IUser } from '../../types/types';
-import { useAppDispatch } from '../../hooks/redux';
-import appReducer from './appReducer';
+import { RootState } from '..';
 
 interface loggedUser {
   id?: number;
   nickname?: string;
   username?: string;
-  picture?: null | string;
+  picture?: any;
   email?: string;
   roles?: IRole[];
   description?: null | string;
@@ -39,6 +37,10 @@ interface currentUser {
 interface UserState {
   loggedUser : loggedUser;
   currentUser : currentUser;
+}
+
+interface UploadedFile {
+  name?: any;
 }
 
 export const initialState: UserState = {
@@ -72,7 +74,7 @@ const token = storedToken ? JSON.parse(storedToken) : '';
 export const setEmail = createAction<string>('user/setUsername');
 export const setPassword = createAction<string>('user/setPassword');
 export const setNickname = createAction<string>('user/setNickname');
-export const setPicture = createAction<string>('user/setPicture');
+export const setPicture = createAction<string | File>('user/setPicture');
 export const setRoles = createAction<IRole[]>('user/setRoles');
 export const setUserDescription = createAction<string>(
   'user/setUserDescription'
@@ -167,6 +169,30 @@ export const removeFromFavorites = createAsyncThunk(
   }
 );
 
+export const uploadUserImage = createAsyncThunk(
+  'collections/uploadUserImage',
+  async (_, thunkAPI) => {
+    if (token) {
+      const state = thunkAPI.getState() as RootState;
+
+      const formData = new FormData();
+      formData.append('file', state.user.loggedUser.picture as Blob);
+      state.user.loggedUser.picture.name && formData.append('fileName', state.user.loggedUser.picture.name as string | Blob)
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}user/upload_file`, formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    }
+  }
+);
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(register.pending, (state, action) => {
@@ -231,6 +257,16 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(removeFromFavorites.rejected, (state, action) => {
       console.log('fav remove rejected');
     })
+    .addCase(uploadUserImage.pending, (state, action) => {
+      console.log('image upload pending');
+    })
+    .addCase(uploadUserImage.fulfilled, (state, action) => {
+      console.log('image uploaded successfully', action.payload);
+      state.loggedUser.myfavoritescollections?.push(action.payload);
+    })
+    .addCase(uploadUserImage.rejected, (state, action) => {
+      console.log('image upload rejected');
+    })
     .addCase(setEmail, (state, action) => {
       console.log('new username :', action.payload);
       state.loggedUser.username = action.payload;
@@ -245,6 +281,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setPicture, (state, action) => {
       state.loggedUser.picture = action.payload;
+      console.log(action);
     })
     .addCase(setRoles, (state, action) => {
       state.loggedUser.roles = action.payload;

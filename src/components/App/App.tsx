@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     isUserLogged && dispatch(fetchUserInfo(userId as number));
   }, []);
-  
+
   useEffect(() => {
     dispatch(fetchCollections());
   }, []);
