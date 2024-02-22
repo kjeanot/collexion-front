@@ -28,12 +28,13 @@ export default function UserCollectionsList({
   const userFavoriteCollections = useAppSelector(
     (state) => state.user.loggedUser.myfavoritescollections
   );
+  console.log(userFavoriteCollections);
 
   const { pathname } = useLocation();
 
   useEffect(() => {
     numId && dispatch(fetchUserInfo(numId));
-  }, []);
+  }, [pathname]);
 
   return (
     <div className="grid lg:grid-cols-2 gap-4">

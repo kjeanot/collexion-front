@@ -21,7 +21,7 @@ code {
 }
 
 @layer base {
-  customh2::before {
+  h2::before {
     content: '';
     height: 25px;
     width: 15px;

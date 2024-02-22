@@ -131,6 +131,42 @@ export const fetchUserInfo = createAsyncThunk(
   }
 );
 
+export const addToFavorites = createAsyncThunk(
+  'collections/addToFavorites',
+  async (id: number, thunkAPI) => {
+    if (token) {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}add/${id}/favorite`,'',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    }
+  }
+);
+
+export const removeFromFavorites = createAsyncThunk(
+  'collections/removeFromFavorites',
+  async (id: number, thunkAPI) => {
+    if (token) {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}delete/${id}/favorite`, '',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    }
+  }
+);
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(register.pending, (state, action) => {
@@ -169,10 +205,31 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(fetchUserInfo.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.currentUser = action.payload;
+      state.currentUser.id === state.loggedUser.id ? state.loggedUser = action.payload : '';
       console.log(state.currentUser.mycollections);
     })
     .addCase(fetchUserInfo.rejected, (state, action) => {
       console.log('rejected', action);
+    })
+    .addCase(addToFavorites.pending, (state, action) => {
+      console.log('fav add pending');
+    })
+    .addCase(addToFavorites.fulfilled, (state, action) => {
+      console.log('fav added successfully', action.payload);
+      state.loggedUser.myfavoritescollections?.push(action.payload);
+    })
+    .addCase(addToFavorites.rejected, (state, action) => {
+      console.log('fav add rejected');
+    })
+    .addCase(removeFromFavorites.pending, (state, action) => {
+      console.log('fav remove pending');
+    })
+    .addCase(removeFromFavorites.fulfilled, (state, action) => {
+      console.log('fav removed successfully', action.payload);
+      state.loggedUser.myfavoritescollections = state.loggedUser.myfavoritescollections?.filter(el => el.id != action.payload.id);
+    })
+    .addCase(removeFromFavorites.rejected, (state, action) => {
+      console.log('fav remove rejected');
     })
     .addCase(setEmail, (state, action) => {
       console.log('new username :', action.payload);

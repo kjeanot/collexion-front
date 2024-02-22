@@ -10,7 +10,7 @@ export default function CollectionsList({
 
   return (
     <>
-      <h2 className="text-xl font-bold mb-6">Gallerie des collections</h2>
+      
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
         {collections &&
           collections.map((collection) => (

@@ -3,7 +3,7 @@ import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import ObjectCard from '../Object/ObjectCard';
 import { ICollection, IObject } from '../../types/types';
-import { Link, Navigate, useLoaderData, useParams } from 'react-router-dom';
+import { Link, Navigate, redirect, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { findCollection } from '../../store/selectors/collections';
 import {
@@ -13,10 +13,13 @@ import {
 import Modal from '../Modal/Modal';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import { resetCurrentObject } from '../../store/reducers/objectsReducer';
+import { addToFavorites, fetchUserInfo, removeFromFavorites } from '../../store/reducers/userReducer';
 
 export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const showModal = useAppSelector((state) => state.app.showModal);
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
 
@@ -32,6 +35,10 @@ export default function SingleCollection() {
 
   useEffect(() => {
     dispatch(fetchSingleCollection(data.id));
+  }, []);
+
+  useEffect(() => {
+    loggedUserId && dispatch(fetchUserInfo(loggedUserId));
   }, []);
 
   return (
@@ -100,11 +107,15 @@ export default function SingleCollection() {
             {
               // Heart unfilled button : displayed if the current collection isn't in the loggedUser's favorite collections list.
               // Onclick, dispatches the addToFavorite action
+              !loggedUserFavorites?.some(
+                (collection: ICollection) => collection.id === data.id
+              ) &&
               <button
                 className="btn btn-circle ml-4"
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log(e.currentTarget);
+                  loggedUserId ? dispatch(addToFavorites(data.id)) : navigate("/subscribe");
+                  loggedUserId ? dispatch(fetchUserInfo(loggedUserId)) : navigate("/subscribe");
                 }}
               >
                 <svg
@@ -134,7 +145,8 @@ export default function SingleCollection() {
                   className="btn btn-circle ml-4"
                   onClick={(e) => {
                     e.preventDefault();
-                    console.log(e.currentTarget);
+                  loggedUserId ? dispatch(removeFromFavorites(data.id)) : navigate("/subscribe");
+                  loggedUserId ? dispatch(fetchUserInfo(loggedUserId)) : navigate("/subscribe");
                   }}
                 >
                   <svg
