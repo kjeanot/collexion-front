@@ -23,10 +23,12 @@ type CurrentObject = IObject & {};
 export default function SingleObjectEdit() {
   const dispatch = useAppDispatch();
 
+  // Retreive the current object stored in state
   const data: CurrentObject = useAppSelector(
     (state) => state.objects.currentObject
   );
-
+  
+  // Retreive the current collection stored in state
   const currentCollection: ICollection = useAppSelector(
     (state) => state.collections.currentCollection
   );
@@ -35,7 +37,7 @@ export default function SingleObjectEdit() {
   const relatedCollections = useAppSelector(
     (state) => state.objects.currentObject.myCollections
   );
-
+  // Retreive the categories list
   const categories: ICategory[] = useAppSelector(
     (state) => state.categories.list
   );
@@ -81,7 +83,7 @@ export default function SingleObjectEdit() {
 
   /**
    *
-   * Returns an updated array of the objects associated to the collection, less the deleted ones.
+   * Returns an updated array of the collections associated to the object, less the deleted ones.
    * Dispatches the array to the state.
    *
    * @return {void}
@@ -102,9 +104,16 @@ export default function SingleObjectEdit() {
     dispatch(fetchCategories());
     dispatch(fetchCollections());
 
+    // If it's an existing object and its data is stored in state : setting the currentObject (used for actions) properties in the object state
     data.category?.id && dispatch(setObjectCategory(data.category.id));
-    data.myCollections && dispatch(setObjectCollections(data.myCollections.map((collection) => { return {"id" : collection.id };})))
-    
+    data.myCollections &&
+      dispatch(
+        setObjectCollections(
+          data.myCollections.map((collection) => {
+            return { id: collection.id };
+          })
+        )
+      );
 
     // If it's not an existing object, affect the current collection to the object
     !data.id && dispatch(setObjectCollections([{ id: currentCollection.id }]));
@@ -185,7 +194,11 @@ export default function SingleObjectEdit() {
         </select>
       </label>
 
-      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} entity="object"/>
+      <CloudinaryUploadWidget
+        uwConfig={uwConfig}
+        setPublicId={setPublicId}
+        entity="object"
+      />
       <div style={{ width: '800px' }}>
         <AdvancedImage
           style={{ maxWidth: '100%' }}
@@ -195,18 +208,16 @@ export default function SingleObjectEdit() {
       </div>
 
       {data && <h2 className="text-xl my-6">Collection(s) rattachée(s)</h2>}
-      {( relatedCollections && relatedCollections?.length > 0) ? (
+      {relatedCollections && relatedCollections?.length > 0 ? (
         relatedCollections.map((object: ICollection, index) => (
           <div
             key={index}
-            className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
+            className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4 h-16"
           >
-            <img
-              src="https://picsum.photos/200"
-              className="max-w-16 mr-4 object-fill"
-            />
+            <img src={object.image} className="max-w-16 mr-4 object-fill h-16" />
             <p className="block flex-1">{object.name}</p>
-            <button
+            {relatedCollections?.length > 1 &&
+              <button
               className="btn rounded-none h-16"
               onClick={(evt) => {
                 evt.preventDefault();
@@ -226,7 +237,7 @@ export default function SingleObjectEdit() {
                   clipRule="evenodd"
                 />
               </svg>
-            </button>
+            </button>}
           </div>
         ))
       ) : (

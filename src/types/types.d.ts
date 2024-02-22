@@ -25,12 +25,14 @@ export interface IUser {
   id?: number;
   nickname?: string;
   username?: string;
-  picture?: null | string;
+  picture?: null | string | File;
   email?: string;
   roles?: IRole[];
   description?: null | string;
   token?: string;
   password?: string;
+  mycollections?: ICollection[];
+  myfavoritescollections?: ICollection[];
 }
 
 export interface IObject {

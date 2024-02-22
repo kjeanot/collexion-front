@@ -2,11 +2,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation, useParams } from 'react-router-dom';
 import {
+  fetchSingleCollection,
   postCollection,
   setCollectionDescription,
   setCollectionImage,
   setCollectionName,
   setCollectionObjects,
+  setCollectionRelatedObjects,
   updateCollection,
 } from '../../store/reducers/collectionsReducer';
 import CloudinaryUploadWidget from '../Upload/UploadButton';
@@ -21,6 +23,7 @@ export default function SingleCollectionEdit() {
   const data: CurrentCollection = useAppSelector(
     (state) => state.collections.currentCollection
   );
+  
 
   const [publicId, setPublicId] = useState('');
   // Replace with your own cloud name
@@ -39,7 +42,7 @@ export default function SingleCollectionEdit() {
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
-    sources: [ "local" ],
+    sources: ['local'],
     // cropping: true, //add a cropping step
     // showAdvancedOptions: true,  //add advanced options (public_id and tag)
     // sources: [ "local", "url"], // restrict the upload sources to URL and local files
@@ -62,24 +65,35 @@ export default function SingleCollectionEdit() {
 
   const myImage = cld.image(publicId);
 
- /**
- * 
- * Returns an updated array of the objects associated to the collection, less the deleted ones.
- * Dispatches the array to the state.
- * 
- * @return {void}
- */
+  /**
+   *
+   * Returns an updated array of the objects associated to the collection, less the deleted ones.
+   * Dispatches the array to the state.
+   *
+   * @return {void}
+   */
   function handleObjectsRemoving(id: number): void {
-    let result: IObject[] = [];
+    let extractedObjects: IObject[] = [];
+    let remainingObjects: IObject[] = [];
     if (data) {
       data?.myobjects?.map((el) => {
-        if (el.id !== undefined && el.id !== id) {
-          result.push(el);
+        if (el.id !== undefined && el.id === id) {
+          extractedObjects.push(el);
+        } else {
+          remainingObjects.push(el);
         }
       });
     }
-    dispatch(setCollectionObjects(result));
+    dispatch(setCollectionRelatedObjects(extractedObjects));
+    dispatch(setCollectionObjects(remainingObjects));
+
   }
+
+  useEffect(() => {
+    dispatch(setCollectionRelatedObjects([]));
+  }, [])
+
+ 
 
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
@@ -111,8 +125,12 @@ export default function SingleCollectionEdit() {
           }
         ></textarea>
       </label>
-      
-      <CloudinaryUploadWidget uwConfig={uwConfig} setPublicId={setPublicId} entity="collection"/>
+
+      <CloudinaryUploadWidget
+        uwConfig={uwConfig}
+        setPublicId={setPublicId}
+        entity="collection"
+      />
       <div style={{ width: '800px' }}>
         <AdvancedImage
           style={{ maxWidth: '100%' }}
@@ -129,7 +147,7 @@ export default function SingleCollectionEdit() {
               className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
             >
               <img
-                src="https://picsum.photos/200"
+                src={object.image}
                 className="max-w-16 mr-4 object-fill"
               />
               <p className="block flex-1">{object.name}</p>
@@ -161,7 +179,9 @@ export default function SingleCollectionEdit() {
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
         onClick={() => {
-          data.id ? dispatch(updateCollection(data.id)) : dispatch(postCollection())
+          data.id
+            ? dispatch(updateCollection(data.id))
+            : dispatch(postCollection());
         }}
       >
         Mettre à jour
