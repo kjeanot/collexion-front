@@ -45,7 +45,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgxMDEwM
 }
 
 ### Route Login
-POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/login_check HTTP/1.1
+POST https://www.apicollexion.live/api/login_check HTTP/1.1
 content-type: application/json
 
 {

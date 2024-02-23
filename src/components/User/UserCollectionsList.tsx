@@ -49,7 +49,7 @@ export default function UserCollectionsList({
       collectionType === 'favorite' &&
       userFavoriteCollections
         ? userFavoriteCollections.map((collection: ICollection, index) => (
-            <CollectionTile key={index} data={collection} />
+          <Link to={`/collection/${collection.id}`}><CollectionTile key={index} data={collection} userId={numId}/></Link>
           ))
         : collectionType === 'favorite'
         ? 'Pas encore de collection favorite'
