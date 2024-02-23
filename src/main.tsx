@@ -17,10 +17,12 @@ import SingleCollection from './components/Collection/SingleCollection';
 import SingleCollectionEdit from './components/Collection/SingleCollectionEdit';
 import UserCollectionsList from './components/User/UserCollectionsList';
 import User from './components/User/User';
+import UserEdit from './components/User/UserEdit';
 import {
   collectionsLoader,
   singleCollectionLoader,
   singleObjectLoader,
+  userEditLoader,
   userLoader,
 } from './loaders/loaders';
 import Error from './components/Error/Error';
@@ -66,6 +68,7 @@ const router = createBrowserRouter(
         <Route index element={<UserCollectionsList collectionType='created'/>} />
         <Route path="/user/:id/favorites" element={<UserCollectionsList collectionType='favorite'/>} />
       </Route>
+      <Route path='/user/:id/edit' element={<UserEdit />} loader={userEditLoader}/>
       <Route path="/mentions" element={<Content />} />
       <Route path="/*" element={<Error />} />
     </Route>
