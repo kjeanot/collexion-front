@@ -13,6 +13,8 @@ export default function Header() {
   const [search, setSearch] = useState<null | string>(null);
   const [mobileSearch, setMobileSearch] = useState(false);
 
+  const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+
   return (
     <header>
       <nav className="navbar bg-base-100 color text-customred">
@@ -113,7 +115,11 @@ export default function Header() {
           <li className="flex flex-none content-center">
             <div
               className="flex content-center p-2 ml-2 text-customred rounded-lg hover:bg-gray-200"
-              onClick={() => dispatch(switchLoginDisplay())}
+              onClick={() => {
+                loggedUserId
+                  ? navigate(`/user/${loggedUserId}`)
+                  : dispatch(switchLoginDisplay());
+              }}
             >
               <svg
                 className="md:mr-2 w-7 h-7 text-customred"
@@ -131,7 +137,7 @@ export default function Header() {
                 />
               </svg>
               <button className="hidden md:inline-block font-medium text-lg text-customred ">
-                Se connecter
+                {loggedUserId ? 'Mon profil' : 'Se connecter'}
               </button>
             </div>
           </li>
