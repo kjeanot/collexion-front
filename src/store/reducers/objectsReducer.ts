@@ -98,7 +98,7 @@ export const deleteObject = createAsyncThunk(
   async (id: number, thunkAPI) => {
     if (token) {
     const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}object/${id}`,
+      `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -116,7 +116,7 @@ export const updateObject = createAsyncThunk(
     if (token) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.put(
-      `${import.meta.env.VITE_API_PATH}object/${id}`,
+      `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
       {
         ...state.objects.currentObject,
         relatedMyCollections: state.objects.currentObject.relatedMyCollections,
@@ -138,7 +138,7 @@ export const postObject = createAsyncThunk(
     if (token) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}object`,
+      `${import.meta.env.VITE_API_PATH}secure/object`,
       {
         ...state.objects.currentObject,
         title: state.objects.currentObject.name,
@@ -160,7 +160,7 @@ export const postComment = createAsyncThunk(
     if (token) {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}comment/create`,
+      `${import.meta.env.VITE_API_PATH}secure/comment/create`,
       state.objects.currentComment,
       {
         headers: {

@@ -57,6 +57,7 @@ export default function Header() {
               aria-controls="navbar-search"
               aria-expanded="false"
               className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
+              onClick={() => setMobileSearch((prev) => !prev)}
             >
               <svg
                 className="w-5 h-5"
@@ -76,7 +77,10 @@ export default function Header() {
               <span className="sr-only">Search</span>
             </button>
             <div className="relative hidden md:block">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 cursor-pointer" onClick={(evt) => navigate(`/collections/${search}`)}>
+              <div
+                className="absolute inset-y-0 start-0 flex items-center ps-3 cursor-pointer"
+                onClick={(evt) => navigate(`/collections/${search}`)}
+              >
                 <svg
                   className="w-5 h-5 text-customred"
                   aria-hidden="true"
@@ -100,7 +104,9 @@ export default function Header() {
                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
                 placeholder="Rechercher une collection"
                 onChange={(evt) => setSearch(evt.currentTarget.value)}
-                onKeyDown={(evt) => evt.key === 'Enter' && navigate(`/collections/${search}`)}
+                onKeyDown={(evt) =>
+                  evt.key === 'Enter' && navigate(`/collections/${search}`)
+                }
               />
             </div>
           </li>
@@ -131,6 +137,35 @@ export default function Header() {
           </li>
         </div>
       </nav>
+      {mobileSearch && (
+        <>
+          <label className="input input-bordered flex items-center gap-2">
+            <input
+              type="text"
+              id="mobile-search-navbar"
+              className="grow"
+              placeholder="Rechercher une collection"
+              onChange={(evt) => setSearch(evt.currentTarget.value)}
+              onKeyDown={(evt) => {
+                evt.key === 'Enter' && setMobileSearch((prev) => !prev);
+                evt.key === 'Enter' && navigate(`/collections/${search}`);
+              }}
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="#000"
+              className="w-4 h-4 opacity-70"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </label>
+        </>
+      )}
       {showLogin && <Login />}
     </header>
   );

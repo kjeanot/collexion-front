@@ -31,7 +31,7 @@ export default function User() {
         <div className="flex flex-col mx-auto place-items-center md:flex-row mb-6">
           <div className="avatar md:mr-6 w-32">
             <div className="w-fit rounded-full">
-              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src={data.picture ? data.picture : 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'} />
             </div>
           </div>
           <hgroup className="text-center md:text-left flex-1">

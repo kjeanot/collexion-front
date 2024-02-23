@@ -87,7 +87,7 @@ export const register = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.post(
-      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/register`,
+      `${import.meta.env.VITE_API_PATH}register`,
       {
         nickname: state.user.loggedUser.nickname,
         email: state.user.loggedUser.email,
@@ -138,7 +138,7 @@ export const addToFavorites = createAsyncThunk(
   async (id: number, thunkAPI) => {
     if (token) {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}add/${id}/favorite`,'',
+        `${import.meta.env.VITE_API_PATH}secure/add/${id}/favorite`,'',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -156,7 +156,7 @@ export const removeFromFavorites = createAsyncThunk(
   async (id: number, thunkAPI) => {
     if (token) {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}delete/${id}/favorite`, '',
+        `${import.meta.env.VITE_API_PATH}secure/delete/${id}/favorite`, '',
         {
           headers: {
             Authorization: `Bearer ${token}`,
