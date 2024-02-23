@@ -180,7 +180,7 @@ export const uploadUserImage = createAsyncThunk(
       state.user.loggedUser.picture.name && formData.append('fileName', state.user.loggedUser.picture.name as string | Blob)
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}user/upload_file`, formData,
+        `${import.meta.env.VITE_API_PATH}secure/user/upload_file`, formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,

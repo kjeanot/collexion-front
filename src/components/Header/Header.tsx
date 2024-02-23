@@ -1,12 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
+import { useState } from 'react';
 
 export default function Header() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const showLogin = useAppSelector((state) => state.app.showLogin);
+
+  const [search, setSearch] = useState<null | string>(null);
+  const [mobileSearch, setMobileSearch] = useState(false);
+
   return (
     <header>
       <nav className="navbar bg-base-100 color text-customred">
@@ -70,7 +76,7 @@ export default function Header() {
               <span className="sr-only">Search</span>
             </button>
             <div className="relative hidden md:block">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3 cursor-pointer" onClick={(evt) => navigate(`/collections/${search}`)}>
                 <svg
                   className="w-5 h-5 text-customred"
                   aria-hidden="true"
@@ -92,7 +98,9 @@ export default function Header() {
                 type="text"
                 id="search-navbar"
                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-                placeholder="Search..."
+                placeholder="Rechercher une collection"
+                onChange={(evt) => setSearch(evt.currentTarget.value)}
+                onKeyDown={(evt) => evt.key === 'Enter' && navigate(`/collections/${search}`)}
               />
             </div>
           </li>
