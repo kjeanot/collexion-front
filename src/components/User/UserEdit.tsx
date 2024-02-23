@@ -27,7 +27,7 @@ export default function UserEdit() {
           id="user-nickname"
           type="text"
           placeholder={data.nickname ? data.nickname : 'Votre nom'}
-          value={data.nickname ? data.nickname : ''}
+          defaultValue={data.nickname ? data.nickname : ''}
           className="input input-bordered w-full"
         />
       </label>
@@ -39,7 +39,7 @@ export default function UserEdit() {
           id="user-email"
           type="text"
           placeholder={data.email ? data.email : 'Votre nom'}
-          value={data.email ? data.email : ''}
+          defaultValue={data.email ? data.email : ''}
           className="input input-bordered w-full"
         />
       </label>
@@ -61,7 +61,7 @@ export default function UserEdit() {
           id="user-description"
           className="textarea textarea-bordered h-24"
           placeholder={data.description ? data.description : "Votre description"}
-          value={data ? data.description : ''}
+          defaultValue={data ? data.description : ''}
         ></textarea>
       </label>
       <label className="form-control w-full" htmlFor="user-picture">
