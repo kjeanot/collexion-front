@@ -87,7 +87,7 @@ export const register = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.post(
-      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/register`,
+      `https://apicollexion.live/register`,
       {
         nickname: state.user.loggedUser.nickname,
         email: state.user.loggedUser.email,
@@ -109,6 +109,30 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
       {
         username: state.user.loggedUser.email,
         password: state.user.loggedUser.password,
+      }
+    );
+
+    return response.data;
+  }
+);
+
+export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
+  'user/userUpdate',
+  async (_, thunkAPI) => {
+    // Retreive the state to pass the stored informations into the API request body
+    const state = thunkAPI.getState() as RootState;
+
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_PATH}user/${state.user.loggedUser.id}`,
+      {
+        nickname: state.user.loggedUser.nickname,
+        email: state.user.loggedUser.email,
+        description: state.user.loggedUser.description
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 

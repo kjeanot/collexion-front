@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import {
   fetchSingleCollection,
   postCollection,
+  resetCurrentCollection,
   setCollectionDescription,
   setCollectionImage,
   setCollectionName,
@@ -24,6 +25,7 @@ export default function SingleCollectionEdit() {
     (state) => state.collections.currentCollection
   );
   
+  const location = useLocation();
 
   const [publicId, setPublicId] = useState('');
   // Replace with your own cloud name
@@ -88,6 +90,9 @@ export default function SingleCollectionEdit() {
     dispatch(setCollectionObjects(remainingObjects));
 
   }
+  useEffect(() => {
+    location.pathname === "/collection/new" && dispatch(resetCurrentCollection());
+  }, [])
 
   useEffect(() => {
     dispatch(setCollectionRelatedObjects([]));
@@ -105,7 +110,7 @@ export default function SingleCollectionEdit() {
         <input
           type="text"
           placeholder={data ? data.name : 'Nom de la collection'}
-          value={data ? data.name : ''}
+          defaultValue={data ? data.name : ''}
           className="input input-bordered w-full"
           onChange={(evt: ChangeEvent<HTMLInputElement>) =>
             dispatch(setCollectionName(evt.currentTarget.value))
@@ -119,7 +124,7 @@ export default function SingleCollectionEdit() {
         <textarea
           className="textarea textarea-bordered h-24"
           placeholder={data ? data.description : 'Description de la collection'}
-          value={data ? data.description : ''}
+          defaultValue={data ? data.description : ''}
           onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
             dispatch(setCollectionDescription(evt.currentTarget.value))
           }
