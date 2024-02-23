@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ICollection } from '../../types/types';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation } from 'react-router-dom';
+import { fetchUserInfo, removeFromFavorites } from '../../store/reducers/userReducer';
 
 export default function CollectionTile({
   data,
@@ -12,12 +13,14 @@ export default function CollectionTile({
 }) {
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
-  console.log(data);
+  const dispatch= useAppDispatch();
 
   const location = useLocation();
 
+  const [hidden, setHidden] = useState(false);
+
   return (
-    <article className="card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row">
+    <article className={ hidden ? 'hidden' : 'card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row'}>
       <figure className="h-full md:w-60 w-full flex-none">
         <img src={data.image} alt={data.name} className="object-cover h-full" />
       </figure>
@@ -73,7 +76,9 @@ export default function CollectionTile({
               className="btn btn-circle ml-4"
               onClick={(e) => {
                 e.preventDefault();
-                console.log(e.currentTarget);
+                dispatch(removeFromFavorites(data.id as number));
+                dispatch(fetchUserInfo(loggedUserId as number));
+                setHidden(prev => !prev);
               }}
             >
               <svg
