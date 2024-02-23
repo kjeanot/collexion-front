@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ICollection } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation } from 'react-router-dom';
-import { fetchUserInfo, removeFromFavorites } from '../../store/reducers/userReducer';
+import {
+  fetchUserInfo,
+  removeFromFavorites,
+} from '../../store/reducers/userReducer';
 
 export default function CollectionTile({
   data,
@@ -13,14 +16,20 @@ export default function CollectionTile({
 }) {
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
-  const dispatch= useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const location = useLocation();
 
   const [hidden, setHidden] = useState(false);
 
   return (
-    <article className={ hidden ? 'hidden' : 'card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row'}>
+    <article
+      className={
+        hidden
+          ? 'hidden'
+          : 'card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row'
+      }
+    >
       <figure className="h-full md:w-60 w-full flex-none">
         <img src={data.image} alt={data.name} className="object-cover h-full" />
       </figure>
@@ -78,7 +87,7 @@ export default function CollectionTile({
                 e.preventDefault();
                 dispatch(removeFromFavorites(data.id as number));
                 dispatch(fetchUserInfo(loggedUserId as number));
-                setHidden(prev => !prev);
+                setHidden((prev) => !prev);
               }}
             >
               <svg
@@ -93,9 +102,9 @@ export default function CollectionTile({
             </button>
           )}
         </div>
-
-        <h2 className="card-title pr-4">{data.name}</h2>
-        <p className="line-clamp-3 pr-4">{data.description}</p>
+        <section>
+          <h2 className="card-title pr-4">{data.name}</h2>
+        </section>
       </div>
     </article>
   );
