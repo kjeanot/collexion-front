@@ -67,7 +67,10 @@ export default function Modal({ actionLabel, action }: Props) {
             <button
               type="button"
               className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
-              onClick={action}
+              onClick={() => {
+                action();
+                dispatch(switchModalDisplay());
+              }} /* When clicked, we execute the action passed as a prop to the modal component */
             >
               {actionLabel}
             </button>

@@ -3,7 +3,12 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { CurrentCollection, ICollection, IObject } from '../../types/types';
+import {
+  CurrentCollection,
+  IAlert,
+  ICollection,
+  IObject,
+} from '../../types/types';
 import axios from 'axios';
 import { RootState } from '..';
 
@@ -11,12 +16,19 @@ interface CollectionsState {
   list: ICollection[];
   currentCollection: CurrentCollection;
   randomCollection: ICollection[];
+  collectionAlert: IAlert;
+  redirectPath: string;
 }
 
 export const initialState: CollectionsState = {
   list: [],
   currentCollection: {},
   randomCollection: [],
+  collectionAlert: {
+    message: '',
+    type: '',
+  },
+  redirectPath: '',
 };
 
 const storedToken = localStorage.getItem('jwt');
@@ -126,6 +138,7 @@ export const postCollection = createAsyncThunk(
   async (_, thunkAPI) => {
     if (token) {
       const state = thunkAPI.getState() as RootState;
+
       const response = await axios.post(
         `${import.meta.env.VITE_API_PATH}secure/collection`,
         {
@@ -176,6 +189,7 @@ export const setCollectionObjects = createAction<IObject[]>(
 export const setCollectionRelatedObjects = createAction<IObject[]>(
   'collection/setCollectionRelatedObjects'
 );
+export const resetCollectionAlert = createAction('collection/resetAlert');
 
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
@@ -199,32 +213,57 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(uploadCollectionImage.fulfilled, (state, action) => {
       console.log('uploaded successfully');
       state.currentCollection.image = action.payload.url;
+      state.collectionAlert.message = 'Image uploaded successfully';
+      state.collectionAlert.type = 'success';
     })
     .addCase(uploadCollectionImage.rejected, (state, action) => {
       console.log('upload rejected');
+      state.collectionAlert.message = 'Image upload failed';
+      state.collectionAlert.type = 'error';
     })
     .addCase(deleteCollection.pending, (state, action) => {})
     .addCase(deleteCollection.fulfilled, (state, action) => {
       console.log('delete successfully');
+      state.redirectPath = `/user/${state.currentCollection.user?.id}`;
       state.currentCollection = {};
+      state.collectionAlert.message = 'Collection deleted successfully';
+      state.collectionAlert.type = 'success';
+      state.redirectPath = '';
     })
     .addCase(deleteCollection.rejected, (state, action) => {
       console.log('delete rejected');
+      state.collectionAlert.message = 'Collection delete failed';
+      state.collectionAlert.type = 'error';
     })
     .addCase(postCollection.pending, (state, action) => {})
     .addCase(postCollection.fulfilled, (state, action) => {
       console.log('post successfully');
+      state.redirectPath = `/user/${state.currentCollection.user?.id}`;
       state.currentCollection = {};
+      state.collectionAlert.message = 'Collection created successfully';
+      state.collectionAlert.type = 'success';
+      state.redirectPath = '';
     })
     .addCase(postCollection.rejected, (state, action) => {
       console.log('post rejected');
+      state.collectionAlert.message = 'Collection creation failed';
+      state.collectionAlert.type = 'error';
     })
     .addCase(updateCollection.pending, (state, action) => {})
     .addCase(updateCollection.fulfilled, (state, action) => {
       console.log('updated successfully', action.payload);
+      state.currentCollection = action.payload;
+      state.collectionAlert.message = 'Collection updated successfully';
+      state.collectionAlert.type = 'success';
+      state.currentCollection.id
+        ? (state.redirectPath = `/collection/${state.currentCollection.id}`)
+        : '';
+        console.log('redirectPath', state.redirectPath);
     })
     .addCase(updateCollection.rejected, (state, action) => {
       console.log('update rejected');
+      state.collectionAlert.message = 'Collection update failed';
+      state.collectionAlert.type = 'error';
     })
     .addCase(randomCollection.pending, (state, action) => {})
     .addCase(randomCollection.fulfilled, (state, action) => {
@@ -253,6 +292,10 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(setCollectionRelatedObjects, (state, action) => {
       (state.currentCollection as CurrentCollection).relatedObjects =
         action.payload;
+    })
+    .addCase(resetCollectionAlert, (state) => {
+      state.collectionAlert.message = '';
+      state.collectionAlert.type = '';
     });
 });
 

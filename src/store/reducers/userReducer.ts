@@ -20,7 +20,6 @@ interface loggedUser {
   password?: string;
   mycollections?: ICollection[];
   myfavoritescollections?: ICollection[];
-  isUserlogged: boolean;
 }
 
 interface currentUser {
@@ -34,9 +33,15 @@ interface currentUser {
   mycollections?: ICollection[];
 }
 
+interface userAlert {
+  message: string;
+  type: string;
+}
+
 interface UserState {
   loggedUser: loggedUser;
   currentUser: currentUser;
+  userAlert: userAlert;
 }
 
 interface UploadedFile {
@@ -53,7 +58,6 @@ export const initialState: UserState = {
     password: undefined,
     description: undefined,
     picture: undefined,
-    isUserlogged: false,
     mycollections: undefined,
     myfavoritescollections: undefined,
   },
@@ -65,6 +69,10 @@ export const initialState: UserState = {
     description: undefined,
     picture: undefined,
     mycollections: undefined,
+  },
+  userAlert: {
+    message: '',
+    type: '',
   },
 };
 
@@ -224,6 +232,8 @@ export const uploadUserImage = createAsyncThunk(
   }
 );
 
+export const resetAlert = createAction('user/resetAlert');
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(register.pending, (state, action) => {})
@@ -249,7 +259,8 @@ const userReducer = createReducer(initialState, (builder) => {
       state.loggedUser.username = (action.payload as IUser).username;
       localStorage.setItem('jwt', JSON.stringify(state.loggedUser.token));
       localStorage.setItem('uid', JSON.stringify(state.loggedUser.id));
-      state.loggedUser.isUserlogged = true;
+      state.userAlert.message = 'Login successful';
+      state.userAlert.type = 'success';
     })
     .addCase(loginCheck.rejected, (state, action) => {
       console.log('rejected', action);
@@ -310,6 +321,22 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUserDescription, (state, action) => {
       state.loggedUser.description = action.payload;
+    })
+    .addCase(userUpdate.pending, (state, action) => {})
+    .addCase(userUpdate.fulfilled, (state, action) => {
+      state.loggedUser = action.payload;
+      console.log('user updated successfully', action.payload);
+      state.userAlert.message = 'User updated successfully';
+      state.userAlert.type = 'success';
+    })
+    .addCase(userUpdate.rejected, (state, action) => {
+      console.log('user update rejected');
+      state.userAlert.message = 'User update rejected';
+      state.userAlert.type = 'error';
+    })
+    .addCase(resetAlert, (state, action) => {
+      state.userAlert.message = '';
+      state.userAlert.type = '';
     });
 });
 

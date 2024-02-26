@@ -60,7 +60,7 @@ export default function SingleCollection() {
           // The modal receive the name of the action to trigger and the function to execute when the confirm button of the modal is clicked
           <Modal
             actionLabel={'Supprimer la collection'}
-            action={() => handleDelete()}
+            action={handleDelete}
           />
         )
       }

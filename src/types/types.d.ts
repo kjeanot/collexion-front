@@ -56,3 +56,8 @@ export interface IComment {
   content?: string;
   user?: IUser;
 }
+
+export interface IAlert {
+  message: string;
+  type: string;
+}

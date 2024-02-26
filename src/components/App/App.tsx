@@ -11,13 +11,13 @@ import Alert from '../Alert/Alert';
 
 function App() {
   const dispatch = useAppDispatch();
-  const isUserLogged = useAppSelector(
-    (state) => state.user.loggedUser.isUserlogged
-  );
   const userId = useAppSelector((state) => state.user.loggedUser.id);
 
+  const userAlert = useAppSelector((state) => state.user.userAlert);
+  const collectionAlert = useAppSelector((state) => state.collections.collectionAlert);
+
   useEffect(() => {
-    isUserLogged && dispatch(fetchUserInfo(userId as number));
+    userId && dispatch(fetchUserInfo(userId as number));
   }, []);
 
   useEffect(() => {
@@ -28,7 +28,12 @@ function App() {
     <div className="App container mx-auto px-4 max-w-screen-xl">
       <Header />
       <main className="my-4">
-        <Alert type='error' message='erreur !'/>
+        {userAlert.message && (
+          <Alert type={userAlert.type} message={userAlert.message} />
+        )}
+        {collectionAlert.message && (
+          <Alert type={collectionAlert.type} message={collectionAlert.message} />
+        )}
         <Outlet />
       </main>
       <Footer />
