@@ -123,7 +123,7 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.put(
-      `${import.meta.env.VITE_API_PATH}user/${state.user.loggedUser.id}`,
+      `${import.meta.env.VITE_API_PATH}secure/user/${state.user.loggedUser.id}`,
       {
         nickname: state.user.loggedUser.nickname,
         email: state.user.loggedUser.email,

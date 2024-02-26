@@ -118,14 +118,8 @@ export const postCollection = createAsyncThunk(
 export const randomCollection = createAsyncThunk(
   'collections/randomCollection',
   async (_, thunkAPI) => {
-    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}collection_random`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${import.meta.env.VITE_API_PATH}collection_random`
     );
     return response.data;
   }
