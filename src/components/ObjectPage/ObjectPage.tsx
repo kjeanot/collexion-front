@@ -48,11 +48,8 @@ export default function ObjectPage() {
           <img src={data.image} className="w-full md:w-1/3 object-contain" />
           <div className="w-full md:w-2/3 p-6">
             <div className="flex justify-end">
-              {
-                // Display edit and delete buttons only if the object belongs to the loggedUser
-                data.myCollections[0].user.id === loggedUserId && (
-                  <>
-                    <Link to={`/collection/${data.id}/edit`}>
+
+                    <Link to={`/object/${data.id}/edit`}>
                       <button className="btn btn-circle mr-4">
                         <svg
                           className="w-6 h-6 text-gray-800"
@@ -92,9 +89,7 @@ export default function ObjectPage() {
                         />
                       </svg>
                     </button>
-                  </>
-                )
-              }
+ 
             </div>
             <h1 className="my-5 text-2xl font-bold text-customred">
               {data.name}

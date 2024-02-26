@@ -87,10 +87,7 @@ export const uploadObjectImage = createAsyncThunk(
     if (token) {
       const state = thunkAPI.getState() as RootState;
       const formData = new FormData();
-      formData.append(
-        'file',
-        state.objects.currentObject.image as File
-      );
+      formData.append('file', state.objects.currentObject.image as File);
       const response = await axios.post(
         `${import.meta.env.VITE_API_PATH}secure/object/upload_file`,
         formData,
@@ -132,9 +129,12 @@ export const updateObject = createAsyncThunk(
       const response = await axios.put(
         `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
         {
-          ...state.objects.currentObject,
-          relatedMyCollections:
-            state.objects.currentObject.relatedMyCollections,
+          name: state.objects.currentObject.name,
+          description: state.objects.currentObject.description,
+          state: state.objects.currentObject.state,
+          relatedCategory: state.objects.currentObject.relatedCategory,
+          relatedMyCollections: state.objects.currentObject.relatedMyCollections,
+          image: state.objects.currentObject.image
         },
         {
           headers: {
@@ -156,7 +156,12 @@ export const postObject = createAsyncThunk(
       const response = await axios.post(
         `${import.meta.env.VITE_API_PATH}secure/object`,
         {
-          ...state.objects.currentObject,
+          name: state.objects.currentObject.name,
+          description: state.objects.currentObject.description,
+          state: state.objects.currentObject.state,
+          relatedCategory: state.objects.currentObject.relatedCategory,
+          relatedMyCollections: state.objects.currentObject.relatedMyCollections,
+          image: state.objects.currentObject.image
         },
         {
           headers: {
@@ -195,7 +200,9 @@ export const setObjectName = createAction<string>('object/setObjectName');
 export const setObjectDescription = createAction<string>(
   'object/setObjectDescription'
 );
-export const setObjectImage = createAction<string | File>('object/setObjectImage');
+export const setObjectImage = createAction<string | File>(
+  'object/setObjectImage'
+);
 export const setObjectId = createAction<number>('object/setObjectId');
 export const setObjectState = createAction<string>('object/setObjectState');
 export const setObjectCategory = createAction<number>(
