@@ -22,7 +22,6 @@ export default function CollectionCard({
       </figure>
       <div className="card-body">
         <h3 className="card-title text-customred">{collection.name}</h3>
-        <Rating value={collection.rating} />
         {collection.user && (
           <Avatar
             picture={collection.user.picture}

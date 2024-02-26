@@ -10,11 +10,13 @@ import { RootState } from '..';
 interface CollectionsState {
   list: ICollection[];
   currentCollection: CurrentCollection;
+  randomCollection: ICollection[];
 }
 
 export const initialState: CollectionsState = {
   list: [],
   currentCollection: {},
+  randomCollection: [],
 };
 
 const storedToken = localStorage.getItem('jwt');
@@ -127,6 +129,22 @@ export const postCollection = createAsyncThunk(
   }
 );
 
+export const randomCollection = createAsyncThunk(
+  'collections/randomCollection',
+  async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}collection_random`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
 export const resetCurrentCollection = createAction(
   'collections/resetCurrentCollection'
 );
@@ -199,6 +217,16 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateCollection.rejected, (state, action) => {
       console.log('update rejected');
+    })
+    .addCase(randomCollection.pending, (state, action) => {
+      console.log('pending', action);
+    })
+    .addCase(randomCollection.fulfilled, (state, action) => {
+      console.log('fulfilled', action);
+      state.randomCollection = action.payload;
+    })
+    .addCase(randomCollection.rejected, (state, action) => {
+      console.log('rejected', action);
     })
     .addCase(resetCurrentCollection, (state) => {
       state.currentCollection = {};

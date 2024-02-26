@@ -1,7 +1,17 @@
+import { useAppDispatch } from '../../hooks/redux';
 import avatar from '../../assets/avatar-generations_bssq.jpg';
 import { IComment } from '../../types/types';
+import { postComment, setComment } from '../../store/reducers/commentsReducer';
+import { useEffect } from 'react';
 
-export default function Comments({ comments }: { comments: IComment[] }) {
+export default function Comments({
+  comments,
+  objectId,
+}: {
+  comments: IComment[];
+  objectId: number;
+}) {
+  const dispatch = useAppDispatch();
   return (
     <>
       <h2 className="text-2xl font-semibold border-b mt-6">Commentaires</h2>
@@ -16,10 +26,10 @@ export default function Comments({ comments }: { comments: IComment[] }) {
                 <div className="flex">
                   <img
                     className="w-10 h-10 ml-2 mr-2 rounded-full"
-                    src={avatar}
+                    src={comment.user?.picture}
                     alt=""
                   />
-                  <h2 className="card-title">Jese Leos</h2>
+                  <h2 className="card-title">{comment.user?.nickname}</h2>
                 </div>
                 <p>{comment.content}</p>
               </div>
@@ -34,10 +44,16 @@ export default function Comments({ comments }: { comments: IComment[] }) {
           <textarea
             className="textarea textarea-bordered w-full mt-6"
             placeholder="Commentaire"
+            required
+            onChange={(evt) => dispatch(setComment(evt.currentTarget.value))}
           />
           <button
-            type="button"
+            type="submit"
             className="flex justify-end text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center mt-6 me-2 mb-2"
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(postComment(objectId));
+            }}
           >
             Envoyer votre commentaire
           </button>

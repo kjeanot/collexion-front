@@ -5,13 +5,27 @@ import Background from '../Background/Background';
 import CarrouselHome from '../Carrousel/CarrouselHome';
 import CollectionCTA from '../Collection/CollectionCTA';
 import ObjectCard from '../Object/ObjectCard';
-import { fetchCollections } from '../../store/reducers/collectionsReducer';
+import {
+  fetchCollections,
+  randomCollection,
+} from '../../store/reducers/collectionsReducer';
+import { fetchObjects } from '../../store/reducers/objectsReducer';
+import { fetchCategories } from '../../store/reducers/categoriesReducer';
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.collections.list);
+  const dataCollections = useAppSelector((state) => state.collections.list);
+  const dataObjects = useAppSelector((state) => state.objects.list);
+  const dataCategories = useAppSelector((state) => state.categories.list);
+  const dataRandomCollections = useAppSelector(
+    (state) => state.collections.randomCollection
+  );
+
   useEffect(() => {
     dispatch(fetchCollections());
+    dispatch(fetchObjects());
+    dispatch(fetchCategories());
+    dispatch(randomCollection());
   }, []);
   return (
     <div>
@@ -24,10 +38,10 @@ export default function Home() {
         <Background />
       </div>
       <h2 className="font-bold text-2xl text-customred mt-10">
-        Collection à la une
+        Collection au hasard
       </h2>
-      {data && <CarrouselHome collections={data} />}
-      <div className="flex justify-center md:justify-end mb-9">
+      <CarrouselHome collections={dataRandomCollections} />
+      <div className="flex justify-end">
         <Link to="/collections">
           <button
             type="button"
@@ -38,15 +52,15 @@ export default function Home() {
         </Link>
       </div>
       <h2 className="font-bold text-2xl text-customred mt-10">
-        Les derniers objets ajoutés
+        Derniers objets ajoutés
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-10">
-        {[...Array(6)].map((_, index) => (
+        {dataObjects.slice(-6).map((objet, _) => (
           <ObjectCard
-            key={index}
-            id={index}
-            name="object"
-            image="https://picsum.photos/1000"
+            key={objet.id}
+            id={objet.id}
+            name={objet.name}
+            image={objet.image}
           />
         ))}
       </div>
@@ -61,16 +75,14 @@ export default function Home() {
         </Link>
       </div>
       <CollectionCTA />
-      <h2 className="font-bold text-2xl text-customred mt-10">
-        Les catégories phares
-      </h2>
+      <h2 className="font-bold text-2xl text-customred mt-10">Catégories</h2>
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-10">
-        {[...Array(6)].map((_, index) => (
+        {dataCategories.slice(-6).map((category, _) => (
           <ObjectCard
-            key={index}
-            id={index}
-            name="category"
-            image="https://picsum.photos/1000"
+            key={category.id}
+            id={category.id}
+            name={category.name}
+            image={category.image}
           />
         ))}
       </div>

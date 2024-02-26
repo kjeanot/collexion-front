@@ -20,6 +20,8 @@ import User from './components/User/User';
 import UserEdit from './components/User/UserEdit';
 import {
   collectionsLoader,
+  randomCollectionLoader,
+  randomObjectLoader,
   singleCollectionLoader,
   singleObjectLoader,
   userEditLoader,
@@ -33,6 +35,8 @@ import Categories from './components/Category/Categories';
 import Objects from './components/Object/Objects';
 import ObjectPage from './components/ObjectPage/ObjectPage';
 import SingleObjectEdit from './components/ObjectPage/SingleObjectEdit';
+import CollectionsListRandom from './components/Collection/CollectionsListRandom';
+import ObjectsRandom from './components/Object/ObjectsRandom';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,12 +57,24 @@ const router = createBrowserRouter(
         loader={singleCollectionLoader}
         errorElement={<Error />}
       />
+      <Route
+        path="/collection/random"
+        element={<CollectionsListRandom />}
+        loader={randomCollectionLoader}
+        errorElement={<Error />}
+      />
       <Route path="/collection/:id/edit" element={<SingleCollectionEdit />} />
       <Route path="/collection/new" element={<SingleCollectionEdit />} />
       <Route
         path="/object/:id"
         loader={singleObjectLoader}
         element={<ObjectPage />}
+        errorElement={<Error />}
+      />
+      <Route
+        path="/objet/random"
+        element={<ObjectsRandom />}
+        loader={randomObjectLoader}
         errorElement={<Error />}
       />
       <Route path="/object/:id/edit" element={<SingleObjectEdit />} />

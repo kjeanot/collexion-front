@@ -10,9 +10,13 @@ export default function GalleryCategories({
     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
       {categories.map((category) => (
         <Link key={category.id} to={`/category/${category.id}`}>
-          <div className="card h-auto max-w-full bg-base-100 shadow hover:contrast-50">
+          <div className="card h-80 max-w-full bg-base-100 shadow hover:contrast-50">
             <figure>
-              <img className="" src={category.image} alt="Shoes" />
+              <img
+                className="object-cover w-full"
+                src={category.image}
+                alt={category.name}
+              />
             </figure>
             <div className="card-body">
               <h3 className="card-title justify-center">{category.name}</h3>

@@ -1,8 +1,12 @@
-import { useAppDispatch } from "../../hooks/redux";
-import { register, setEmail, setNickname, setPassword } from "../../store/reducers/userReducer";
+import { useAppDispatch } from '../../hooks/redux';
+import {
+  register,
+  setEmail,
+  setNickname,
+  setPassword,
+} from '../../store/reducers/userReducer';
 
 export default function Subscribe() {
-
   const dispatch = useAppDispatch();
 
   return (
@@ -63,17 +67,16 @@ export default function Subscribe() {
           <input type="checkbox" checked className="checkbox ml-2" />
         </label>
         <button
-        type="submit"
-        className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
-        onClick={(evt) => {
-          evt.preventDefault();
-          dispatch(register());
-        }}
-      >
-        S'inscrire
-      </button>
+          type="submit"
+          className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
+          onClick={(evt) => {
+            evt.preventDefault();
+            dispatch(register());
+          }}
+        >
+          S'inscrire
+        </button>
       </form>
-
     </div>
   );
 }
