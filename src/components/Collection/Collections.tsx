@@ -21,7 +21,7 @@ export default function Collections() {
       <CollectionCTA />
       <div className="flex justify-between">
         <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
-          Gallerie des collections
+          Toutes les collections
         </h2>
         <Filter />
       </div>

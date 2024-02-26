@@ -61,19 +61,27 @@ export default function Content() {
         </div>
         <div className="collapse-content grid md:grid-cols-4 grid-cols-2 gap-6 text-2xl font-bold text-center text-customred">
           <div>
-            <img className="rounded-full" src={kevin} alt="" />
+            <img className="rounded-tr-3xl rounded-bl-3xl" src={kevin} alt="" />
             <p>Kévin</p>
           </div>
           <div>
-            <img className="rounded-full" src={andy} alt="" />
+            <img className="rounded-tr-3xl rounded-bl-3xl" src={andy} alt="" />
             <p>Andy</p>
           </div>
           <div>
-            <img className="rounded-full" src={adrien} alt="" />
+            <img
+              className="rounded-tr-3xl rounded-bl-3xl"
+              src={adrien}
+              alt=""
+            />
             <p>Adrien</p>
           </div>
           <div>
-            <img className="rounded-full" src={christian} alt="" />
+            <img
+              className="rounded-tr-3xl rounded-bl-3xl"
+              src={christian}
+              alt=""
+            />
             <p>Christian</p>
           </div>
         </div>

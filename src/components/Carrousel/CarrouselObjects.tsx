@@ -43,7 +43,7 @@ export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
         <div key={object.id}>
           <Link
             to={`/object/${object.id}`}
-            className="card h-80 bg-base-100 shadow hover:bg-gray-100"
+            className="card h-80 bg-base-100 shadow hover:bg-gray-100 rounded-none rounded-tr-3xl rounded-bl-3xl"
           >
             <figure>
               <img

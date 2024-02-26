@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <div>
       {/* banner */}
-      <h1 className="md:h-20 p-5 text-center text-2xl font-bold text-white bg-gradient-to-r from-customred to-customorange">
+      <h1 className="md:h-20 p-5 text-center text-2xl font-bold text-white bg-gradient-to-r from-customred to-customorange ">
         Chaque objet a son histoire, et chaque collection raconte votre parcours
         !
       </h1>

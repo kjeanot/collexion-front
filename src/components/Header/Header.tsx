@@ -29,6 +29,9 @@ export default function Header() {
                 </summary>
                 <ul className="p-2 text-base bg-base-100 rounded-t-none min-w-56">
                   <li>
+                    <a>Cartes</a>
+                  </li>
+                  <li>
                     <a>Figurines</a>
                   </li>
                   <li>
