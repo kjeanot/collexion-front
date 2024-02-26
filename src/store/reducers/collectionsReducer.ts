@@ -3,8 +3,8 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import { CurrentCollection, ICollection, IObject } from '../../types/types';
 import axios from 'axios';
+import { CurrentCollection, ICollection, IObject } from '../../types/types';
 import { RootState } from '..';
 
 interface CollectionsState {

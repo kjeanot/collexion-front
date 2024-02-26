@@ -1,9 +1,5 @@
 import axios from 'axios';
-import {
-  createAction,
-  createAsyncThunk,
-  createReducer,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { ICategory } from '../../types/types';
 import { RootState } from '..';
 
@@ -17,7 +13,7 @@ export const initialState: CategoriesState = {
   currentCategory: null,
 };
 
-const storedToken = localStorage.getItem("jwt");
+const storedToken = localStorage.getItem('jwt');
 const token = storedToken ? JSON.parse(storedToken) : '';
 /**
  * Middleware for fetching all the categories
@@ -30,16 +26,17 @@ export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
   async (_, thunkAPI) => {
     if (token) {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}categories`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  }}
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}categories`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
+  }
 );
 
 // Middlewares for a single Categories CRUD
@@ -48,11 +45,12 @@ export const fetchSingleCategory = createAsyncThunk(
   'categories/fetchSingleCategory',
   async (id: number, thunkAPI) => {
     if (token) {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}categories/${id}`
-    );
-    return response.data;
-  }}
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}categories/${id}`
+      );
+      return response.data;
+    }
+  }
 );
 
 const collectionsReducer = createReducer(initialState, (builder) => {

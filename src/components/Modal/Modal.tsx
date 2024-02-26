@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 

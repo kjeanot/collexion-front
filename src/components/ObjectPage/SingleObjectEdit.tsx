@@ -1,10 +1,8 @@
-import { useLocation, useParams } from 'react-router-dom';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   postObject,
   setObjectDescription,
-  setObjectImage,
   setObjectName,
   setObjectCollections,
   updateObject,
@@ -27,7 +25,7 @@ export default function SingleObjectEdit() {
   const data: CurrentObject = useAppSelector(
     (state) => state.objects.currentObject
   );
-  
+
   // Retreive the current collection stored in state
   const currentCollection: ICollection = useAppSelector(
     (state) => state.collections.currentCollection
@@ -214,30 +212,34 @@ export default function SingleObjectEdit() {
             key={index}
             className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4 h-16"
           >
-            <img src={object.image} className="max-w-16 mr-4 object-fill h-16" />
+            <img
+              src={object.image}
+              className="max-w-16 mr-4 object-fill h-16"
+            />
             <p className="block flex-1">{object.name}</p>
-            {relatedCollections?.length > 1 &&
+            {relatedCollections?.length > 1 && (
               <button
-              className="btn rounded-none h-16"
-              onClick={(evt) => {
-                evt.preventDefault();
-                handleCollectionsRemoving(object.id as number);
-              }}
-            >
-              <svg
-                className="w-6 h-6 text-gray-800"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
+                className="btn rounded-none h-16"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  handleCollectionsRemoving(object.id as number);
+                }}
               >
-                <path
-                  fillRule="evenodd"
-                  d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>}
+                <svg
+                  className="w-6 h-6 text-gray-800"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
         ))
       ) : (

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
-import Rating from '../Rating/Rating';
 import { ICollection } from '../../types/types';
 
 export default function CollectionCard({

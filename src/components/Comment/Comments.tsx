@@ -1,8 +1,6 @@
 import { useAppDispatch } from '../../hooks/redux';
-import avatar from '../../assets/avatar-generations_bssq.jpg';
 import { IComment } from '../../types/types';
 import { postComment, setComment } from '../../store/reducers/commentsReducer';
-import { useEffect } from 'react';
 
 export default function Comments({
   comments,

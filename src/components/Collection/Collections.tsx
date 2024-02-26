@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import { useLoaderData } from 'react-router-dom';
 import CollectionsList from './CollectionsList';
 import CollectionCTA from './CollectionCTA';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ICollection } from '../../types/types';
-import { fetchCollections } from '../../store/reducers/collectionsReducer';
 import Filter from '../Filter/Filter';
 import Background from '../Background/Background';
 

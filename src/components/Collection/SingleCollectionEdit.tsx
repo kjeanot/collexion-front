@@ -1,12 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useLocation, useParams } from 'react-router-dom';
 import {
-  fetchSingleCollection,
   postCollection,
   resetCurrentCollection,
   setCollectionDescription,
-  setCollectionImage,
   setCollectionName,
   setCollectionObjects,
   setCollectionRelatedObjects,
@@ -24,7 +22,7 @@ export default function SingleCollectionEdit() {
   const data: CurrentCollection = useAppSelector(
     (state) => state.collections.currentCollection
   );
-  
+
   const location = useLocation();
 
   const [publicId, setPublicId] = useState('');
@@ -88,17 +86,15 @@ export default function SingleCollectionEdit() {
     }
     dispatch(setCollectionRelatedObjects(extractedObjects));
     dispatch(setCollectionObjects(remainingObjects));
-
   }
   useEffect(() => {
-    location.pathname === "/collection/new" && dispatch(resetCurrentCollection());
-  }, [])
+    location.pathname === '/collection/new' &&
+      dispatch(resetCurrentCollection());
+  }, []);
 
   useEffect(() => {
     dispatch(setCollectionRelatedObjects([]));
-  }, [])
-
- 
+  }, []);
 
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
@@ -151,10 +147,7 @@ export default function SingleCollectionEdit() {
               key={index}
               className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
             >
-              <img
-                src={object.image}
-                className="max-w-16 mr-4 object-fill"
-              />
+              <img src={object.image} className="max-w-16 mr-4 object-fill" />
               <p className="block flex-1">{object.name}</p>
               <button
                 className="btn rounded-none h-16"

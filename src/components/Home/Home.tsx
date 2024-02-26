@@ -14,7 +14,6 @@ import { fetchCategories } from '../../store/reducers/categoriesReducer';
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const dataCollections = useAppSelector((state) => state.collections.list);
   const dataObjects = useAppSelector((state) => state.objects.list);
   const dataCategories = useAppSelector((state) => state.categories.list);
   const dataRandomCollections = useAppSelector(

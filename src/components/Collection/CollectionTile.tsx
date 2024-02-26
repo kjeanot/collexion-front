@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ICollection } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useLocation } from 'react-router-dom';
 import {
   fetchUserInfo,
   removeFromFavorites,

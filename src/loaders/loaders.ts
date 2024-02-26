@@ -1,7 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { LoaderFunction, Params, json } from 'react-router-dom';
-import { useAppSelector } from '../hooks/redux';
-import Error from '../components/Error/Error';
+import { Params } from 'react-router-dom';
 
 const storedToken = localStorage.getItem('jwt');
 const token = storedToken ? JSON.parse(storedToken) : '';
@@ -25,12 +23,7 @@ export function singleCollectionLoader({ params }: { params: Params }): any {
 
 export function randomCollectionLoader(): Promise<AxiosResponse<any, any>> {
   const promise = axios.get(
-    `${import.meta.env.VITE_API_PATH}collection_random`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+    `${import.meta.env.VITE_API_PATH}collection_random`
   );
   return promise;
 }
@@ -59,11 +52,7 @@ export function singleObjectLoader({ params }: { params: Params }): any {
 }
 
 export function randomObjectLoader(): Promise<AxiosResponse<any, any>> {
-  const promise = axios.get(`${import.meta.env.VITE_API_PATH}object_random`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const promise = axios.get(`${import.meta.env.VITE_API_PATH}object_random`);
   return promise;
 }
 
@@ -92,6 +81,5 @@ export function userEditLoader({ params }: { params: Params }): any {
       }
     );
     return promise;
-  } 
+  }
 }
-

@@ -3,21 +3,22 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { NavigateFunction } from 'react-router-dom';
 import {
   CurrentObject,
   ICollection,
   IComment,
   IObject,
 } from '../../types/types';
-import axios from 'axios';
 import { RootState } from '..';
-import { NavigateFunction } from 'react-router-dom';
 
 interface ObjectsState {
   list: IObject[];
   currentObject: CurrentObject;
   comments: IComment[];
   currentComment: IComment;
+  randomObject: IObject[];
 }
 
 export const initialState: ObjectsState = {
@@ -25,6 +26,7 @@ export const initialState: ObjectsState = {
   currentObject: {},
   comments: [],
   currentComment: {},
+  randomObject: [],
 };
 
 const storedToken = localStorage.getItem('jwt');
@@ -161,6 +163,22 @@ export const postObject = createAsyncThunk(
   }
 );
 
+export const randomObject = createAsyncThunk(
+  'object/randomObject',
+  async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}object_random`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
 export const resetCurrentObject = createAction('objects/resetCurrentObject');
 export const setObjectName = createAction<string>('object/setObjectName');
 export const setObjectDescription = createAction<string>(
@@ -236,6 +254,16 @@ const objectsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateObject.rejected, (state, action) => {
       console.log('update rejected');
+    })
+    .addCase(randomObject.pending, (state, action) => {
+      console.log('pending', action);
+    })
+    .addCase(randomObject.fulfilled, (state, action) => {
+      console.log('fulfilled', action);
+      state.randomObject = action.payload;
+    })
+    .addCase(randomObject.rejected, (state, action) => {
+      console.log('rejected', action);
     })
     .addCase(resetCurrentObject, (state) => {
       state.currentObject = {};

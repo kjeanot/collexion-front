@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Background from '../Background/Background';
-import { fetchObjects } from '../../store/reducers/objectsReducer';
+import {
+  fetchObjects,
+  randomObject,
+} from '../../store/reducers/objectsReducer';
 import GalleryObjects from '../Gallery/GalleryObjects';
 import CarrouselObjects from '../Carrousel/CarrouselObjects';
 import Filter from '../Filter/Filter';
@@ -9,8 +12,12 @@ import Filter from '../Filter/Filter';
 export default function Objects() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.objects.list);
+  const dataRandomObjects = useAppSelector(
+    (state) => state.objects.randomObject
+  );
   useEffect(() => {
     dispatch(fetchObjects());
+    dispatch(randomObject());
   }, []);
   return (
     <div>
@@ -23,7 +30,7 @@ export default function Objects() {
           <h2 className="font-bold text-2xl text-customred mt-10">
             Objets au hasard
           </h2>
-          <CarrouselObjects objects={data} />
+          <CarrouselObjects objects={dataRandomObjects} />
           <div className="flex justify-between">
             <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
               Tous les Objets

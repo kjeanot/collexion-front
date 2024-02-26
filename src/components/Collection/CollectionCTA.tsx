@@ -4,7 +4,6 @@ import { useAppDispatch } from '../../hooks/redux';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
 
 export default function CollectionCTA() {
-
   const dispatch = useAppDispatch();
 
   return (
@@ -16,7 +15,7 @@ export default function CollectionCTA() {
             'url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)',
         }}
       >
-        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-overlay bg-opacity-60" />
         <div className="hero-content text-center text-neutral-content p-8">
           <div className="max-w-md">
             <h2 className="mb-5 text-3xl font-bold">
@@ -27,8 +26,11 @@ export default function CollectionCTA() {
               fier(e) ? Publiez-la sur Collexion pour enchanter toute la
               communauté de collectionneurs en quête d'inspiration !
             </p>
-            <Link to="/collection/new" onClick={() => dispatch(resetCurrentCollection())}>
-              <Button text={'Je crée ma collection !'}/>
+            <Link
+              to="/collection/new"
+              onClick={() => dispatch(resetCurrentCollection())}
+            >
+              <Button text={'Je crée ma collection !'} />
             </Link>
           </div>
         </div>

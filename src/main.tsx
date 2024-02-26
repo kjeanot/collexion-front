@@ -58,7 +58,7 @@ const router = createBrowserRouter(
         errorElement={<Error />}
       />
       <Route
-        path="/collection/random"
+        path="/collections/random"
         element={<CollectionsListRandom />}
         loader={randomCollectionLoader}
         errorElement={<Error />}
@@ -72,7 +72,7 @@ const router = createBrowserRouter(
         errorElement={<Error />}
       />
       <Route
-        path="/objet/random"
+        path="/objets/random"
         element={<ObjectsRandom />}
         loader={randomObjectLoader}
         errorElement={<Error />}
@@ -80,11 +80,26 @@ const router = createBrowserRouter(
       <Route path="/object/:id/edit" element={<SingleObjectEdit />} />
       <Route path="/object/new" element={<SingleObjectEdit />} />
       <Route path="/subscribe" element={<Subscribe />} />
-      <Route path="/user/:id" loader={userLoader} element={<User />} errorElement={<Error />}>
-        <Route index element={<UserCollectionsList collectionType='created'/>} />
-        <Route path="/user/:id/favorites" element={<UserCollectionsList collectionType='favorite'/>} />
+      <Route
+        path="/user/:id"
+        loader={userLoader}
+        element={<User />}
+        errorElement={<Error />}
+      >
+        <Route
+          index
+          element={<UserCollectionsList collectionType="created" />}
+        />
+        <Route
+          path="/user/:id/favorites"
+          element={<UserCollectionsList collectionType="favorite" />}
+        />
       </Route>
-      <Route path='/user/:id/edit' element={<UserEdit />} loader={userEditLoader}/>
+      <Route
+        path="/user/:id/edit"
+        element={<UserEdit />}
+        loader={userEditLoader}
+      />
       <Route path="/mentions" element={<Content />} />
       <Route path="/*" element={<Error />} />
     </Route>
