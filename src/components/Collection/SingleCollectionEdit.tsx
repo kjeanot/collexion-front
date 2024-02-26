@@ -2,7 +2,9 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation, useParams } from 'react-router-dom';
 import {
+  fetchSingleCollection,
   postCollection,
+  resetCurrentCollection,
   setCollectionDescription,
   setCollectionImage,
   setCollectionName,
@@ -22,6 +24,8 @@ export default function SingleCollectionEdit() {
   const data: CurrentCollection = useAppSelector(
     (state) => state.collections.currentCollection
   );
+  
+  const location = useLocation();
 
   const [publicId, setPublicId] = useState('');
   // Replace with your own cloud name
@@ -71,25 +75,30 @@ export default function SingleCollectionEdit() {
    * @return {void}
    */
   function handleObjectsRemoving(id: number): void {
-    let result: IObject[] = [];
+    let extractedObjects: IObject[] = [];
+    let remainingObjects: IObject[] = [];
     if (data) {
       data?.myobjects?.map((el) => {
         if (el.id !== undefined && el.id === id) {
-          result.push(el);
+          extractedObjects.push(el);
+        } else {
+          remainingObjects.push(el);
         }
       });
     }
-    dispatch(setCollectionRelatedObjects(result));
-  }
+    dispatch(setCollectionRelatedObjects(extractedObjects));
+    dispatch(setCollectionObjects(remainingObjects));
 
-  const relatedMyCollections = useAppSelector(
-    (state) => state.objects.currentObject.relatedMyCollections
-  );
-  console.log(relatedMyCollections);
+  }
+  useEffect(() => {
+    location.pathname === "/collection/new" && dispatch(resetCurrentCollection());
+  }, [])
 
   useEffect(() => {
     dispatch(setCollectionRelatedObjects([]));
   }, [])
+
+ 
 
   return (
     <form className="md:w-1/2 mx-auto flex flex-col">
@@ -101,7 +110,7 @@ export default function SingleCollectionEdit() {
         <input
           type="text"
           placeholder={data ? data.name : 'Nom de la collection'}
-          value={data ? data.name : ''}
+          defaultValue={data ? data.name : ''}
           className="input input-bordered w-full"
           onChange={(evt: ChangeEvent<HTMLInputElement>) =>
             dispatch(setCollectionName(evt.currentTarget.value))
@@ -115,7 +124,7 @@ export default function SingleCollectionEdit() {
         <textarea
           className="textarea textarea-bordered h-24"
           placeholder={data ? data.description : 'Description de la collection'}
-          value={data ? data.description : ''}
+          defaultValue={data ? data.description : ''}
           onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
             dispatch(setCollectionDescription(evt.currentTarget.value))
           }

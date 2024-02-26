@@ -11,7 +11,7 @@ export default function CollectionCard({
   return (
     <Link
       to={`/collection/${collection.id}`}
-      className="card bg-base-100 shadow-xl hover:bg-gray-100"
+      className="card bg-base-100 shadow-xl hover:bg-gray-100 rounded-none rounded-tr-3xl rounded-bl-3xl"
     >
       <figure className="h-64">
         <img

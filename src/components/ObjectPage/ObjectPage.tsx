@@ -16,11 +16,14 @@ import Comments from '../Comment/Comments';
 
 export default function ObjectPage() {
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
+
   const dispatch = useAppDispatch();
   const showModal = useAppSelector((state) => state.app.showModal);
   const comments = useAppSelector((state) => state.objects.comments);
-  console.log(data);
+  
+  const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
+  // Function passed in the Modal component to trigger the delete action of the object
   const handleDelete = () => {
     dispatch(deleteObject(data.id));
   };

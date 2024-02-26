@@ -64,7 +64,7 @@ export default function Home() {
           />
         ))}
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-center md:justify-end mb-9">
         <Link to="/objects">
           <button
             type="button"
@@ -86,7 +86,7 @@ export default function Home() {
           />
         ))}
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-center md:justify-end mb-9">
         <Link to="/categories">
           <button
             type="button"

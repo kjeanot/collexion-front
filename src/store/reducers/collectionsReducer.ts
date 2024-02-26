@@ -115,7 +115,7 @@ export const postCollection = createAsyncThunk(
     if (token) {
       const state = thunkAPI.getState() as RootState;
       const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}collection/create`,
+        `${import.meta.env.VITE_API_PATH}collection`,
         state.collections.currentCollection,
         {
           headers: {

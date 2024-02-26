@@ -17,12 +17,14 @@ import SingleCollection from './components/Collection/SingleCollection';
 import SingleCollectionEdit from './components/Collection/SingleCollectionEdit';
 import UserCollectionsList from './components/User/UserCollectionsList';
 import User from './components/User/User';
+import UserEdit from './components/User/UserEdit';
 import {
   collectionsLoader,
   randomCollectionLoader,
   randomObjectLoader,
   singleCollectionLoader,
   singleObjectLoader,
+  userEditLoader,
   userLoader,
 } from './loaders/loaders';
 import Error from './components/Error/Error';
@@ -78,15 +80,11 @@ const router = createBrowserRouter(
       <Route path="/object/:id/edit" element={<SingleObjectEdit />} />
       <Route path="/object/new" element={<SingleObjectEdit />} />
       <Route path="/subscribe" element={<Subscribe />} />
-      <Route
-        path="/user/:id"
-        loader={userLoader}
-        element={<User />}
-        errorElement={<Error />}
-      >
-        <Route index element={<UserCollectionsList />} />
-        <Route path="/user/:id/favorites" element={<Subscribe />} />
+      <Route path="/user/:id" loader={userLoader} element={<User />} errorElement={<Error />}>
+        <Route index element={<UserCollectionsList collectionType='created'/>} />
+        <Route path="/user/:id/favorites" element={<UserCollectionsList collectionType='favorite'/>} />
       </Route>
+      <Route path='/user/:id/edit' element={<UserEdit />} loader={userEditLoader}/>
       <Route path="/mentions" element={<Content />} />
       <Route path="/*" element={<Error />} />
     </Route>
