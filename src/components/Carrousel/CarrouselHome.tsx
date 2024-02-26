@@ -39,9 +39,9 @@ export default function Carrousel({
       autoPlaySpeed={2000}
       customTransition="all 1"
       transitionDuration={500}
-      containerClass="carousel-container my-2"
+      containerClass="carousel-container my-2 mb-6"
       removeArrowOnDeviceType={['tablet', 'mobile']}
-      dotListClass="md:invisible custom-dot-list-style opacity-70"
+      dotListClass="md:invisible custom-dot-list-style opacity-70 "
       itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
     >
       {collections.map((collection) => (

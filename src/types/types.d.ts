@@ -52,7 +52,7 @@ export interface IObject {
 export type IRole = string;
 
 export interface IComment {
-  id?: number;
+  id: number;
   content?: string;
   user?: IUser;
 }
