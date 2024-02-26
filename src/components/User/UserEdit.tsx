@@ -11,7 +11,7 @@ export default function UserEdit() {
   const picture = useAppSelector((state) => state.user.loggedUser.picture);
 
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('uploading file ...');
+
     evt.target.files && dispatch(setPicture(evt.target.files[0]));
     dispatch(uploadUserImage());
   }

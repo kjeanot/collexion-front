@@ -31,7 +31,7 @@ export default function SingleCollectionEdit() {
   const image = useAppSelector((state) => state.collections.currentCollection.image);
 
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('uploading file ...');
+
     if (evt.target.files) {
       dispatch(setCollectionImage(evt.target.files[0]));
       dispatch(uploadCollectionImage());

@@ -208,9 +208,7 @@ export const setObject = createAction<number>('object/setObject');
 
 const objectsReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchObjects.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(fetchObjects.pending, (state, action) => {})
     .addCase(fetchObjects.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.list = action.payload;
@@ -218,9 +216,7 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(fetchObjects.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(fetchComments.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(fetchComments.pending, (state, action) => {})
     .addCase(fetchComments.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.comments = action.payload;
@@ -228,20 +224,15 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(fetchComments.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(fetchSingleObject.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(fetchSingleObject.pending, (state, action) => {})
     .addCase(fetchSingleObject.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.currentObject = action.payload;
-      console.log(state.currentObject, action.payload);
     })
     .addCase(fetchSingleObject.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(uploadObjectImage.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(uploadObjectImage.pending, (state, action) => {})
     .addCase(uploadObjectImage.fulfilled, (state, action) => {
       state.currentObject.image = action.payload.url;
       console.log('fulfilled', action.payload);
@@ -249,9 +240,7 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(uploadObjectImage.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(deleteObject.pending, (state, action) => {
-      console.log('delete pending');
-    })
+    .addCase(deleteObject.pending, (state, action) => {})
     .addCase(deleteObject.fulfilled, (state, action) => {
       console.log('delete successfully');
       state.currentObject = {};
@@ -259,9 +248,7 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(deleteObject.rejected, (state, action) => {
       console.log('delete rejected');
     })
-    .addCase(postObject.pending, (state, action) => {
-      console.log('post pending');
-    })
+    .addCase(postObject.pending, (state, action) => {})
     .addCase(postObject.fulfilled, (state, action) => {
       console.log('post successfully');
       state.currentObject = {};
@@ -269,24 +256,20 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(postObject.rejected, (state, action) => {
       console.log('post rejected');
     })
-    .addCase(updateObject.pending, (state, action) => {
-      console.log('update pending');
-    })
+    .addCase(updateObject.pending, (state, action) => {})
     .addCase(updateObject.fulfilled, (state, action) => {
       console.log('updated successfully', action.payload);
     })
     .addCase(updateObject.rejected, (state, action) => {
       console.log('update rejected');
     })
-    .addCase(postComment.pending, (state, action) => {
-      console.log('post pending');
-    })
+    .addCase(postComment.pending, (state, action) => {})
     .addCase(postComment.fulfilled, (state, action) => {
       console.log('post successfully');
       console.log(action.payload);
       state.currentObject.comments = [
         ...(state.currentObject.comments || []),
-        action.payload
+        action.payload,
       ];
     })
     .addCase(postComment.rejected, (state, action) => {
@@ -294,35 +277,27 @@ const objectsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setComment, (state, action) => {
       state.currentComment = action.payload;
-      console.log(state.currentComment);
     })
     .addCase(resetCurrentObject, (state) => {
       state.currentObject = {};
-      console.log('currentObject reset');
     })
     .addCase(setObjectName, (state, action) => {
       state.currentObject.name = action.payload;
-      console.log(state.currentObject.name);
     })
     .addCase(setObjectDescription, (state, action) => {
       state.currentObject.description = action.payload;
-      console.log(state.currentObject.description);
     })
     .addCase(setObjectImage, (state, action) => {
       state.currentObject.image = action.payload;
-      console.log(state.currentObject.image);
     })
     .addCase(setObjectState, (state, action) => {
       state.currentObject.state = action.payload;
-      console.log(state.currentObject.state);
     })
     .addCase(setObjectCategory, (state, action) => {
       state.currentObject.relatedCategory = action.payload;
-      console.log(state.currentObject.relatedCategory);
     })
     .addCase(setObjectCollections, (state, action) => {
       state.currentObject.relatedMyCollections = action.payload;
-      console.log(state.currentObject.relatedMyCollections);
     });
 });
 

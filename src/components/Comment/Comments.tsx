@@ -11,13 +11,13 @@ export default function Comments({ objectId }: { objectId: number }) {
   const comments = useAppSelector(
     (state) => state.objects.currentObject.comments
   );
-  console.log(comments);
+  
 
   const [nbComments, setNbComments] = useState(0);
 
   useEffect(() => {
     dispatch(fetchSingleObject(objectId));
-  }, [dispatch, setNbComments, nbComments, objectId]);
+  }, [nbComments, dispatch, objectId]);
 
   return (
     <>
@@ -40,7 +40,7 @@ export default function Comments({ objectId }: { objectId: number }) {
                     <div className="flex">
                       <img
                         className="w-10 h-10 ml-2 mr-2 rounded-full"
-                        src={comment.user?.picture}
+                        src={comment.user?.picture ? comment.user.picture : avatar}
                         alt=""
                       />
                       <h2 className="card-title">{comment.user?.nickname}</h2>
@@ -68,6 +68,8 @@ export default function Comments({ objectId }: { objectId: number }) {
               evt.preventDefault();
               dispatch(postComment(objectId));
               setNbComments((prev) => prev + 1);
+              dispatch(fetchSingleObject(objectId));
+              dispatch(setComment(''));
             }}
           >
             Envoyer votre commentaire

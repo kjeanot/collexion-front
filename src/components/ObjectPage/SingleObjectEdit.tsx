@@ -50,7 +50,7 @@ export default function SingleObjectEdit() {
   const image = useAppSelector((state) => state.objects.currentObject.image);
 
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('uploading file ...');
+
     if (evt.target.files) {
       dispatch(setObjectImage(evt.target.files[0]));
       dispatch(uploadObjectImage());

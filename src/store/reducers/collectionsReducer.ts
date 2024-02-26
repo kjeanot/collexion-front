@@ -105,7 +105,8 @@ export const updateCollection = createAsyncThunk(
           description: state.collections.currentCollection.description,
           image: state.collections.currentCollection.image,
           relatedObjects: state.collections.currentCollection.relatedObjects,
-          title: 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
+          title:
+            'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
           is_active: true,
         },
         {
@@ -127,9 +128,11 @@ export const postCollection = createAsyncThunk(
       const state = thunkAPI.getState() as RootState;
       const response = await axios.post(
         `${import.meta.env.VITE_API_PATH}secure/collection`,
-        {...state.collections.currentCollection, 
+        {
+          ...state.collections.currentCollection,
           title: state.collections.currentCollection.name,
-          is_active: true},
+          is_active: true,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -176,9 +179,7 @@ export const setCollectionRelatedObjects = createAction<IObject[]>(
 
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchCollections.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(fetchCollections.pending, (state, action) => {})
     .addCase(fetchCollections.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.list = action.payload;
@@ -186,9 +187,7 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(fetchCollections.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(fetchSingleCollection.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(fetchSingleCollection.pending, (state, action) => {})
     .addCase(fetchSingleCollection.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.currentCollection = action.payload;
@@ -196,9 +195,7 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(fetchSingleCollection.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(uploadCollectionImage.pending, (state, action) => {
-      console.log('upload pending');
-    })
+    .addCase(uploadCollectionImage.pending, (state, action) => {})
     .addCase(uploadCollectionImage.fulfilled, (state, action) => {
       console.log('uploaded successfully');
       state.currentCollection.image = action.payload.url;
@@ -206,9 +203,7 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(uploadCollectionImage.rejected, (state, action) => {
       console.log('upload rejected');
     })
-    .addCase(deleteCollection.pending, (state, action) => {
-      console.log('delete pending');
-    })
+    .addCase(deleteCollection.pending, (state, action) => {})
     .addCase(deleteCollection.fulfilled, (state, action) => {
       console.log('delete successfully');
       state.currentCollection = {};
@@ -216,9 +211,7 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(deleteCollection.rejected, (state, action) => {
       console.log('delete rejected');
     })
-    .addCase(postCollection.pending, (state, action) => {
-      console.log('post pending');
-    })
+    .addCase(postCollection.pending, (state, action) => {})
     .addCase(postCollection.fulfilled, (state, action) => {
       console.log('post successfully');
       state.currentCollection = {};
@@ -226,18 +219,14 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(postCollection.rejected, (state, action) => {
       console.log('post rejected');
     })
-    .addCase(updateCollection.pending, (state, action) => {
-      console.log('update pending');
-    })
+    .addCase(updateCollection.pending, (state, action) => {})
     .addCase(updateCollection.fulfilled, (state, action) => {
       console.log('updated successfully', action.payload);
     })
     .addCase(updateCollection.rejected, (state, action) => {
       console.log('update rejected');
     })
-    .addCase(randomCollection.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(randomCollection.pending, (state, action) => {})
     .addCase(randomCollection.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.randomCollection = action.payload;
@@ -247,7 +236,6 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetCurrentCollection, (state) => {
       state.currentCollection = {};
-      console.log('currentCollection reset');
     })
     .addCase(setCollectionName, (state, action) => {
       (state.currentCollection as CurrentCollection).name = action.payload;
@@ -261,12 +249,10 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCollectionObjects, (state, action) => {
       (state.currentCollection as CurrentCollection).myobjects = action.payload;
-      console.log(state.currentCollection.relatedObjects);
     })
     .addCase(setCollectionRelatedObjects, (state, action) => {
       (state.currentCollection as CurrentCollection).relatedObjects =
         action.payload;
-      console.log(state.currentCollection.relatedObjects);
     });
 });
 
