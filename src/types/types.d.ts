@@ -39,7 +39,7 @@ export interface IObject {
   state: string;
   id?: number;
   name?: string;
-  image?: string;
+  image?: string | File;
   description?: string;
   state?: string;
   relatedMyCollections?: ICollection[] | [any];

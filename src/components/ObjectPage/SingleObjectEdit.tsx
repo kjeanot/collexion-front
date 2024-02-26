@@ -10,13 +10,18 @@ import {
   updateObject,
   setObjectState,
   setObjectCategory,
+  uploadObjectImage,
 } from '../../store/reducers/objectsReducer';
 import CloudinaryUploadWidget from '../Upload/UploadButton';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import { ICategory, ICollection, IObject } from '../../types/types';
 import { fetchCategories } from '../../store/reducers/categoriesReducer';
-import { fetchCollections } from '../../store/reducers/collectionsReducer';
+import {
+  fetchCollections,
+  setCollectionImage,
+  uploadCollectionImage,
+} from '../../store/reducers/collectionsReducer';
 
 type CurrentObject = IObject & {};
 
@@ -27,7 +32,7 @@ export default function SingleObjectEdit() {
   const data: CurrentObject = useAppSelector(
     (state) => state.objects.currentObject
   );
-  
+
   // Retreive the current collection stored in state
   const currentCollection: ICollection = useAppSelector(
     (state) => state.collections.currentCollection
@@ -42,44 +47,15 @@ export default function SingleObjectEdit() {
     (state) => state.categories.list
   );
 
-  const [publicId, setPublicId] = useState('');
-  // Replace with your own cloud name
-  const [cloudName] = useState('dpykdy5lp');
-  // Replace with your own upload preset
-  const [uploadPreset] = useState('ml_default');
+  const image = useAppSelector((state) => state.objects.currentObject.image);
 
-  // Upload Widget Configuration
-  // Remove the comments from the code below to add
-  // additional functionality.
-  // Note that these are only a few examples, to see
-  // the full list of possible parameters that you
-  // can add see:
-  //   https://cloudinary.com/documentation/upload_widget_reference
-
-  const [uwConfig] = useState({
-    cloudName,
-    uploadPreset,
-    // cropping: true, //add a cropping step
-    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
-    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
-    // multiple: false,  //restrict upload to a single file
-    // folder: "user_images", //upload files to the specified folder
-    // tags: ["users", "profile"], //add the given tags to the uploaded files
-    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
-    // clientAllowedFormats: ["images"], //restrict uploading to image files only
-    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
-    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
-    // theme: "purple", //change to a purple theme
-  });
-
-  // Create a Cloudinary instance and set the cloud name.
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName,
-    },
-  });
-
-  const myImage = cld.image(publicId);
+  const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('uploading file ...');
+    if (evt.target.files) {
+      dispatch(setObjectImage(evt.target.files[0]));
+      dispatch(uploadObjectImage());
+    }
+  };
 
   /**
    *
@@ -193,58 +169,75 @@ export default function SingleObjectEdit() {
           ))}
         </select>
       </label>
-
-      <CloudinaryUploadWidget
-        uwConfig={uwConfig}
-        setPublicId={setPublicId}
-        entity="object"
-      />
-      <div style={{ width: '800px' }}>
-        <AdvancedImage
-          style={{ maxWidth: '100%' }}
-          cldImg={myImage}
-          plugins={[responsive(), placeholder()]}
+      <label className="form-control w-full" htmlFor="object-image">
+        <div className="label">
+          <span className="label-text">Image de l'objet</span>
+        </div>
+        <input
+          type="file"
+          id="object-image"
+          className="file-input file-input-bordered w-full max-w-xs"
+          onChange={(evt) => handleImageUpload(evt)}
         />
-      </div>
-
+      </label>
+      {image && typeof image === 'string' && (
+        <img
+          src={image}
+          alt="collection picture"
+          className="w-32 h-32 mx-auto my-6"
+        />
+      )}
       {data && <h2 className="text-xl my-6">Collection(s) rattachée(s)</h2>}
       {relatedCollections && relatedCollections?.length > 0 ? (
-        relatedCollections.map((object: ICollection, index) => (
+        relatedCollections.map((collection: ICollection, index) => (
           <div
             key={index}
             className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4 h-16"
           >
-            <img src={object.image} className="max-w-16 mr-4 object-fill h-16" />
-            <p className="block flex-1">{object.name}</p>
-            {relatedCollections?.length > 1 &&
+            <img
+              src={
+                collection.image && typeof collection.image === 'string'
+                  ? collection.image
+                  : 'https://via.placeholder.com/150'
+              }
+              className="max-w-16 mr-4 object-fill h-16"
+            />
+            <p className="block flex-1">{collection.name}</p>
+            {relatedCollections?.length > 1 && (
               <button
-              className="btn rounded-none h-16"
-              onClick={(evt) => {
-                evt.preventDefault();
-                handleCollectionsRemoving(object.id as number);
-              }}
-            >
-              <svg
-                className="w-6 h-6 text-gray-800"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 24 24"
+                className="btn rounded-none h-16"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  handleCollectionsRemoving(collection.id as number);
+                }}
               >
-                <path
-                  fillRule="evenodd"
-                  d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>}
+                <svg
+                  className="w-6 h-6 text-gray-800"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
         ))
       ) : (
         <div className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4">
           <img
-            src="https://picsum.photos/200"
-            className="max-w-16 mr-4 object-fill"
+            src={
+              currentCollection.image &&
+              typeof currentCollection.image === 'string'
+                ? currentCollection.image
+                : 'https://via.placeholder.com/150'
+            }
+            className="max-w-16 mr-4 object-fill h-16"
           />
           <p className="block flex-1">{currentCollection.name}</p>
         </div>

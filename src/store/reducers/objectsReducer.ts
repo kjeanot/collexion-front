@@ -41,7 +41,8 @@ export const fetchObjects = createAsyncThunk(
   async (_, thunkAPI) => {
     if (token) {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}objects`)
+        `${import.meta.env.VITE_API_PATH}objects`
+      );
       return response.data;
     }
   }
@@ -80,18 +81,43 @@ export const fetchSingleObject = createAsyncThunk(
   }
 );
 
+export const uploadObjectImage = createAsyncThunk(
+  'objects/uploadObjectImage',
+  async (_, thunkAPI) => {
+    if (token) {
+      const state = thunkAPI.getState() as RootState;
+      const formData = new FormData();
+      formData.append(
+        'file',
+        state.objects.currentObject.image as File
+      );
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}secure/object/upload_file`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
+  }
+);
+
 export const deleteObject = createAsyncThunk(
   'objects/deleteObject',
   async (id: number, thunkAPI) => {
     if (token) {
-    const response = await axios.delete(
-      `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       return response.data;
     }
@@ -102,19 +128,20 @@ export const updateObject = createAsyncThunk(
   'objects/updateObject',
   async (id: number, thunkAPI) => {
     if (token) {
-    const state = thunkAPI.getState() as RootState;
-    const response = await axios.put(
-      `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
-      {
-        ...state.objects.currentObject,
-        relatedMyCollections: state.objects.currentObject.relatedMyCollections,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const state = thunkAPI.getState() as RootState;
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
+        {
+          ...state.objects.currentObject,
+          relatedMyCollections:
+            state.objects.currentObject.relatedMyCollections,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       return response.data;
     }
@@ -125,41 +152,42 @@ export const postObject = createAsyncThunk(
   'objects/postObject',
   async (_, thunkAPI) => {
     if (token) {
-    const state = thunkAPI.getState() as RootState;
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}secure/object`,
-      {
-        ...state.objects.currentObject,
-        title: state.objects.currentObject.name,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const state = thunkAPI.getState() as RootState;
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}secure/object`,
+        {
+          ...state.objects.currentObject,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    return response.data;
-  }}
+      return response.data;
+    }
+  }
 );
 
 export const postComment = createAsyncThunk(
   'objects/postComment',
   async (_, thunkAPI) => {
     if (token) {
-    const state = thunkAPI.getState() as RootState;
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}secure/comment/create`,
-      state.objects.currentComment,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      const state = thunkAPI.getState() as RootState;
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}secure/comment/create`,
+        state.objects.currentComment,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    return response.data;
-  }}
+      return response.data;
+    }
+  }
 );
 
 export const resetCurrentObject = createAction('objects/resetCurrentObject');
@@ -167,7 +195,7 @@ export const setObjectName = createAction<string>('object/setObjectName');
 export const setObjectDescription = createAction<string>(
   'object/setObjectDescription'
 );
-export const setObjectImage = createAction<string>('object/setObjectImage');
+export const setObjectImage = createAction<string | File>('object/setObjectImage');
 export const setObjectId = createAction<number>('object/setObjectId');
 export const setObjectState = createAction<string>('object/setObjectState');
 export const setObjectCategory = createAction<number>(
@@ -207,6 +235,16 @@ const objectsReducer = createReducer(initialState, (builder) => {
       state.currentObject = action.payload;
     })
     .addCase(fetchSingleObject.rejected, (state, action) => {
+      console.log('rejected', action);
+    })
+    .addCase(uploadObjectImage.pending, (state, action) => {
+      console.log('pending', action);
+    })
+    .addCase(uploadObjectImage.fulfilled, (state, action) => {
+      state.currentObject.image = action.payload.url;
+      console.log('fulfilled', action);
+    })
+    .addCase(uploadObjectImage.rejected, (state, action) => {
       console.log('rejected', action);
     })
     .addCase(deleteObject.pending, (state, action) => {

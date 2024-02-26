@@ -32,8 +32,10 @@ export default function SingleCollectionEdit() {
 
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
     console.log('uploading file ...');
-    evt.target.files && dispatch(setCollectionImage(evt.target.files[0]));
-    dispatch(uploadCollectionImage());
+    if (evt.target.files) {
+      dispatch(setCollectionImage(evt.target.files[0]));
+      dispatch(uploadCollectionImage());
+    };
   }
 
   /**
@@ -106,7 +108,7 @@ export default function SingleCollectionEdit() {
         </div>
         <input type="file" id="collection-image" className="file-input file-input-bordered w-full max-w-xs" onChange={(evt) => handleImageUpload(evt)}/>
       </label>
-      {image && typeof image === "string" && <img src={image} alt="collection picture" className="w-32 h-32 rounded-full mx-auto my-6"/>}
+      {image && typeof image === "string" && <img src={image} alt="collection picture" className="w-32 h-32 mx-auto my-6"/>}
 
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
       {data.myobjects && data.myobjects.length > 0
@@ -116,7 +118,7 @@ export default function SingleCollectionEdit() {
               className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
             >
               <img
-                src={object.image}
+                src={object.image && typeof object.image === "string" ? object.image : "https://via.placeholder.com/150"}
                 className="max-w-16 mr-4 object-fill"
               />
               <p className="block flex-1">{object.name}</p>

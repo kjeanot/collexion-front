@@ -202,7 +202,6 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(uploadCollectionImage.fulfilled, (state, action) => {
       console.log('uploaded successfully');
       state.currentCollection.image = action.payload.url;
-      console.log(state.currentCollection.image);
     })
     .addCase(uploadCollectionImage.rejected, (state, action) => {
       console.log('upload rejected');
