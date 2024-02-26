@@ -3,7 +3,14 @@ import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import ObjectCard from '../Object/ObjectCard';
 import { ICollection, IObject } from '../../types/types';
-import { Link, Navigate, redirect, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  Navigate,
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { findCollection } from '../../store/selectors/collections';
 import {
@@ -13,7 +20,11 @@ import {
 import Modal from '../Modal/Modal';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import { resetCurrentObject } from '../../store/reducers/objectsReducer';
-import { addToFavorites, fetchUserInfo, removeFromFavorites } from '../../store/reducers/userReducer';
+import {
+  addToFavorites,
+  fetchUserInfo,
+  removeFromFavorites,
+} from '../../store/reducers/userReducer';
 
 export default function SingleCollection() {
   // Using useParams() to retrieve the collection id, passed by the router params
@@ -109,31 +120,36 @@ export default function SingleCollection() {
               // Onclick, dispatches the addToFavorite action
               !loggedUserFavorites?.some(
                 (collection: ICollection) => collection.id === data.id
-              ) &&
-              <button
-                className="btn btn-circle ml-4"
-                onClick={(e) => {
-                  e.preventDefault();
-                  loggedUserId ? dispatch(addToFavorites(data.id)) : navigate("/subscribe");
-                  loggedUserId ? dispatch(fetchUserInfo(loggedUserId)) : navigate("/subscribe");
-                }}
-              >
-                <svg
-                  className="w-6 h-6 text-customred"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
+              ) && (
+                <button
+                  className="btn btn-circle ml-4"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    loggedUserId
+                      ? dispatch(addToFavorites(data.id))
+                      : navigate('/subscribe');
+                    loggedUserId
+                      ? dispatch(fetchUserInfo(loggedUserId))
+                      : navigate('/subscribe');
+                  }}
                 >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    className="w-6 h-6 text-customred"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"
+                    />
+                  </svg>
+                </button>
+              )
             }
             {
               // Heart filled button : displayed only if the current collection is in the loggedUser's favorite collections list
@@ -145,8 +161,12 @@ export default function SingleCollection() {
                   className="btn btn-circle ml-4"
                   onClick={(e) => {
                     e.preventDefault();
-                  loggedUserId ? dispatch(removeFromFavorites(data.id)) : navigate("/subscribe");
-                  loggedUserId ? dispatch(fetchUserInfo(loggedUserId)) : navigate("/subscribe");
+                    loggedUserId
+                      ? dispatch(removeFromFavorites(data.id))
+                      : navigate('/subscribe');
+                    loggedUserId
+                      ? dispatch(fetchUserInfo(loggedUserId))
+                      : navigate('/subscribe');
                   }}
                 >
                   <svg
@@ -165,7 +185,7 @@ export default function SingleCollection() {
 
           <h1 className="my-5 text-2xl font-bold">{data.name}</h1>
           <div className="flex flex-wrap justify-between content-center">
-            <Avatar nickname={data.user.nickname} picture={data.user.picture}/>
+            <Avatar nickname={data.user.nickname} picture={data.user.picture} />
             <Rating value={data.rating} />
           </div>
           <section className="my-5">
@@ -179,11 +199,19 @@ export default function SingleCollection() {
         {data.myobjects.map((object: IObject) => (
           <ObjectCard id={object.id} name={object.name} image={object.image} />
         ))}
-        <Link to="/object/new" onClick={() => dispatch(resetCurrentObject())}>
-          <button className="btn btn-square h-full w-full">
-            + Ajouter un objet
-          </button>
-        </Link>
+        {
+          // Shows create new collection button if the user is logged in and the collection belongs to him
+          loggedUserId === data.user.id && (
+            <Link
+              to="/object/new"
+              onClick={() => dispatch(resetCurrentObject())}
+            >
+              <button className="btn btn-square h-full w-full">
+                + Ajouter un objet
+              </button>
+            </Link>
+          )
+        }
       </div>
     </>
   );

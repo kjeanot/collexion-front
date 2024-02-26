@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
+import { switchLoginDisplay } from '../../store/reducers/appReducer';
 
 export default function CollectionCTA() {
 
   const dispatch = useAppDispatch();
+  const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
   return (
     <div className="relative">
@@ -27,7 +29,11 @@ export default function CollectionCTA() {
               fier(e) ? Publiez-la sur Collexion pour enchanter toute la
               communauté de collectionneurs en quête d'inspiration !
             </p>
-            <Link to="/collection/new" onClick={() => dispatch(resetCurrentCollection())}>
+            <Link to={loggedUserId ? "/collection/new" : "/subscribe"} onClick={(evt) => { 
+              evt.preventDefault();
+              !loggedUserId && dispatch(switchLoginDisplay());
+              dispatch(resetCurrentCollection());
+              }}>
               <Button text={'Je crée ma collection !'}/>
             </Link>
           </div>
