@@ -165,7 +165,7 @@ export default function SingleCollection() {
 
           <h1 className="my-5 text-2xl font-bold">{data.name}</h1>
           <div className="flex flex-wrap justify-between content-center">
-            <Avatar nickname={data.user.nickname} />
+            <Avatar nickname={data.user.nickname} picture={data.user.picture}/>
             <Rating value={data.rating} />
           </div>
           <section className="my-5">

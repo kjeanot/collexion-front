@@ -29,11 +29,9 @@ export default function UserCollectionsList({
     (state) => state.user.loggedUser.myfavoritescollections
   );
 
-  const { pathname } = useLocation();
-
   useEffect(() => {
     numId && dispatch(fetchUserInfo(numId));
-  }, [pathname]);
+  }, []);
 
   return (
     <div className="grid lg:grid-cols-2 gap-4">

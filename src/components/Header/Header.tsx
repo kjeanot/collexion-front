@@ -1,12 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
+import { useState } from 'react';
 
 export default function Header() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const showLogin = useAppSelector((state) => state.app.showLogin);
+
+  const [search, setSearch] = useState<null | string>(null);
+  const [mobileSearch, setMobileSearch] = useState(false);
+
+  const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+
   return (
     <header>
       <nav className="navbar bg-base-100 color text-customred">
@@ -51,6 +59,7 @@ export default function Header() {
               aria-controls="navbar-search"
               aria-expanded="false"
               className="md:hidden text-customred hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 me-1"
+              onClick={() => setMobileSearch((prev) => !prev)}
             >
               <svg
                 className="w-5 h-5"
@@ -70,7 +79,10 @@ export default function Header() {
               <span className="sr-only">Search</span>
             </button>
             <div className="relative hidden md:block">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <div
+                className="absolute inset-y-0 start-0 flex items-center ps-3 cursor-pointer"
+                onClick={(evt) => navigate(`/collections/${search}`)}
+              >
                 <svg
                   className="w-5 h-5 text-customred"
                   aria-hidden="true"
@@ -92,14 +104,22 @@ export default function Header() {
                 type="text"
                 id="search-navbar"
                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-                placeholder="Search..."
+                placeholder="Rechercher une collection"
+                onChange={(evt) => setSearch(evt.currentTarget.value)}
+                onKeyDown={(evt) =>
+                  evt.key === 'Enter' && navigate(`/collections/${search}`)
+                }
               />
             </div>
           </li>
           <li className="flex flex-none content-center">
             <div
               className="flex content-center p-2 ml-2 text-customred rounded-lg hover:bg-gray-200"
-              onClick={() => dispatch(switchLoginDisplay())}
+              onClick={() => {
+                loggedUserId
+                  ? navigate(`/user/${loggedUserId}`)
+                  : dispatch(switchLoginDisplay());
+              }}
             >
               <svg
                 className="md:mr-2 w-7 h-7 text-customred"
@@ -117,12 +137,41 @@ export default function Header() {
                 />
               </svg>
               <button className="hidden md:inline-block font-medium text-lg text-customred ">
-                Se connecter
+                {loggedUserId ? 'Mon profil' : 'Se connecter'}
               </button>
             </div>
           </li>
         </div>
       </nav>
+      {mobileSearch && (
+        <>
+          <label className="input input-bordered flex items-center gap-2">
+            <input
+              type="text"
+              id="mobile-search-navbar"
+              className="grow"
+              placeholder="Rechercher une collection"
+              onChange={(evt) => setSearch(evt.currentTarget.value)}
+              onKeyDown={(evt) => {
+                evt.key === 'Enter' && setMobileSearch((prev) => !prev);
+                evt.key === 'Enter' && navigate(`/collections/${search}`);
+              }}
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="#000"
+              className="w-4 h-4 opacity-70"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </label>
+        </>
+      )}
       {showLogin && <Login />}
     </header>
   );

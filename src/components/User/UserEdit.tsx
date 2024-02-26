@@ -63,6 +63,7 @@ export default function UserEdit() {
         </div>
         <input type="file" id="user-picture" className="file-input file-input-bordered w-full max-w-xs" onChange={(evt) => handleImageUpload(evt)}/>
       </label>
+      {picture && typeof picture === "string" && <img src={picture} alt="user picture" className="w-32 h-32 rounded-full mx-auto my-6"/>}
       
       <button
         type="button"
