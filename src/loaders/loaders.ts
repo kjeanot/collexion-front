@@ -12,35 +12,21 @@ const userId = storedUserId ? JSON.parse(storedUserId) : '';
 export function singleCollectionLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(
-      `${import.meta.env.VITE_API_PATH}collection/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${import.meta.env.VITE_API_PATH}collection/${params.id}`
     );
     return promise;
   }
 }
 
 export function collectionsLoader(): Promise<AxiosResponse<any, any>> {
-  const promise = axios.get(`${import.meta.env.VITE_API_PATH}collections`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const promise = axios.get(`${import.meta.env.VITE_API_PATH}collections`);
   return promise;
 }
 
 export function singleObjectLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(
-      `${import.meta.env.VITE_API_PATH}object/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${import.meta.env.VITE_API_PATH}object/${params.id}`
     );
     return promise;
   }
@@ -71,6 +57,5 @@ export function userEditLoader({ params }: { params: Params }): any {
       }
     );
     return promise;
-  } 
+  }
 }
-

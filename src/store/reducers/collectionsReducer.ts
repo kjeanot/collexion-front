@@ -30,17 +30,10 @@ const token = storedToken ? JSON.parse(storedToken) : '';
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
-    if (token) {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}collections`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
-    }
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}collections`
+    );
+    return response.data;
   }
 );
 
@@ -49,17 +42,10 @@ export const fetchCollections = createAsyncThunk(
 export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}collection/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
-    }
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}collection/${id}`
+    );
+    return response.data;
   }
 );
 
