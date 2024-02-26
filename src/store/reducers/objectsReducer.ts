@@ -27,7 +27,7 @@ export const initialState: ObjectsState = {
   currentComment: {},
 };
 
-const storedToken = localStorage.getItem("jwt");
+const storedToken = localStorage.getItem('jwt');
 const token = storedToken ? JSON.parse(storedToken) : '';
 /**
  * Middleware for fetching all the objects
@@ -40,16 +40,17 @@ export const fetchObjects = createAsyncThunk(
   'objects/fetchObjects',
   async (_, thunkAPI) => {
     if (token) {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}objects`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  }}
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}objects`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
+  }
 );
 
 /**
@@ -63,16 +64,17 @@ export const fetchComments = createAsyncThunk(
   'objects/fetchComments',
   async (_, thunkAPI) => {
     if (token) {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}comments`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  }}
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
+  }
 );
 
 // Middlewares for a single Object CRUD
@@ -81,16 +83,17 @@ export const fetchSingleObject = createAsyncThunk(
   'objects/fetchSingleObject',
   async (id: number, thunkAPI) => {
     if (token) {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}object/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  }}
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_PATH}object/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
+  }
 );
 
 export const deleteObject = createAsyncThunk(
@@ -106,8 +109,9 @@ export const deleteObject = createAsyncThunk(
       }
     );
 
-    return response.data;
-  }}
+      return response.data;
+    }
+  }
 );
 
 export const updateObject = createAsyncThunk(
@@ -128,8 +132,9 @@ export const updateObject = createAsyncThunk(
       }
     );
 
-    return response.data;
-  }}
+      return response.data;
+    }
+  }
 );
 
 export const postObject = createAsyncThunk(

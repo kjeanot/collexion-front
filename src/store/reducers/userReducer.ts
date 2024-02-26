@@ -116,6 +116,30 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
   }
 );
 
+export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
+  'user/userUpdate',
+  async (_, thunkAPI) => {
+    // Retreive the state to pass the stored informations into the API request body
+    const state = thunkAPI.getState() as RootState;
+
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_PATH}user/${state.user.loggedUser.id}`,
+      {
+        nickname: state.user.loggedUser.nickname,
+        email: state.user.loggedUser.email,
+        description: state.user.loggedUser.description
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  }
+);
+
 export const fetchUserInfo = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number, thunkAPI) => {

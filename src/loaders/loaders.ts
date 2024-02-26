@@ -18,6 +18,18 @@ export function singleCollectionLoader({ params }: { params: Params }): any {
   }
 }
 
+export function randomCollectionLoader(): Promise<AxiosResponse<any, any>> {
+  const promise = axios.get(
+    `${import.meta.env.VITE_API_PATH}collection_random`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return promise;
+}
+
 export function collectionsLoader(): Promise<AxiosResponse<any, any>> {
   const promise = axios.get(`${import.meta.env.VITE_API_PATH}collections`);
   return promise;
@@ -30,6 +42,15 @@ export function singleObjectLoader({ params }: { params: Params }): any {
     );
     return promise;
   }
+}
+
+export function randomObjectLoader(): Promise<AxiosResponse<any, any>> {
+  const promise = axios.get(`${import.meta.env.VITE_API_PATH}object_random`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return promise;
 }
 
 export function userLoader({ params }: { params: Params }): any {

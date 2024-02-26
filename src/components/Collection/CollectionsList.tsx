@@ -9,14 +9,11 @@ export default function CollectionsList({
   console.log(collections);
 
   return (
-    <>
-      
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
-        {collections &&
-          collections.map((collection) => (
-            <CollectionCard key={collection.id} collection={collection} />
-          ))}
-      </div>
-    </>
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
+      {collections &&
+        collections.map((collection) => (
+          <CollectionCard key={collection.id} collection={collection} />
+        ))}
+    </div>
   );
 }

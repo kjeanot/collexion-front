@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setPicture, uploadUserImage } from '../../store/reducers/userReducer';
+import { fetchUserInfo, setEmail, setNickname, setPassword, setPicture, setUserDescription, uploadUserImage, userUpdate } from '../../store/reducers/userReducer';
 
 export default function UserEdit() {
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
@@ -29,6 +29,7 @@ export default function UserEdit() {
           placeholder={data.nickname ? data.nickname : 'Votre nom'}
           defaultValue={data.nickname ? data.nickname : ''}
           className="input input-bordered w-full"
+          onChange={(evt) => dispatch(setNickname(evt.currentTarget.value))}
         />
       </label>
       <label className="form-control w-full" htmlFor="user-email">
@@ -41,16 +42,7 @@ export default function UserEdit() {
           placeholder={data.email ? data.email : 'Votre nom'}
           defaultValue={data.email ? data.email : ''}
           className="input input-bordered w-full"
-        />
-      </label>
-      <label className="form-control w-full" htmlFor="user-password">
-        <div className="label">
-          <span className="label-text">Nouveau mot de passe</span>
-        </div>
-        <input
-          id="user-password"
-          type="text"
-          className="input input-bordered w-full"
+          onChange={(evt) => dispatch(setEmail(evt.currentTarget.value))}
         />
       </label>
       <label className="form-control w-full" htmlFor="user-description">
@@ -62,6 +54,7 @@ export default function UserEdit() {
           className="textarea textarea-bordered h-24"
           placeholder={data.description ? data.description : "Votre description"}
           defaultValue={data ? data.description : ''}
+          onChange={(evt) => dispatch(setUserDescription(evt.currentTarget.value))}
         ></textarea>
       </label>
       <label className="form-control w-full" htmlFor="user-picture">
@@ -74,6 +67,10 @@ export default function UserEdit() {
       <button
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
+        onClick={() => {
+          dispatch(userUpdate());
+          dispatch(fetchUserInfo(data.id));
+        }}
       >
         {data.id ? 'Mettre à jour' : 'Publier'}
       </button>
