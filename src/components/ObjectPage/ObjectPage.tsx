@@ -19,7 +19,7 @@ export default function ObjectPage() {
   const dispatch = useAppDispatch();
   const showModal = useAppSelector((state) => state.app.showModal);
   const comments = useAppSelector((state) => state.objects.comments);
-  console.log(comments);
+  console.log(data);
 
   const handleDelete = () => {
     dispatch(deleteObject(data.id));
@@ -121,7 +121,7 @@ export default function ObjectPage() {
               ))
             : "Aucune recommandation pour l'instant"}
         </div>
-        <Comments comments={comments} />
+        <Comments comments={data.comments} objectId={data.id} />
       </div>
     </>
   );

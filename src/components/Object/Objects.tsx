@@ -21,7 +21,7 @@ export default function Objects() {
             Objets
           </h1>
           <h2 className="font-bold text-2xl text-customred mt-10">
-            Objets à la une
+            Objets au hasard
           </h2>
           <CarrouselObjects objects={data} />
           <div className="flex justify-between">

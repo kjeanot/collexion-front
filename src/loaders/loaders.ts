@@ -53,6 +53,15 @@ export function singleObjectLoader({ params }: { params: Params }): any {
   }
 }
 
+export function randomObjectLoader(): Promise<AxiosResponse<any, any>> {
+  const promise = axios.get(`${import.meta.env.VITE_API_PATH}object_random`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return promise;
+}
+
 export function userLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(

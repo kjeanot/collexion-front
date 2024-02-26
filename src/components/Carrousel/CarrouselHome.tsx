@@ -62,7 +62,7 @@ export default function Carrousel({
               <h3 className="card-title line-clamp-1 text-customred">
                 {collection.name}
               </h3>
-              <Rating value={collection.rating} />
+              {/* <Rating value={collection.rating} /> */}
               <Avatar
                 picture={collection.user?.picture}
                 nickname={collection.user?.nickname}

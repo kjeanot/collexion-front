@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 
 export default function Footer() {
-
   const userId = useAppSelector((state) => state.user.id);
 
   return (
@@ -29,15 +28,19 @@ export default function Footer() {
           Collections
         </NavLink>
         <NavLink className="link link-hover" to={'/collection/random'}>
-          Collection au hasard
+          Collections au hasard
         </NavLink>
-        <a className="link link-hover">Objet au hasard</a>
+        <NavLink className="link link-hover" to={'/objet/random'}>
+          Objets au hasard
+        </NavLink>
       </nav>
       <nav>
         <h6 className="footer-title">à propos</h6>
-        { userId && <NavLink className="link link-hover" to={`/user/${userId}`}>
-          Mon profil
-        </NavLink>}
+        {userId && (
+          <NavLink className="link link-hover" to={`/user/${userId}`}>
+            Mon profil
+          </NavLink>
+        )}
         <NavLink className="link link-hover" to={'/mentions'}>
           Mentions légales & CGU
         </NavLink>

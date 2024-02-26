@@ -19,11 +19,10 @@ export default function Categories() {
           <h1 className="md:h-20 p-5 text-center text-2xl font-bold text-white bg-gradient-to-r from-customred to-customorange">
             Catégories
           </h1>
-          <h2 className="font-bold text-2xl text-customred mt-10">
+          {/* <h2 className="font-bold text-2xl text-customred mt-10">
             Catégories à la une
           </h2>
-          <CarrouselCategories categories={data} />
-
+          <CarrouselCategories categories={data} /> */}
           <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
             Toutes les catégories
           </h2>

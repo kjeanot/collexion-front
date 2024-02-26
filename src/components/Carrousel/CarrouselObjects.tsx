@@ -61,7 +61,7 @@ export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
           </Link>
         </div>
       ))}
-      <div>
+      {/* <div>
         <a href="">
           <div className="card h-80 bg-base-100 shadow hover:contrast-50">
             <figure>
@@ -120,7 +120,7 @@ export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
             </div>
           </div>
         </a>
-      </div>
+      </div> */}
     </Carousel>
   );
 }

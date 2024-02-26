@@ -20,6 +20,7 @@ import User from './components/User/User';
 import {
   collectionsLoader,
   randomCollectionLoader,
+  randomObjectLoader,
   singleCollectionLoader,
   singleObjectLoader,
   userLoader,
@@ -32,6 +33,8 @@ import Categories from './components/Category/Categories';
 import Objects from './components/Object/Objects';
 import ObjectPage from './components/ObjectPage/ObjectPage';
 import SingleObjectEdit from './components/ObjectPage/SingleObjectEdit';
+import CollectionsListRandom from './components/Collection/CollectionsListRandom';
+import ObjectsRandom from './components/Object/ObjectsRandom';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,7 +57,7 @@ const router = createBrowserRouter(
       />
       <Route
         path="/collection/random"
-        element={<SingleCollection />}
+        element={<CollectionsListRandom />}
         loader={randomCollectionLoader}
         errorElement={<Error />}
       />
@@ -66,10 +69,21 @@ const router = createBrowserRouter(
         element={<ObjectPage />}
         errorElement={<Error />}
       />
+      <Route
+        path="/objet/random"
+        element={<ObjectsRandom />}
+        loader={randomObjectLoader}
+        errorElement={<Error />}
+      />
       <Route path="/object/:id/edit" element={<SingleObjectEdit />} />
       <Route path="/object/new" element={<SingleObjectEdit />} />
       <Route path="/subscribe" element={<Subscribe />} />
-      <Route path="/user/:id" loader={userLoader} element={<User />} errorElement={<Error />}>
+      <Route
+        path="/user/:id"
+        loader={userLoader}
+        element={<User />}
+        errorElement={<Error />}
+      >
         <Route index element={<UserCollectionsList />} />
         <Route path="/user/:id/favorites" element={<Subscribe />} />
       </Route>
