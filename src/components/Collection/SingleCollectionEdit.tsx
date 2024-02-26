@@ -11,6 +11,7 @@ import {
   setCollectionObjects,
   setCollectionRelatedObjects,
   updateCollection,
+  uploadCollectionImage,
 } from '../../store/reducers/collectionsReducer';
 import CloudinaryUploadWidget from '../Upload/UploadButton';
 import { Cloudinary } from '@cloudinary/url-gen';
@@ -27,7 +28,7 @@ export default function SingleCollectionEdit() {
   
   const location = useLocation();
 
-  const picture = useAppSelector((state) => state.collections.currentCollection.image);
+  const image = useAppSelector((state) => state.collections.currentCollection.image);
 
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
     console.log('uploading file ...');
@@ -105,7 +106,7 @@ export default function SingleCollectionEdit() {
         </div>
         <input type="file" id="collection-image" className="file-input file-input-bordered w-full max-w-xs" onChange={(evt) => handleImageUpload(evt)}/>
       </label>
-      {picture && typeof picture === "string" && <img src={picture} alt="collection picture" className="w-32 h-32 rounded-full mx-auto my-6"/>}
+      {image && typeof image === "string" && <img src={image} alt="collection picture" className="w-32 h-32 rounded-full mx-auto my-6"/>}
 
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
       {data.myobjects && data.myobjects.length > 0

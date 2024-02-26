@@ -105,6 +105,8 @@ export const updateCollection = createAsyncThunk(
           description: state.collections.currentCollection.description,
           image: state.collections.currentCollection.image,
           relatedObjects: state.collections.currentCollection.relatedObjects,
+          title: 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
+          is_active: true,
         },
         {
           headers: {
@@ -125,7 +127,9 @@ export const postCollection = createAsyncThunk(
       const state = thunkAPI.getState() as RootState;
       const response = await axios.post(
         `${import.meta.env.VITE_API_PATH}secure/collection`,
-        state.collections.currentCollection,
+        {...state.collections.currentCollection, 
+          title: state.collections.currentCollection.name,
+          is_active: true},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -197,7 +201,8 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(uploadCollectionImage.fulfilled, (state, action) => {
       console.log('uploaded successfully');
-      state.currentCollection.image = action.payload;
+      state.currentCollection.image = action.payload.url;
+      console.log(state.currentCollection.image);
     })
     .addCase(uploadCollectionImage.rejected, (state, action) => {
       console.log('upload rejected');

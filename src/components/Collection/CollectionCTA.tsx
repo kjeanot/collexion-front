@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
@@ -8,6 +8,7 @@ export default function CollectionCTA() {
 
   const dispatch = useAppDispatch();
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+  const navigate = useNavigate();
 
   return (
     <div className="relative">
@@ -31,8 +32,8 @@ export default function CollectionCTA() {
             </p>
             <Link to={loggedUserId ? "/collection/new" : "/subscribe"} onClick={(evt) => { 
               evt.preventDefault();
-              !loggedUserId && dispatch(switchLoginDisplay());
               dispatch(resetCurrentCollection());
+              loggedUserId ? navigate("/collection/new") : dispatch(switchLoginDisplay());
               }}>
               <Button text={'Je crée ma collection !'}/>
             </Link>

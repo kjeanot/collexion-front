@@ -41,13 +41,7 @@ export const fetchObjects = createAsyncThunk(
   async (_, thunkAPI) => {
     if (token) {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}objects`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        `${import.meta.env.VITE_API_PATH}objects`)
       return response.data;
     }
   }
@@ -65,12 +59,7 @@ export const fetchComments = createAsyncThunk(
   async (_, thunkAPI) => {
     if (token) {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}comments`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${import.meta.env.VITE_API_PATH}comments`
       );
       return response.data;
     }
@@ -84,12 +73,7 @@ export const fetchSingleObject = createAsyncThunk(
   async (id: number, thunkAPI) => {
     if (token) {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}object/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${import.meta.env.VITE_API_PATH}object/${id}`
       );
       return response.data;
     }
