@@ -1,7 +1,7 @@
 export interface ICollection {
   id?: number;
   name?: string;
-  image?: string;
+  image?: string | File;
   description?: string;
   rating?: number | null;
   user?: IUser;

@@ -27,45 +27,13 @@ export default function SingleCollectionEdit() {
   
   const location = useLocation();
 
-  const [publicId, setPublicId] = useState('');
-  // Replace with your own cloud name
-  const [cloudName] = useState('dpykdy5lp');
-  // Replace with your own upload preset
-  const [uploadPreset] = useState('ml_default');
+  const picture = useAppSelector((state) => state.collections.currentCollection.image);
 
-  // Upload Widget Configuration
-  // Remove the comments from the code below to add
-  // additional functionality.
-  // Note that these are only a few examples, to see
-  // the full list of possible parameters that you
-  // can add see:
-  //   https://cloudinary.com/documentation/upload_widget_reference
-
-  const [uwConfig] = useState({
-    cloudName,
-    uploadPreset,
-    sources: ['local'],
-    // cropping: true, //add a cropping step
-    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
-    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
-    // multiple: false,  //restrict upload to a single file
-    // folder: "user_images", //upload files to the specified folder
-    // tags: ["users", "profile"], //add the given tags to the uploaded files
-    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
-    // clientAllowedFormats: ["images"], //restrict uploading to image files only
-    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
-    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
-    // theme: "purple", //change to a purple theme
-  });
-
-  // Create a Cloudinary instance and set the cloud name.
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName,
-    },
-  });
-
-  const myImage = cld.image(publicId);
+  const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('uploading file ...');
+    evt.target.files && dispatch(setCollectionImage(evt.target.files[0]));
+    dispatch(uploadCollectionImage());
+  }
 
   /**
    *
@@ -131,18 +99,13 @@ export default function SingleCollectionEdit() {
         ></textarea>
       </label>
 
-      <CloudinaryUploadWidget
-        uwConfig={uwConfig}
-        setPublicId={setPublicId}
-        entity="collection"
-      />
-      <div style={{ width: '800px' }}>
-        <AdvancedImage
-          style={{ maxWidth: '100%' }}
-          cldImg={myImage}
-          plugins={[responsive(), placeholder()]}
-        />
-      </div>
+      <label className="form-control w-full" htmlFor="collection-image">
+        <div className="label">
+          <span className="label-text">Image de la collection</span>
+        </div>
+        <input type="file" id="collection-image" className="file-input file-input-bordered w-full max-w-xs" onChange={(evt) => handleImageUpload(evt)}/>
+      </label>
+      {picture && typeof picture === "string" && <img src={picture} alt="collection picture" className="w-32 h-32 rounded-full mx-auto my-6"/>}
 
       {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
       {data.myobjects && data.myobjects.length > 0

@@ -22,7 +22,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    dispatch(fetchCollections());
     dispatch(fetchObjects());
     dispatch(fetchCategories());
     dispatch(randomCollection());

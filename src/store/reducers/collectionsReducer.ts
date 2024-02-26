@@ -51,6 +51,29 @@ export const fetchSingleCollection = createAsyncThunk(
   }
 );
 
+export const uploadCollectionImage = createAsyncThunk(
+  'collections/uploadImage',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState;
+    const formData = new FormData();
+    formData.append('file', state.collections.currentCollection.image as File);
+
+    if (token) {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_PATH}secure/collection/upload_file`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
+  }
+);
+
 export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
@@ -134,7 +157,7 @@ export const setCollectionName = createAction<string>(
 export const setCollectionDescription = createAction<string>(
   'collection/setCollectionDescription'
 );
-export const setCollectionImage = createAction<string>(
+export const setCollectionImage = createAction<string | File>(
   'collection/setCollectionImage'
 );
 export const setCollectionId = createAction<number>(
@@ -168,6 +191,16 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchSingleCollection.rejected, (state, action) => {
       console.log('rejected', action);
+    })
+    .addCase(uploadCollectionImage.pending, (state, action) => {
+      console.log('upload pending');
+    })
+    .addCase(uploadCollectionImage.fulfilled, (state, action) => {
+      console.log('uploaded successfully');
+      state.currentCollection.image = action.payload;
+    })
+    .addCase(uploadCollectionImage.rejected, (state, action) => {
+      console.log('upload rejected');
     })
     .addCase(deleteCollection.pending, (state, action) => {
       console.log('delete pending');
