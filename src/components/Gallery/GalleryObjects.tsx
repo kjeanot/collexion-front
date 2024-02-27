@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ICategory } from '../../types/types';
+import { IObject } from '../../types/types';
 
-export default function GalleryObjects({ objects }: { objects: ICategory[] }) {
+export default function GalleryObjects({ objects }: { objects: IObject[] }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
       {objects.map((object) => (
@@ -10,7 +10,7 @@ export default function GalleryObjects({ objects }: { objects: ICategory[] }) {
             <figure>
               <img
                 className="object-cover w-full"
-                src={object.image}
+                src={object.image ? object.image as string : 'https://picsum.photos/1200'}
                 alt={object.name}
               />
             </figure>

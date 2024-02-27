@@ -9,7 +9,7 @@ import commentsReducer from './reducers/commentsReducer';
 const store = configureStore({
   // The store is divided in 5 main reducers for structuration purposes.
   reducer: {
-    // comments: commentsReducer,
+    comments: commentsReducer,
     objects: objectsReducer,
     collections: collectionsReducer,
     categories: categoriesReducer,
