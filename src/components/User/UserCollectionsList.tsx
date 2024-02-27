@@ -1,14 +1,11 @@
 import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import CollectionTile from '../Collection/CollectionTile';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
 import { useAppSelector } from '../../hooks/redux';
 import { ICollection } from '../../types/types';
 import { fetchUserInfo } from '../../store/reducers/userReducer';
-import { AsyncThunkAction } from '@reduxjs/toolkit';
-import { AsyncThunkConfig } from '@reduxjs/toolkit/dist/createAsyncThunk';
 
 export default function UserCollectionsList({
   collectionType,

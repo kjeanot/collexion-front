@@ -10,7 +10,11 @@ export default function GalleryObjects({ objects }: { objects: IObject[] }) {
             <figure>
               <img
                 className="object-cover w-full"
-                src={object.image ? object.image as string : 'https://picsum.photos/1200'}
+                src={
+                  object.image
+                    ? (object.image as string)
+                    : 'https://picsum.photos/1200'
+                }
                 alt={object.name}
               />
             </figure>

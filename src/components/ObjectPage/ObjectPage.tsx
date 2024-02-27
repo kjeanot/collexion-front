@@ -5,7 +5,7 @@ import {
   fetchComments,
   fetchSingleObject,
 } from '../../store/reducers/objectsReducer';
-import { ICollection, IComment, IObject } from '../../types/types';
+import { IObject } from '../../types/types';
 import Avatar from '../Avatar/Avatar';
 import ObjectCard from '../Object/ObjectCard';
 import Background from '../Background/Background';
@@ -19,7 +19,6 @@ export default function ObjectPage() {
 
   const dispatch = useAppDispatch();
   const showModal = useAppSelector((state) => state.app.showModal);
-  
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
@@ -121,7 +120,10 @@ export default function ObjectPage() {
               </p>
               <p>
                 Catégorie :{' '}
-                <Link to={`/category/${data.category.id}`} className="link link-neutral">
+                <Link
+                  to={`/category/${data.category.id}`}
+                  className="link link-neutral"
+                >
                   {data.category.name}
                 </Link>
               </p>

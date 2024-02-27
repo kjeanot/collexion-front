@@ -14,7 +14,11 @@ export default function CollectionCard({
     >
       <figure className="h-64">
         <img
-          src={collection.image ? collection.image as string : 'https://picsum.photos/1200'}
+          src={
+            collection.image
+              ? (collection.image as string)
+              : 'https://picsum.photos/1200'
+          }
           alt={collection.name}
           className="object-cover h-full w-full"
         />

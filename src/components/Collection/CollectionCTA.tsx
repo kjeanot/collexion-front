@@ -30,12 +30,17 @@ export default function CollectionCTA() {
               fier(e) ? Publiez-la sur Collexion pour enchanter toute la
               communauté de collectionneurs en quête d'inspiration !
             </p>
-            <Link to={loggedUserId ? "/collection/new" : "/subscribe"} onClick={(evt) => { 
-              evt.preventDefault();
-              dispatch(resetCurrentCollection());
-              loggedUserId ? navigate("/collection/new") : dispatch(switchLoginDisplay());
-              }}>
-              <Button text={'Je crée ma collection !'}/>
+            <Link
+              to={loggedUserId ? '/collection/new' : '/subscribe'}
+              onClick={(evt) => {
+                evt.preventDefault();
+                dispatch(resetCurrentCollection());
+                loggedUserId
+                  ? navigate('/collection/new')
+                  : dispatch(switchLoginDisplay());
+              }}
+            >
+              <Button text={'Je crée ma collection !'} />
             </Link>
           </div>
         </div>

@@ -19,7 +19,6 @@ export default function UserEdit() {
   const picture = useAppSelector((state) => state.user.loggedUser.picture);
 
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
-
     evt.target.files && dispatch(setPicture(evt.target.files[0]));
     dispatch(uploadUserImage());
   };
@@ -80,8 +79,14 @@ export default function UserEdit() {
           onChange={(evt) => handleImageUpload(evt)}
         />
       </label>
-      {picture && typeof picture === "string" && <img src={picture} alt="user picture" className="w-32 h-32 rounded-full mx-auto my-6"/>}
-      
+      {picture && typeof picture === 'string' && (
+        <img
+          src={picture}
+          alt="user picture"
+          className="w-32 h-32 rounded-full mx-auto my-6"
+        />
+      )}
+
       <button
         type="button"
         className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"

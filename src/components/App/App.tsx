@@ -13,7 +13,9 @@ function App() {
   const userId = useAppSelector((state) => state.user.loggedUser.id);
 
   const userAlert = useAppSelector((state) => state.user.userAlert);
-  const collectionAlert = useAppSelector((state) => state.collections.collectionAlert);
+  const collectionAlert = useAppSelector(
+    (state) => state.collections.collectionAlert
+  );
 
   useEffect(() => {
     userId && dispatch(fetchUserInfo(userId as number));
@@ -31,7 +33,10 @@ function App() {
           <Alert type={userAlert.type} message={userAlert.message} />
         )}
         {collectionAlert.message && (
-          <Alert type={collectionAlert.type} message={collectionAlert.message} />
+          <Alert
+            type={collectionAlert.type}
+            message={collectionAlert.message}
+          />
         )}
         <Outlet />
       </main>

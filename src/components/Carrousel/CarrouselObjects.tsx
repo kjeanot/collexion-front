@@ -6,7 +6,6 @@ import { IObject } from '../../types/types';
 export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
   const responsive = {
     superLargeDesktop: {
-    
       breakpoint: { max: 4000, min: 3000 },
       items: 5,
     },
@@ -48,7 +47,11 @@ export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
             <figure>
               <img
                 className="object-cover h-72 w-full"
-                src={object.image ? object.image as string : 'https://picsum.photos/1200'}
+                src={
+                  object.image
+                    ? (object.image as string)
+                    : 'https://picsum.photos/1200'
+                }
                 alt={object.name}
               />
             </figure>

@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
-import { useState } from 'react';
 
 export default function Header() {
   const dispatch = useAppDispatch();

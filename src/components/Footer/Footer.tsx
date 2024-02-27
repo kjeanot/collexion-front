@@ -45,11 +45,14 @@ export default function Footer() {
         <NavLink className="link link-hover" to={'/mentions'}>
           Mentions légales & CGU
         </NavLink>
-        {userRole?.includes('ROLE_ADMIN') && 
-          <NavLink className="btn btn-neutral" to="https://www.apicollexion.live/back/main">
+        {userRole?.includes('ROLE_ADMIN') && (
+          <NavLink
+            className="btn btn-neutral"
+            to="https://www.apicollexion.live/back/main"
+          >
             Accès admin
           </NavLink>
-        }
+        )}
       </nav>
     </footer>
   );

@@ -5,10 +5,7 @@ import Background from '../Background/Background';
 import CarrouselHome from '../Carrousel/CarrouselHome';
 import CollectionCTA from '../Collection/CollectionCTA';
 import ObjectCard from '../Object/ObjectCard';
-import {
-  fetchCollections,
-  randomCollection,
-} from '../../store/reducers/collectionsReducer';
+import { randomCollection } from '../../store/reducers/collectionsReducer';
 import { fetchObjects } from '../../store/reducers/objectsReducer';
 import { fetchCategories } from '../../store/reducers/categoriesReducer';
 
