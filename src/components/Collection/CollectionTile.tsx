@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ICollection } from '../../types/types';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useLocation } from 'react-router-dom';
+import {
+  fetchUserInfo,
+  removeFromFavorites,
+} from '../../store/reducers/userReducer';
 
 export default function CollectionTile({
   data,
@@ -12,14 +16,14 @@ export default function CollectionTile({
 }) {
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
-  console.log(data);
+  const dispatch = useAppDispatch();
 
   const location = useLocation();
 
   return (
-    <article className="card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row">
-      <figure className="h-full md:w-60 w-full flex-none">
-        <img src={data.image} alt={data.name} className="object-cover h-full" />
+    <article className="card h-fit md:h-60 sm:card-side bg-base-100 shadow-lg flex-col md:flex-row">
+      <figure className="h-full md:h-60 md:w-60 w-full flex-none">
+        {data.image && <img src={data.image as string} alt={data.name} className="object-cover h-full" />}
       </figure>
       <div className="card-body pt-2 pr-2 justify-center">
         <div className="flex justify-end mb-2">
@@ -73,7 +77,8 @@ export default function CollectionTile({
               className="btn btn-circle ml-4"
               onClick={(e) => {
                 e.preventDefault();
-                console.log(e.currentTarget);
+                dispatch(removeFromFavorites(data.id as number));
+                dispatch(fetchUserInfo(loggedUserId as number));
               }}
             >
               <svg
@@ -89,7 +94,7 @@ export default function CollectionTile({
           )}
         </div>
 
-        <h2 className="card-title pr-4">{data.name}</h2>
+        <h3 className="card-title pr-4">{data.name}</h3>
         <p className="line-clamp-3 pr-4">{data.description}</p>
       </div>
     </article>

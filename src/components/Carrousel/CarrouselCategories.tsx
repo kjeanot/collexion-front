@@ -1,8 +1,14 @@
+import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
+import { ICategory } from '../../types/types';
 
-export default function CarrouselCategories() {
+export default function CarrouselCategories({
+  categories,
+}: {
+  categories: ICategory[];
+}) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -38,7 +44,28 @@ export default function CarrouselCategories() {
       dotListClass="md:invisible custom-dot-list-style opacity-70"
       itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
     >
-      <div>
+      {categories.map((category) => (
+        <div key={category.id}>
+          <Link
+            to={`/category/${category.id}`}
+            className="card h-80 bg-base-100 shadow hover:bg-gray-100"
+          >
+            <figure>
+              <img
+                className="object-cover h-72 w-full"
+                src={category.image}
+                alt={category.name}
+              />
+            </figure>
+            <div className="card-body">
+              <h3 className="card-title text-center line-clamp-1">
+                {category.name}
+              </h3>
+            </div>
+          </Link>
+        </div>
+      ))}
+      {/* <div>
         <a href="">
           <div className="card h-80 bg-base-100 shadow hover:contrast-50">
             <figure>
@@ -97,7 +124,7 @@ export default function CarrouselCategories() {
             </div>
           </div>
         </a>
-      </div>
+      </div> */}
     </Carousel>
   );
 }

@@ -1,22 +1,28 @@
 ### Route Collections
 GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collections HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgzNDU1NzQsImV4cCI6MTcwODM0OTE3NCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.Sj5xLp0xKceYoeOr0VOCy_F9SN0-a6zyD4U1Hy1i024ExxgUSp90-7IDUMzorB61I6sYLDzmUGrQe7JRizb7qZGxIuZuMiYf0g-TuSLClrkL95HSo3EQlqZSXuxxMdHHhCqLtdvIgpBZotoDDeeWX5QfoyRHt6Gr_8DCeKpSq0Ym38NzF6iNJGSyaueXWEiLQ8KM9ddObobOJWsFK0RYQz-qAWepAsK7E-qeKGoear2Vkf4vnxRDqqYbnL-QtwMpO_1UiJFaNmrzd72g0R7h8dw-lsGvKzUlOwgRNjsUv__FZ_NPsxLLRCUAvAKpfg2PLVapPOj0XJ8nn9JZ8dmRwg
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDg0NDAzMzQsImV4cCI6MTcwODQ0MzkzNCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uDC4hT9aX_lZsBijRHUrVzkuaX_QxgWiokYUJK3v-rB3ZsARb5nnoVAgbnWC2QOx5BfkHdowHMXQJ1tXDnppgbfymVke7r8M2YdRB9P_RQvW7gMznz8mZUw__AVbIizZqG9DN1z7HBnodDc2SZKu_HSLRKNth-1veV1VqDALmtjaguoOOqNUkqZmIJ6E6Pmf0SuyvNUzNMY5uBTvbVLfIaZ7VPjutDIQ2HIk9ZW08szPwbgsiyovLnky-ksGZH9PZ-QUbM9uE1rkVrffyZmNdiUm8mHiBGDtTlyszvGvptoJL8oxCX_n32E_FqdMj-E5wkp5YwuGLefVr_27C5GTig
+
+### Route Random Collection
+GET https://apicollexion.live/api/collection_random HTTP/1.1
+content-type: application/json
+
 
 ### Route GET Collection
-GET http://adrien-forbice.vpnuser.lan/projet-12-collexion-back/public/api/collection/4 HTTP/1.1
+GET https://apicollexion.live/api/collections HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgzNTMzOTcsImV4cCI6MTcwODM1Njk5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.QXSH4YuI3nGm4oMiFBNP6rRZlPPezH1mPr3W4G2KRbtFziwhY5yB1LqHymCoUPFRgubJYZ9_khbc-TAos5wDHntenW-c4OfTgSKI0pYMxNDe1LtPV_PNoe8DYXe2UqzzLHxR_YzVFJQrrfQr5_hpoQuOYLD6WkMepl9AsxWXVS_Irdfuum0bmJXGcMHXG6WIZlMyM1uQCKF9msjxiEKn2OmmHcis2y0oyu0B1ws9qVty3Sq-NlJn1BZsgWRLtvxkchWJ3vinzmDvDWPzxtbLV0o6DQu0YhAT-Ft3LAecIj1z3IjJd25P5hWDnTbx0B4aCwGg33zIK54REErfZNodMQ
+
 
 ### Route POST Collection
-POST http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/create HTTP/1.1
+POST https://apicollexion.live/api/secure/collection HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgxMDEwMDMsImV4cCI6MTcwODEwNDYwMywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.pLtntOU8a032q-Uf6DH72ZzdtXjEcVcMVYNzkJ5hHJXwPeotd3-i75b8JGHhRRJgD5maJtwqcEXwNff6CE5I6izuv6GxcB5wb6G0wKoKZamR7p--bAaIKAFOxr2yGvf8JvRNK4ECrJ8BxDIxFVRBCxmQifeQnay8I24UfrvqvnyA1hD5mrItSc9wrWygTqW_Hk9rZpHcuAmwqWMFvtub2lhNm7h7GaY9IAJfDs4nkTXpqXKLUlDT5K9Ys0Qd51DB_pmHnEdkWYvnV8NovLCJ6ETaq1C9O1N0niS9KLsXBgCFer3aHKR5Af2w5LM7PfliCkW5OM2cSgzmVlBgpjNAOA
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDg5NDIxMjIsImV4cCI6MTcwODk0NTcyMiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.GDOp-bIMKj7omL9kNfZl7scztY_OBF92ZPCeTNumulASC8kxXGNKTuTIkKJ-9jhaoiwLf_51hWILT0osBPyykaf5rME9bHIiP5tkkeMCpLGcNqDS9ZGZkWTfipVYwUhPKaWJvbKn8dyqiFtCOYoCUH10RrxIdphMYbAQPlFSSo68VuJzTqFKdn7jMONIDyEmwyKVAX5Tkd5ZCsLvqSLo5nT3F0t8OCzJSsxU69r-T0BGBGjQkZapmZhHhIs2YiaQH3r2FE96bUqxoHX0F_9uZFVE3jJBtNijPwhe-_TRSB87jEHi5pNxbzWUFVVwrYW9yVuI7qsFNNb1JWZM8K18Xw
 
 {
   "name": "nouvelle collection test",
-  "description": "ceci est un test, attention",
-  "image": "https://picsum.photos/1000"
+  "description": "ceci est un test, attention lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Pretium lectus quam id leo in vitae turpis massa. Condimentum mattis pellentesque id nibh tortor id aliquet lectus. Ac turpis egestas integer eget aliquet nibh praesent tristique. ",
+  "image": "https://picsum.photos/1000",
+  "is_active": true
 }
 
 ### Route Categories
@@ -54,9 +60,9 @@ content-type: application/json
 }
 
 ### Route Get User
-GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/user/1 HTTP/1.1
+GET https://www.apicollexion.live/api/user/1 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDg1OTE1MDUsImV4cCI6MTcwODU5NTEwNSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.ShM4gENxKEs90z-tJXhih87xQByFhjCiV2jYX-CLKvzILc7lTat3M3gKvI425aMnbHHKZiQFqiMbNrOq_wALe3b9yKnYLTTlhmHRKE-J45kAcpKD9QA5QMbrEzebgHWqe_mOb5hJXNcLhELhbnARCfqknE5AvwFlODqUMb_Kp7hxIRHpIDRtIlbgWNNb76arLjgj5-JEvpPOI9XIA8tDccjcrYVAa_67MwLaFI7NDPaNwzJz1uszVnGCxYVn8lQpLDzNbSdYfnTh8CLGoJG7zFokG04YIQNPaUt1_ZOmQAfYFmr4vJ313zpcNgvlk4c1xYXcUNPkKYt4rPFHwJz8OA
+
 
 ### Route Delete Collection
 DELETE http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/collection/delete/2 HTTP/1.1
@@ -64,9 +70,9 @@ content-type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMDU4OTgsImV4cCI6MTcwODAwOTQ5OCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uxNvhdjUxuLkWDIEWN2IDAolQAiEuos2PioahqhbLDEaBqR9c-TJW4Ol0eN-jzCc87-Y6xcdflDd1STbpqbJQucTykx-Jw9hLp2BPTxR-bgEl1osTzv4FyrjH5x_FsRyBjq9HEmQeJmeVd6V1jKnGfi1FI824VZbD5rRhGj-13k4Z6LTy-5P_AKbpKydQvAjJVxIm6Lon4UUV7qM-WQ0htGkWI15DFyZyyqV8r4kePnG5aK66wVeOPjkHVheuRTvJ5sbGc0gHH0xP4DufZMOfEPaKxLsi-qYb-hGDV8rRJU2t77r-f-jlVXnpC7Sgxth9IO_be-lQIZ2eKOPPcfUBw
 
 ### Route Get Object
-GET http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/object/3 HTTP/1.1
+GET https://www.apicollexion.live/api/object/17 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDg1OTE1MDUsImV4cCI6MTcwODU5NTEwNSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.ShM4gENxKEs90z-tJXhih87xQByFhjCiV2jYX-CLKvzILc7lTat3M3gKvI425aMnbHHKZiQFqiMbNrOq_wALe3b9yKnYLTTlhmHRKE-J45kAcpKD9QA5QMbrEzebgHWqe_mOb5hJXNcLhELhbnARCfqknE5AvwFlODqUMb_Kp7hxIRHpIDRtIlbgWNNb76arLjgj5-JEvpPOI9XIA8tDccjcrYVAa_67MwLaFI7NDPaNwzJz1uszVnGCxYVn8lQpLDzNbSdYfnTh8CLGoJG7zFokG04YIQNPaUt1_ZOmQAfYFmr4vJ313zpcNgvlk4c1xYXcUNPkKYt4rPFHwJz8OA
+
 
 ### Route UPDATE Object
 PUT http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/api/object/3 HTTP/1.1

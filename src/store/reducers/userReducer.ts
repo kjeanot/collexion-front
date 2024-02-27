@@ -20,7 +20,6 @@ interface loggedUser {
   password?: string;
   mycollections?: ICollection[];
   myfavoritescollections?: ICollection[];
-  isUserlogged: boolean;
 }
 
 interface currentUser {
@@ -34,9 +33,15 @@ interface currentUser {
   mycollections?: ICollection[];
 }
 
+interface userAlert {
+  message: string;
+  type: string;
+}
+
 interface UserState {
-  loggedUser : loggedUser;
-  currentUser : currentUser;
+  loggedUser: loggedUser;
+  currentUser: currentUser;
+  userAlert: userAlert;
 }
 
 interface UploadedFile {
@@ -44,7 +49,7 @@ interface UploadedFile {
 }
 
 export const initialState: UserState = {
-  loggedUser : {
+  loggedUser: {
     id: undefined,
     token: undefined,
     nickname: undefined,
@@ -53,11 +58,10 @@ export const initialState: UserState = {
     password: undefined,
     description: undefined,
     picture: undefined,
-    isUserlogged: false,
     mycollections: undefined,
     myfavoritescollections: undefined,
   },
-  currentUser : {
+  currentUser: {
     id: undefined,
     nickname: undefined,
     email: undefined,
@@ -65,7 +69,11 @@ export const initialState: UserState = {
     description: undefined,
     picture: undefined,
     mycollections: undefined,
-  }
+  },
+  userAlert: {
+    message: '',
+    type: '',
+  },
 };
 
 const storedToken = localStorage.getItem('jwt');
@@ -87,7 +95,7 @@ export const register = createAsyncThunk<StateFromReducersMapObject<any>>(
     const state = thunkAPI.getState() as RootState;
 
     const response = await axios.post(
-      `http://ec2-16-170-215-204.eu-north-1.compute.amazonaws.com/index.php/register`,
+      `${import.meta.env.VITE_API_PATH}register`,
       {
         nickname: state.user.loggedUser.nickname,
         email: state.user.loggedUser.email,
@@ -109,6 +117,32 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
       {
         username: state.user.loggedUser.email,
         password: state.user.loggedUser.password,
+      }
+    );
+
+    return response.data;
+  }
+);
+
+export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
+  'user/userUpdate',
+  async (_, thunkAPI) => {
+    // Retreive the state to pass the stored informations into the API request body
+    const state = thunkAPI.getState() as RootState;
+
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_PATH}secure/user/${state.user.loggedUser.id}`,
+      {
+        nickname: state.user.loggedUser.nickname,
+        email: state.user.loggedUser.email,
+        description: state.user.loggedUser.description,
+        picture: state.user.loggedUser.picture,
+        password: state.user.loggedUser.password
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
@@ -138,7 +172,8 @@ export const addToFavorites = createAsyncThunk(
   async (id: number, thunkAPI) => {
     if (token) {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}add/${id}/favorite`,'',
+        `${import.meta.env.VITE_API_PATH}secure/add/${id}/favorite`,
+        '',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -156,7 +191,8 @@ export const removeFromFavorites = createAsyncThunk(
   async (id: number, thunkAPI) => {
     if (token) {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}delete/${id}/favorite`, '',
+        `${import.meta.env.VITE_API_PATH}secure/delete/${id}/favorite`,
+        '',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -177,10 +213,15 @@ export const uploadUserImage = createAsyncThunk(
 
       const formData = new FormData();
       formData.append('file', state.user.loggedUser.picture as Blob);
-      state.user.loggedUser.picture.name && formData.append('fileName', state.user.loggedUser.picture.name as string | Blob)
+      state.user.loggedUser.picture.name &&
+        formData.append(
+          'fileName',
+          state.user.loggedUser.picture.name as string | Blob
+        );
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}user/upload_file`, formData,
+        `${import.meta.env.VITE_API_PATH}secure/user/upload_file`,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -193,11 +234,11 @@ export const uploadUserImage = createAsyncThunk(
   }
 );
 
+export const resetAlert = createAction('user/resetAlert');
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(register.pending, (state, action) => {
-      console.log('register pending', action);
-    })
+    .addCase(register.pending, (state, action) => {})
     .addCase(register.fulfilled, (state, action) => {
       console.log('register fulfilled', action);
       loginCheck();
@@ -206,7 +247,7 @@ const userReducer = createReducer(initialState, (builder) => {
       console.log('register rejected', action);
     })
     .addCase(loginCheck.pending, (state, action) => {
-      console.log('pending', action);
+      localStorage.removeItem('jwt');
     })
     .addCase(loginCheck.fulfilled, (state, action) => {
       console.log('fulfilled', action);
@@ -220,26 +261,24 @@ const userReducer = createReducer(initialState, (builder) => {
       state.loggedUser.username = (action.payload as IUser).username;
       localStorage.setItem('jwt', JSON.stringify(state.loggedUser.token));
       localStorage.setItem('uid', JSON.stringify(state.loggedUser.id));
-      state.loggedUser.isUserlogged = true;
+      state.userAlert.message = 'Login successful';
+      state.userAlert.type = 'success';
     })
     .addCase(loginCheck.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(fetchUserInfo.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(fetchUserInfo.pending, (state, action) => {})
     .addCase(fetchUserInfo.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.currentUser = action.payload;
-      state.currentUser.id === state.loggedUser.id ? state.loggedUser = action.payload : '';
-      console.log(state.currentUser.mycollections);
+      state.currentUser.id === state.loggedUser.id
+        ? (state.loggedUser = action.payload)
+        : '';
     })
     .addCase(fetchUserInfo.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(addToFavorites.pending, (state, action) => {
-      console.log('fav add pending');
-    })
+    .addCase(addToFavorites.pending, (state, action) => {})
     .addCase(addToFavorites.fulfilled, (state, action) => {
       console.log('fav added successfully', action.payload);
       state.loggedUser.myfavoritescollections?.push(action.payload);
@@ -247,19 +286,18 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(addToFavorites.rejected, (state, action) => {
       console.log('fav add rejected');
     })
-    .addCase(removeFromFavorites.pending, (state, action) => {
-      console.log('fav remove pending');
-    })
+    .addCase(removeFromFavorites.pending, (state, action) => {})
     .addCase(removeFromFavorites.fulfilled, (state, action) => {
       console.log('fav removed successfully', action.payload);
-      state.loggedUser.myfavoritescollections = state.loggedUser.myfavoritescollections?.filter(el => el.id != action.payload.id);
+      state.loggedUser.myfavoritescollections =
+        state.loggedUser.myfavoritescollections?.filter(
+          (el) => el.id != action.payload.id
+        );
     })
     .addCase(removeFromFavorites.rejected, (state, action) => {
       console.log('fav remove rejected');
     })
-    .addCase(uploadUserImage.pending, (state, action) => {
-      console.log('image upload pending');
-    })
+    .addCase(uploadUserImage.pending, (state, action) => {})
     .addCase(uploadUserImage.fulfilled, (state, action) => {
       console.log('image uploaded successfully', action.payload);
       state.loggedUser.myfavoritescollections?.push(action.payload);
@@ -268,12 +306,10 @@ const userReducer = createReducer(initialState, (builder) => {
       console.log('image upload rejected');
     })
     .addCase(setEmail, (state, action) => {
-      console.log('new username :', action.payload);
       state.loggedUser.username = action.payload;
       state.loggedUser.email = action.payload;
     })
     .addCase(setPassword, (state, action) => {
-      console.log('new password :', action.payload);
       state.loggedUser.password = action.payload;
     })
     .addCase(setNickname, (state, action) => {
@@ -281,14 +317,30 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setPicture, (state, action) => {
       state.loggedUser.picture = action.payload;
-      console.log(action);
     })
     .addCase(setRoles, (state, action) => {
       state.loggedUser.roles = action.payload;
     })
     .addCase(setUserDescription, (state, action) => {
       state.loggedUser.description = action.payload;
-    });
+    })
+    .addCase(userUpdate.pending, (state, action) => {})
+    .addCase(userUpdate.fulfilled, (state, action) => {
+      state.loggedUser = action.payload;
+      console.log('user updated successfully', action.payload);
+      state.userAlert.message = 'User updated successfully';
+      state.userAlert.type = 'success';
+    })
+    .addCase(userUpdate.rejected, (state, action) => {
+      console.log('user update rejected');
+      state.userAlert.message = 'User update rejected';
+      state.userAlert.type = 'error';
+    })
+    .addCase(resetAlert, (state, action) => {
+      state.userAlert.message = '';
+      state.userAlert.type = '';
+    })
+    ;
 });
 
 export default userReducer;

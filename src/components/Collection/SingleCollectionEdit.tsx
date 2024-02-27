@@ -1,17 +1,19 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { Navigate, redirect, useLocation, useParams } from 'react-router-dom';
 import {
   fetchSingleCollection,
   postCollection,
+  resetCurrentCollection,
   setCollectionDescription,
   setCollectionImage,
   setCollectionName,
   setCollectionObjects,
+  setCollectionRedirectPath,
   setCollectionRelatedObjects,
   updateCollection,
+  uploadCollectionImage,
 } from '../../store/reducers/collectionsReducer';
-import CloudinaryUploadWidget from '../Upload/UploadButton';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import { ICollection, IObject } from '../../types/types';
@@ -23,47 +25,22 @@ export default function SingleCollectionEdit() {
   const data: CurrentCollection = useAppSelector(
     (state) => state.collections.currentCollection
   );
-  
 
-  const [publicId, setPublicId] = useState('');
-  // Replace with your own cloud name
-  const [cloudName] = useState('dpykdy5lp');
-  // Replace with your own upload preset
-  const [uploadPreset] = useState('ml_default');
+  const redirectPath = useAppSelector((state) => state.collections.redirectPath);
 
-  // Upload Widget Configuration
-  // Remove the comments from the code below to add
-  // additional functionality.
-  // Note that these are only a few examples, to see
-  // the full list of possible parameters that you
-  // can add see:
-  //   https://cloudinary.com/documentation/upload_widget_reference
+  const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+  console.log('loggedUserId', loggedUserId);
 
-  const [uwConfig] = useState({
-    cloudName,
-    uploadPreset,
-    sources: ['local'],
-    // cropping: true, //add a cropping step
-    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
-    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
-    // multiple: false,  //restrict upload to a single file
-    // folder: "user_images", //upload files to the specified folder
-    // tags: ["users", "profile"], //add the given tags to the uploaded files
-    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
-    // clientAllowedFormats: ["images"], //restrict uploading to image files only
-    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
-    // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
-    // theme: "purple", //change to a purple theme
-  });
+  const image = useAppSelector(
+    (state) => state.collections.currentCollection.image
+  );
 
-  // Create a Cloudinary instance and set the cloud name.
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName,
-    },
-  });
-
-  const myImage = cld.image(publicId);
+  const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    if (evt.target.files) {
+      dispatch(setCollectionImage(evt.target.files[0]));
+      dispatch(uploadCollectionImage());
+    }
+  };
 
   /**
    *
@@ -86,106 +63,123 @@ export default function SingleCollectionEdit() {
     }
     dispatch(setCollectionRelatedObjects(extractedObjects));
     dispatch(setCollectionObjects(remainingObjects));
-
   }
+  useEffect(() => {
+    location.pathname === '/collection/new' &&
+      dispatch(resetCurrentCollection());
+  }, []);
 
   useEffect(() => {
     dispatch(setCollectionRelatedObjects([]));
-  }, [])
-
- 
+  }, []);
 
   return (
-    <form className="md:w-1/2 mx-auto flex flex-col">
-      <h1 className="text-3xl mb-6">Editer la collection</h1>
-      <label className="form-control w-full">
-        <div className="label">
-          <span className="label-text">Nom de la collection</span>
-        </div>
-        <input
-          type="text"
-          placeholder={data ? data.name : 'Nom de la collection'}
-          value={data ? data.name : ''}
-          className="input input-bordered w-full"
-          onChange={(evt: ChangeEvent<HTMLInputElement>) =>
-            dispatch(setCollectionName(evt.currentTarget.value))
-          }
-        />
-      </label>
-      <label className="form-control w-full">
-        <div className="label">
-          <span className="label-text">Description de la collection</span>
-        </div>
-        <textarea
-          className="textarea textarea-bordered h-24"
-          placeholder={data ? data.description : 'Description de la collection'}
-          value={data ? data.description : ''}
-          onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
-            dispatch(setCollectionDescription(evt.currentTarget.value))
-          }
-        ></textarea>
-      </label>
+    <>
+      <form className="md:w-1/2 mx-auto flex flex-col">
+        <h1 className="text-3xl mb-6">Editer la collection</h1>
+        <label className="form-control w-full">
+          <div className="label">
+            <span className="label-text">Nom de la collection</span>
+          </div>
+          <input
+            type="text"
+            placeholder={data ? data.name : 'Nom de la collection'}
+            defaultValue={data ? data.name : ''}
+            className="input input-bordered w-full"
+            onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+              dispatch(setCollectionName(evt.currentTarget.value))
+            }
+          />
+        </label>
+        <label className="form-control w-full">
+          <div className="label">
+            <span className="label-text">Description de la collection</span>
+          </div>
+          <textarea
+            className="textarea textarea-bordered h-24"
+            placeholder={
+              data ? data.description : 'Description de la collection'
+            }
+            defaultValue={data ? data.description : ''}
+            onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
+              dispatch(setCollectionDescription(evt.currentTarget.value))
+            }
+          ></textarea>
+        </label>
 
-      <CloudinaryUploadWidget
-        uwConfig={uwConfig}
-        setPublicId={setPublicId}
-        entity="collection"
-      />
-      <div style={{ width: '800px' }}>
-        <AdvancedImage
-          style={{ maxWidth: '100%' }}
-          cldImg={myImage}
-          plugins={[responsive(), placeholder()]}
-        />
-      </div>
+        <label className="form-control w-full" htmlFor="collection-image">
+          <div className="label">
+            <span className="label-text">Image de la collection</span>
+          </div>
+          <input
+            type="file"
+            id="collection-image"
+            className="file-input file-input-bordered w-full max-w-xs"
+            onChange={(evt) => handleImageUpload(evt)}
+          />
+        </label>
+        {image && typeof image === 'string' && (
+          <img
+            src={image}
+            alt="collection picture"
+            className="w-32 h-32 mx-auto my-6"
+          />
+        )}
 
-      {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
-      {data.myobjects && data.myobjects.length > 0
-        ? data.myobjects?.map((object: IObject, index) => (
-            <div
-              key={index}
-              className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
-            >
-              <img
-                src={object.image}
-                className="max-w-16 mr-4 object-fill"
-              />
-              <p className="block flex-1">{object.name}</p>
-              <button
-                className="btn rounded-none h-16"
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  handleObjectsRemoving(object.id as number);
-                }}
+        {data && <h2 className="text-xl my-6">Objets rattachés</h2>}
+        {data.myobjects && data.myobjects.length > 0
+          ? data.myobjects?.map((object: IObject, index) => (
+              <div
+                key={index}
+                className="flex shadow-lg place-items-center rounded-lg overflow-hidden border mb-4"
               >
-                <svg
-                  className="w-6 h-6 text-gray-800"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
+                <img
+                  src={
+                    object.image && typeof object.image === 'string'
+                      ? object.image
+                      : 'https://via.placeholder.com/150'
+                  }
+                  className="max-w-16 mr-4 object-fill"
+                />
+                <p className="block flex-1">{object.name}</p>
+                <button
+                  className="btn rounded-none h-16"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    handleObjectsRemoving(object.id as number);
+                  }}
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
-          ))
-        : "Aucun objet rattaché pour l'instant"}
-      <button
-        type="button"
-        className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
-        onClick={() => {
-          data.id
-            ? dispatch(updateCollection(data.id))
-            : dispatch(postCollection());
-        }}
-      >
-        Mettre à jour
-      </button>
-    </form>
+                  <svg
+                    className="w-6 h-6 text-gray-800"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            ))
+          : "Aucun objet rattaché pour l'instant"}
+        <button
+          type="button"
+          className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
+          onClick={() => {
+            data.id
+              ? dispatch(updateCollection(data.id))
+              : dispatch(postCollection());
+            data.id ? dispatch(setCollectionRedirectPath(`/collection/${data.id}`)) : dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
+          }}
+        >
+          Mettre à jour
+        </button>
+      </form>
+      {redirectPath !== '' && <Navigate to={redirectPath} />}
+    </>
   );
 }

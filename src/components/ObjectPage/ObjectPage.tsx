@@ -5,7 +5,7 @@ import {
   fetchComments,
   fetchSingleObject,
 } from '../../store/reducers/objectsReducer';
-import { ICollection, IObject } from '../../types/types';
+import { ICollection, IComment, IObject } from '../../types/types';
 import Avatar from '../Avatar/Avatar';
 import ObjectCard from '../Object/ObjectCard';
 import Background from '../Background/Background';
@@ -16,16 +16,16 @@ import Comments from '../Comment/Comments';
 
 export default function ObjectPage() {
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
+  console.log(data);
 
   const dispatch = useAppDispatch();
   const showModal = useAppSelector((state) => state.app.showModal);
-  const comments = useAppSelector((state) => state.objects.comments);
-  
+
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
   // Function passed in the Modal component to trigger the delete action of the object
   const handleDelete = () => {
-    dispatch(deleteObject(data.id));
+    data.id && dispatch(deleteObject(data.id));
   };
 
   useEffect(() => {
@@ -45,7 +45,9 @@ export default function ObjectPage() {
       </div>
       <div className="relative z-10">
         <header className="flex flex-wrap border border-b-2 mb-6 bg-white">
-          <img src={data.image} className="w-full md:w-1/3 object-cover" />
+          <figure className="w-full md:w-1/3">
+            <img src={data.image} className="h-full object-cover" />
+          </figure>
           <div className="w-full md:w-2/3 p-6">
             <div className="flex justify-end">
               <Link to={`/object/${data.id}/edit`}>
@@ -60,7 +62,7 @@ export default function ObjectPage() {
                     <path
                       fillRule="evenodd"
                       d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                     <path
                       fillRule="evenodd"
@@ -93,12 +95,14 @@ export default function ObjectPage() {
               {data.name}
             </h1>
             <div className="flex flex-wrap justify-between content-center">
-              {
-                <Avatar
-                  nickname={data.user?.nickname}
-                  picture={data.user?.picture}
-                />
-              }
+              {data.myCollection && data.myCollection.length > 0 && data.myCollections[0].user.id && (
+                <Link to={`/user/${data.myCollections[0].user.id}`}>
+                  <Avatar
+                    nickname={data.myCollections[0].user.nickname}
+                    picture={data.myCollections[0].user.picture}
+                  />
+                </Link>
+              )}
             </div>
             <section className="my-5">
               <h2 className="text-xl">Description</h2>
@@ -106,8 +110,24 @@ export default function ObjectPage() {
             </section>
             <section className="border border-b-2  max-w-md p-2">
               {data.state && <p>Etat : {data.state}</p>}
-              <p>Collection :</p>
-              <p>Catégorie :</p>
+              <p>
+                Collection :{' '}
+                <Link
+                  to={data.myCollections && data.myCollections[0]?.id ? `/collection/${data.myCollections[0]?.id}` : '/'}
+                  className="link link-neutral"
+                >
+                  {data.myCollections && data.myCollections[0]?.name && data.myCollections[0].name}
+                </Link>
+              </p>
+              <p>
+                Catégorie :{' '}
+                <Link
+                  to={`/category/${data.category.id}`}
+                  className="link link-neutral"
+                >
+                  {data.category.name}
+                </Link>
+              </p>
             </section>
           </div>
         </header>
@@ -124,7 +144,7 @@ export default function ObjectPage() {
               ))
             : "Aucune recommandation pour l'instant"}
         </div>
-        <Comments comments={comments} />
+        {<Comments objectId={data.id} />}
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 export interface ICollection {
   id?: number;
   name?: string;
-  image?: string;
+  image?: string | File;
   description?: string;
   rating?: number | null;
   user?: IUser;
@@ -39,7 +39,7 @@ export interface IObject {
   state: string;
   id?: number;
   name?: string;
-  image?: string;
+  image?: string | File;
   description?: string;
   state?: string;
   relatedMyCollections?: ICollection[] | [any];
@@ -52,7 +52,12 @@ export interface IObject {
 export type IRole = string;
 
 export interface IComment {
-  id?: number;
+  id: number;
   content?: string;
   user?: IUser;
+}
+
+export interface IAlert {
+  message: string;
+  type: string;
 }
