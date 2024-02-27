@@ -49,7 +49,7 @@ export default function ObjectPage() {
             <img src={data.image} className="h-full object-cover" />
           </figure>
           <div className="w-full md:w-2/3 p-6">
-            <div className="flex justify-end">
+            {data.myCollections[0].user.id && data.myCollections[0].user.id === loggedUserId && <div className="flex justify-end">
               <Link to={`/object/${data.id}/edit`}>
                 <button className="btn btn-circle mr-4">
                   <svg
@@ -90,7 +90,7 @@ export default function ObjectPage() {
                   />
                 </svg>
               </button>
-            </div>
+            </div>}
             <h1 className="my-5 text-2xl font-bold text-customred">
               {data.name}
             </h1>
