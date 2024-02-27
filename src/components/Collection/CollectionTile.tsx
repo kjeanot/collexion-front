@@ -20,18 +20,10 @@ export default function CollectionTile({
 
   const location = useLocation();
 
-  const [hidden, setHidden] = useState(false);
-
   return (
-    <article
-      className={
-        hidden
-          ? 'hidden'
-          : 'card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row'
-      }
-    >
-      <figure className="h-full md:w-60 w-full flex-none">
-        <img src={data.image} alt={data.name} className="object-cover h-full" />
+    <article className="card h-fit md:h-60 sm:card-side bg-base-100 shadow-lg flex-col md:flex-row">
+      <figure className="h-full md:h-60 md:w-60 w-full flex-none">
+        {data.image && <img src={data.image as string} alt={data.name} className="object-cover h-full" />}
       </figure>
       <div className="card-body pt-2 pr-2 justify-center">
         <div className="flex justify-end mb-2">
@@ -87,7 +79,6 @@ export default function CollectionTile({
                 e.preventDefault();
                 dispatch(removeFromFavorites(data.id as number));
                 dispatch(fetchUserInfo(loggedUserId as number));
-                setHidden((prev) => !prev);
               }}
             >
               <svg
@@ -102,9 +93,9 @@ export default function CollectionTile({
             </button>
           )}
         </div>
-        <section>
-          <h2 className="card-title pr-4">{data.name}</h2>
-        </section>
+
+        <h3 className="card-title pr-4">{data.name}</h3>
+        <p className="line-clamp-3 pr-4">{data.description}</p>
       </div>
     </article>
   );

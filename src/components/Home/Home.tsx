@@ -21,7 +21,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    dispatch(fetchCollections());
     dispatch(fetchObjects());
     dispatch(fetchCategories());
     dispatch(randomCollection());
@@ -40,7 +39,7 @@ export default function Home() {
         Collection au hasard
       </h2>
       <CarrouselHome collections={dataRandomCollections} />
-      <div className="flex justify-end">
+      <div className="flex justify-center md:justify-end mb-9">
         <Link to="/collections">
           <button
             type="button"

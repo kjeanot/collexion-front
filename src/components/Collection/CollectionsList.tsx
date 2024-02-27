@@ -6,7 +6,7 @@ export default function CollectionsList({
 }: {
   collections: ICollection[];
 }) {
-  console.log(collections);
+  
 
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">

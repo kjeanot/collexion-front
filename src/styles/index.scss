@@ -30,4 +30,8 @@ code {
     border-radius: 10px 0 0;
     margin-right: 5px;
   }
+
+  .withoutclx::before {
+    display: none;
+  }
 }

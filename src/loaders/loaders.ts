@@ -10,12 +10,7 @@ const userId = storedUserId ? JSON.parse(storedUserId) : '';
 export function singleCollectionLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(
-      `${import.meta.env.VITE_API_PATH}collection/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${import.meta.env.VITE_API_PATH}collection/${params.id}`
     );
     return promise;
   }
@@ -29,23 +24,14 @@ export function randomCollectionLoader(): Promise<AxiosResponse<any, any>> {
 }
 
 export function collectionsLoader(): Promise<AxiosResponse<any, any>> {
-  const promise = axios.get(`${import.meta.env.VITE_API_PATH}collections`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const promise = axios.get(`${import.meta.env.VITE_API_PATH}collections`);
   return promise;
 }
 
 export function singleObjectLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(
-      `${import.meta.env.VITE_API_PATH}object/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${import.meta.env.VITE_API_PATH}object/${params.id}`
     );
     return promise;
   }
@@ -59,12 +45,7 @@ export function randomObjectLoader(): Promise<AxiosResponse<any, any>> {
 export function userLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(
-      `${import.meta.env.VITE_API_PATH}user/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${import.meta.env.VITE_API_PATH}user/${params.id}`
     );
     return promise;
   }
@@ -73,12 +54,16 @@ export function userLoader({ params }: { params: Params }): any {
 export function userEditLoader({ params }: { params: Params }): any {
   if (params.id) {
     const promise = axios.get(
-      `${import.meta.env.VITE_API_PATH}user/${params.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      `${import.meta.env.VITE_API_PATH}user/${params.id}`
+    );
+    return promise;
+  }
+}
+
+export function categoryLoader({ params }: { params: Params }): any {
+  if (params.id) {
+    const promise = axios.get(
+      `${import.meta.env.VITE_API_PATH}category/${params.id}`
     );
     return promise;
   }

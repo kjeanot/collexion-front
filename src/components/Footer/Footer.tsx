@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hooks/redux';
 
 export default function Footer() {
   const userId = useAppSelector((state) => state.user.loggedUser.id);
+  const userRole = useAppSelector((state) => state.user.loggedUser.roles);
 
   return (
     <footer className="footer relative p-10 bg-base-200 text-base-content mt-6">
@@ -44,6 +45,11 @@ export default function Footer() {
         <NavLink className="link link-hover" to={'/mentions'}>
           Mentions légales & CGU
         </NavLink>
+        {userRole?.includes('ROLE_ADMIN') && 
+          <NavLink className="btn btn-neutral" to="https://www.apicollexion.live/back/main">
+            Accès admin
+          </NavLink>
+        }
       </nav>
     </footer>
   );

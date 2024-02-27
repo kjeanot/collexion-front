@@ -13,12 +13,14 @@ import App from './components/App/App';
 import './styles/index.scss';
 import store from './store';
 import Collections from './components/Collection/Collections';
+import CollectionsSearchResults from './components/Collection/CollectionsSearchResults';
 import SingleCollection from './components/Collection/SingleCollection';
 import SingleCollectionEdit from './components/Collection/SingleCollectionEdit';
 import UserCollectionsList from './components/User/UserCollectionsList';
 import User from './components/User/User';
 import UserEdit from './components/User/UserEdit';
 import {
+  categoryLoader,
   collectionsLoader,
   randomCollectionLoader,
   randomObjectLoader,
@@ -37,18 +39,24 @@ import ObjectPage from './components/ObjectPage/ObjectPage';
 import SingleObjectEdit from './components/ObjectPage/SingleObjectEdit';
 import CollectionsListRandom from './components/Collection/CollectionsListRandom';
 import ObjectsRandom from './components/Object/ObjectsRandom';
+import CategoryPage from './components/Category/CategoryPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="/categories" element={<Categories />} />
-      <Route path="/category/:id" element={<ObjectPage />} />
+      <Route path="/category/:id" element={<CategoryPage />} errorElement={<Error />} loader={categoryLoader}/>
       <Route path="/objects" element={<Objects />} />
       <Route
         path="/collections"
         element={<Collections />}
         loader={collectionsLoader}
+        errorElement={<Error />}
+      />
+      <Route
+        path="/collections/:search"
+        element={<CollectionsSearchResults />}
         errorElement={<Error />}
       />
       <Route

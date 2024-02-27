@@ -4,6 +4,14 @@ import Avatar from '../Avatar/Avatar';
 import Rating from '../Rating/Rating';
 import ObjectCard from '../Object/ObjectCard';
 import { ICollection, IObject } from '../../types/types';
+import {
+  Link,
+  Navigate,
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   deleteCollection,
@@ -52,7 +60,7 @@ export default function SingleCollection() {
           // The modal receive the name of the action to trigger and the function to execute when the confirm button of the modal is clicked
           <Modal
             actionLabel={'Supprimer la collection'}
-            action={() => handleDelete()}
+            action={handleDelete}
           />
         )
       }
@@ -177,7 +185,12 @@ export default function SingleCollection() {
 
           <h1 className="my-5 text-2xl font-bold">{data.name}</h1>
           <div className="flex flex-wrap justify-between content-center">
-            <Avatar nickname={data.user.nickname} />
+            <Link to={`/user/${data.user.id}`}>
+              <Avatar
+                nickname={data.user.nickname}
+                picture={data.user.picture}
+              />
+            </Link>
             <Rating value={data.rating} />
           </div>
           <section className="my-5">
@@ -191,11 +204,19 @@ export default function SingleCollection() {
         {data.myobjects.map((object: IObject) => (
           <ObjectCard id={object.id} name={object.name} image={object.image} />
         ))}
-        <Link to="/object/new" onClick={() => dispatch(resetCurrentObject())}>
-          <button className="btn btn-square h-full w-full">
-            + Ajouter un objet
-          </button>
-        </Link>
+        {
+          // Shows create new collection button if the user is logged in and the collection belongs to him
+          loggedUserId === data.user.id && (
+            <Link
+              to="/object/new"
+              onClick={() => dispatch(resetCurrentObject())}
+            >
+              <button className="btn btn-square h-full w-full">
+                + Ajouter un objet
+              </button>
+            </Link>
+          )
+        }
       </div>
     </>
   );
