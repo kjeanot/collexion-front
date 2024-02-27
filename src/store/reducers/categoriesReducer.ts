@@ -62,7 +62,7 @@ export const fetchSingleCategory = createAsyncThunk(
   'categories/fetchSingleCategory',
   async (id: number, thunkAPI) => {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}categories/${id}`
+      `${import.meta.env.VITE_API_PATH}category/${id}`
     );
     return response.data;
   }
@@ -78,6 +78,7 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(fetchSingleCategory.pending, (state, action) => {})
     .addCase(fetchSingleCategory.fulfilled, (state, action) => {
       state.currentCategory = action.payload;
+      console.log(action.payload );
     })
     .addCase(fetchSingleCategory.rejected, (state, action) => {})
     .addCase(fetchParentCategories.pending, (state, action) => {})
