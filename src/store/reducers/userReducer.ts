@@ -137,7 +137,7 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
         email: state.user.loggedUser.email,
         description: state.user.loggedUser.description,
         picture: state.user.loggedUser.picture,
-        password: state.user.loggedUser.password
+        password: state.user.loggedUser.password,
       },
       {
         headers: {
@@ -153,10 +153,10 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
 export const fetchUserInfo = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number, thunkAPI) => {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}user/${id}`
-      );
-      return response.data;
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}user/${id}`
+    );
+    return response.data;
   }
 );
 
@@ -332,8 +332,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(resetAlert, (state, action) => {
       state.userAlert.message = '';
       state.userAlert.type = '';
-    })
-    ;
+    });
 });
 
 export default userReducer;
