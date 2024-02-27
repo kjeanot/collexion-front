@@ -14,19 +14,19 @@ export default function Carrousel({
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      partialVisibilityGutter: 40 // this is needed to tell the amount of px that should be visible.
+      partialVisibilityGutter: 0, // this is needed to tell the amount of px that should be visible.
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 750 },
       items: 2,
-      partialVisibilityGutter: 30 // this is needed to tell the amount of px that should be visible.
+      partialVisibilityGutter: 40, // this is needed to tell the amount of px that should be visible.
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 750, min: 0 },
       items: 1,
-      partialVisibilityGutter: 30 // this is needed to tell the amount of px that should be visible.
-    }
-  }
+      partialVisibilityGutter: 30, // this is needed to tell the amount of px that should be visible.
+    },
+  };
 
   return (
     <Carousel
@@ -39,9 +39,9 @@ export default function Carrousel({
       autoPlaySpeed={2000}
       customTransition="all 1"
       transitionDuration={500}
-      containerClass="carousel-container my-2"
+      containerClass="carousel-container my-2 mb-6"
       removeArrowOnDeviceType={['tablet', 'mobile']}
-      dotListClass="md:invisible custom-dot-list-style opacity-70"
+      dotListClass="md:invisible custom-dot-list-style opacity-70 "
       itemClass="carousel-item-padding-40-px p-2 pb-2 my-4"
     >
       {collections.map((collection) => (

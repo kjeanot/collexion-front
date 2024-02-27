@@ -22,7 +22,7 @@ export const postComment = createAsyncThunk(
   async (id: number, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     const response = await axios.post(
-      `${import.meta.env.VITE_API_PATH}comment`,
+      `${import.meta.env.VITE_API_PATH}secure/comment`,
       { content: state.comments.content, object: id },
       {
         headers: {

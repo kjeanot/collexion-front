@@ -14,7 +14,7 @@ export default function CollectionsSearchResults() {
 
   const filteredCollections = search && data.filter((collection) => collection.name?.includes(search));
 
-  console.log(filteredCollections);
+  
   return (
     <>
       <hgroup className="mb-6">

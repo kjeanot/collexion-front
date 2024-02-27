@@ -20,7 +20,6 @@ interface loggedUser {
   password?: string;
   mycollections?: ICollection[];
   myfavoritescollections?: ICollection[];
-  isUserlogged: boolean;
 }
 
 interface currentUser {
@@ -34,9 +33,15 @@ interface currentUser {
   mycollections?: ICollection[];
 }
 
+interface userAlert {
+  message: string;
+  type: string;
+}
+
 interface UserState {
   loggedUser: loggedUser;
   currentUser: currentUser;
+  userAlert: userAlert;
 }
 
 interface UploadedFile {
@@ -53,7 +58,6 @@ export const initialState: UserState = {
     password: undefined,
     description: undefined,
     picture: undefined,
-    isUserlogged: false,
     mycollections: undefined,
     myfavoritescollections: undefined,
   },
@@ -65,6 +69,10 @@ export const initialState: UserState = {
     description: undefined,
     picture: undefined,
     mycollections: undefined,
+  },
+  userAlert: {
+    message: '',
+    type: '',
   },
 };
 
@@ -127,7 +135,7 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
       {
         nickname: state.user.loggedUser.nickname,
         email: state.user.loggedUser.email,
-        description: state.user.loggedUser.description
+        description: state.user.loggedUser.description,
       },
       {
         headers: {
@@ -224,11 +232,11 @@ export const uploadUserImage = createAsyncThunk(
   }
 );
 
+export const resetAlert = createAction('user/resetAlert');
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(register.pending, (state, action) => {
-      console.log('register pending', action);
-    })
+    .addCase(register.pending, (state, action) => {})
     .addCase(register.fulfilled, (state, action) => {
       console.log('register fulfilled', action);
       loginCheck();
@@ -237,7 +245,6 @@ const userReducer = createReducer(initialState, (builder) => {
       console.log('register rejected', action);
     })
     .addCase(loginCheck.pending, (state, action) => {
-      console.log('pending', action);
       localStorage.removeItem('jwt');
     })
     .addCase(loginCheck.fulfilled, (state, action) => {
@@ -252,28 +259,24 @@ const userReducer = createReducer(initialState, (builder) => {
       state.loggedUser.username = (action.payload as IUser).username;
       localStorage.setItem('jwt', JSON.stringify(state.loggedUser.token));
       localStorage.setItem('uid', JSON.stringify(state.loggedUser.id));
-      state.loggedUser.isUserlogged = true;
+      state.userAlert.message = 'Login successful';
+      state.userAlert.type = 'success';
     })
     .addCase(loginCheck.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(fetchUserInfo.pending, (state, action) => {
-      console.log('pending', action);
-    })
+    .addCase(fetchUserInfo.pending, (state, action) => {})
     .addCase(fetchUserInfo.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.currentUser = action.payload;
       state.currentUser.id === state.loggedUser.id
         ? (state.loggedUser = action.payload)
         : '';
-      console.log(state.currentUser.mycollections);
     })
     .addCase(fetchUserInfo.rejected, (state, action) => {
       console.log('rejected', action);
     })
-    .addCase(addToFavorites.pending, (state, action) => {
-      console.log('fav add pending');
-    })
+    .addCase(addToFavorites.pending, (state, action) => {})
     .addCase(addToFavorites.fulfilled, (state, action) => {
       console.log('fav added successfully', action.payload);
       state.loggedUser.myfavoritescollections?.push(action.payload);
@@ -281,9 +284,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(addToFavorites.rejected, (state, action) => {
       console.log('fav add rejected');
     })
-    .addCase(removeFromFavorites.pending, (state, action) => {
-      console.log('fav remove pending');
-    })
+    .addCase(removeFromFavorites.pending, (state, action) => {})
     .addCase(removeFromFavorites.fulfilled, (state, action) => {
       console.log('fav removed successfully', action.payload);
       state.loggedUser.myfavoritescollections =
@@ -294,9 +295,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(removeFromFavorites.rejected, (state, action) => {
       console.log('fav remove rejected');
     })
-    .addCase(uploadUserImage.pending, (state, action) => {
-      console.log('image upload pending');
-    })
+    .addCase(uploadUserImage.pending, (state, action) => {})
     .addCase(uploadUserImage.fulfilled, (state, action) => {
       console.log('image uploaded successfully', action.payload);
       state.loggedUser.myfavoritescollections?.push(action.payload);
@@ -305,12 +304,10 @@ const userReducer = createReducer(initialState, (builder) => {
       console.log('image upload rejected');
     })
     .addCase(setEmail, (state, action) => {
-      console.log('new username :', action.payload);
       state.loggedUser.username = action.payload;
       state.loggedUser.email = action.payload;
     })
     .addCase(setPassword, (state, action) => {
-      console.log('new password :', action.payload);
       state.loggedUser.password = action.payload;
     })
     .addCase(setNickname, (state, action) => {
@@ -318,14 +315,30 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setPicture, (state, action) => {
       state.loggedUser.picture = action.payload;
-      console.log(action);
     })
     .addCase(setRoles, (state, action) => {
       state.loggedUser.roles = action.payload;
     })
     .addCase(setUserDescription, (state, action) => {
       state.loggedUser.description = action.payload;
-    });
+    })
+    .addCase(userUpdate.pending, (state, action) => {})
+    .addCase(userUpdate.fulfilled, (state, action) => {
+      state.loggedUser = action.payload;
+      console.log('user updated successfully', action.payload);
+      state.userAlert.message = 'User updated successfully';
+      state.userAlert.type = 'success';
+    })
+    .addCase(userUpdate.rejected, (state, action) => {
+      console.log('user update rejected');
+      state.userAlert.message = 'User update rejected';
+      state.userAlert.type = 'error';
+    })
+    .addCase(resetAlert, (state, action) => {
+      state.userAlert.message = '';
+      state.userAlert.type = '';
+    })
+    ;
 });
 
 export default userReducer;

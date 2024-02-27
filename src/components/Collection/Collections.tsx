@@ -12,7 +12,6 @@ export default function Collections() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.collections.list);
 
-  console.log(data);
   return (
     <div className="relative">
       <Background />

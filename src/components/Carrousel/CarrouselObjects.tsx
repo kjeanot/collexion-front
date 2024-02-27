@@ -7,7 +7,7 @@ import { IObject } from '../../types/types';
 export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
+    
       breakpoint: { max: 4000, min: 3000 },
       items: 5,
     },

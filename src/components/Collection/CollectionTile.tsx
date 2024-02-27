@@ -21,9 +21,9 @@ export default function CollectionTile({
   const location = useLocation();
 
   return (
-    <article className="card h-fit lg:h-60 sm:card-side bg-base-100 shadow-xl flex-col lg:flex-row">
-      <figure className="h-full md:w-60 w-full flex-none">
-        <img src={data.image} alt={data.name} className="object-cover h-full" />
+    <article className="card h-fit md:h-60 sm:card-side bg-base-100 shadow-lg flex-col md:flex-row">
+      <figure className="h-full md:h-60 md:w-60 w-full flex-none">
+        {data.image && <img src={data.image as string} alt={data.name} className="object-cover h-full" />}
       </figure>
       <div className="card-body pt-2 pr-2 justify-center">
         <div className="flex justify-end mb-2">
