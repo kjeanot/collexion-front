@@ -1,7 +1,12 @@
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
-import { setCollectionRedirectPath } from '../../store/reducers/collectionsReducer';
+import {
+  fetchCollections,
+  setCollectionRedirectPath,
+} from '../../store/reducers/collectionsReducer';
+import { fetchObjects } from '../../store/reducers/objectsReducer';
+import { useEffect } from 'react';
 
 interface Props {
   actionLabel: string;
@@ -18,6 +23,13 @@ export default function Modal({ actionLabel, action }: Props) {
   const collectionRedirectPath = useAppSelector(
     (state) => state.collections.redirectPath
   );
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(setCollectionRedirectPath('')), 3000;
+    });
+  }, []);
+
   return (
     <div
       id="popup-modal"
@@ -83,6 +95,8 @@ export default function Modal({ actionLabel, action }: Props) {
             </button>
             <button
               onClick={() => {
+                dispatch(fetchCollections());
+                dispatch(fetchObjects());
                 dispatch(switchModalDisplay());
                 dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
               }}

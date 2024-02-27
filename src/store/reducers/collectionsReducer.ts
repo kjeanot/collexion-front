@@ -33,7 +33,6 @@ export const initialState: CollectionsState = {
 
 const storedToken = localStorage.getItem('jwt');
 const token = storedToken ? JSON.parse(storedToken) : '';
-console.log('token', token);
 
 /**
  * Middleware for fetching all the collections
