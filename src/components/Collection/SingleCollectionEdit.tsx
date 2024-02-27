@@ -29,6 +29,7 @@ export default function SingleCollectionEdit() {
   const redirectPath = useAppSelector((state) => state.collections.redirectPath);
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+  console.log('loggedUserId', loggedUserId);
 
   const image = useAppSelector(
     (state) => state.collections.currentCollection.image

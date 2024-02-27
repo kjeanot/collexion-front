@@ -16,10 +16,10 @@ import Comments from '../Comment/Comments';
 
 export default function ObjectPage() {
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
+  console.log(data);
 
   const dispatch = useAppDispatch();
   const showModal = useAppSelector((state) => state.app.showModal);
-  
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
@@ -95,14 +95,14 @@ export default function ObjectPage() {
               {data.name}
             </h1>
             <div className="flex flex-wrap justify-between content-center">
-              {
+              {data.myCollection && data.myCollection.length > 0 && data.myCollections[0].user.id && (
                 <Link to={`/user/${data.myCollections[0].user.id}`}>
                   <Avatar
                     nickname={data.myCollections[0].user.nickname}
                     picture={data.myCollections[0].user.picture}
                   />
                 </Link>
-              }
+              )}
             </div>
             <section className="my-5">
               <h2 className="text-xl">Description</h2>
@@ -113,15 +113,18 @@ export default function ObjectPage() {
               <p>
                 Collection :{' '}
                 <Link
-                  to={`/collection/${data.myCollections[0].id}`}
+                  to={data.myCollections && data.myCollections[0]?.id ? `/collection/${data.myCollections[0]?.id}` : '/'}
                   className="link link-neutral"
                 >
-                  {data.myCollections[0].name}
+                  {data.myCollections && data.myCollections[0]?.name && data.myCollections[0].name}
                 </Link>
               </p>
               <p>
                 Catégorie :{' '}
-                <Link to={`/category/${data.category.id}`} className="link link-neutral">
+                <Link
+                  to={`/category/${data.category.id}`}
+                  className="link link-neutral"
+                >
                   {data.category.name}
                 </Link>
               </p>

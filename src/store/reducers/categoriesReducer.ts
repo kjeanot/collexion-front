@@ -29,17 +29,10 @@ const token = storedToken ? JSON.parse(storedToken) : '';
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
   async (_, thunkAPI) => {
-    if (token) {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}categories`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
-    }
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}categories`
+    );
+    return response.data;
   }
 );
 
@@ -48,12 +41,10 @@ export const fetchCategories = createAsyncThunk(
 export const fetchSingleCategory = createAsyncThunk(
   'categories/fetchSingleCategory',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}categories/${id}`
-      );
-      return response.data;
-    }
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}categories/${id}`
+    );
+    return response.data;
   }
 );
 
