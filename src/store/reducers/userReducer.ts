@@ -153,17 +153,10 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
 export const fetchUserInfo = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number, thunkAPI) => {
-    if (token) {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}user/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${import.meta.env.VITE_API_PATH}user/${id}`
       );
       return response.data;
-    }
   }
 );
 
