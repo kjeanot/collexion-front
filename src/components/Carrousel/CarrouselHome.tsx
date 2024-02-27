@@ -2,7 +2,6 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Link } from 'react-router-dom';
 import { ICollection } from '../../types/types';
-import Rating from '../Rating/Rating';
 import Avatar from '../Avatar/Avatar';
 
 export default function Carrousel({
@@ -31,7 +30,7 @@ export default function Carrousel({
   return (
     <Carousel
       responsive={responsive}
-      partialVisible={true}
+      partialVisible
       infinite
       autoPlay
       showDots
@@ -53,7 +52,11 @@ export default function Carrousel({
             <figure>
               <img
                 className="object-cover h-72 w-full"
-                src={collection.image ? collection.image as string : 'https://picsum.photos/1200'}
+                src={
+                  collection.image
+                    ? (collection.image as string)
+                    : 'https://picsum.photos/1200'
+                }
                 alt={collection.name}
               />
             </figure>
@@ -61,7 +64,6 @@ export default function Carrousel({
               <h3 className="card-title line-clamp-1 text-customred">
                 {collection.name}
               </h3>
-              {/* <Rating value={collection.rating} /> */}
               <Avatar
                 picture={collection.user?.picture}
                 nickname={collection.user?.nickname}

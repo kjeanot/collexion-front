@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ICollection } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useLocation } from 'react-router-dom';
 import {
   fetchUserInfo,
   removeFromFavorites,
@@ -23,7 +22,13 @@ export default function CollectionTile({
   return (
     <article className="card h-fit md:h-60 sm:card-side bg-base-100 shadow-lg flex-col md:flex-row">
       <figure className="h-full md:h-60 md:w-60 w-full flex-none">
-        {data.image && <img src={data.image as string} alt={data.name} className="object-cover h-full" />}
+        {data.image && (
+          <img
+            src={data.image as string}
+            alt={data.name}
+            className="object-cover h-full"
+          />
+        )}
       </figure>
       <div className="card-body pt-2 pr-2 justify-center">
         <div className="flex justify-end mb-2">

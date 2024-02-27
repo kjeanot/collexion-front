@@ -1,9 +1,12 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import avatar from '../../assets/avatar-generations_bssq.jpg';
-import { IComment } from '../../types/types';
-import { postComment, setComment } from '../../store/reducers/objectsReducer';
 import { useEffect, useState } from 'react';
-import { fetchSingleObject } from '../../store/reducers/objectsReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import avatar from '../../assets/logo-collexion.png';
+import { IComment } from '../../types/types';
+import {
+  fetchSingleObject,
+  postComment,
+  setComment,
+} from '../../store/reducers/objectsReducer';
 
 export default function Comments({ objectId }: { objectId: number }) {
   const dispatch = useAppDispatch();
@@ -11,7 +14,6 @@ export default function Comments({ objectId }: { objectId: number }) {
   const comments = useAppSelector(
     (state) => state.objects.currentObject.comments
   );
-  
 
   const [nbComments, setNbComments] = useState(0);
 
@@ -40,7 +42,9 @@ export default function Comments({ objectId }: { objectId: number }) {
                     <div className="flex">
                       <img
                         className="w-10 h-10 ml-2 mr-2 rounded-full"
-                        src={comment.user?.picture ? comment.user.picture : avatar}
+                        src={
+                          comment.user?.picture ? comment.user.picture : avatar
+                        }
                         alt=""
                       />
                       <h2 className="card-title">{comment.user?.nickname}</h2>

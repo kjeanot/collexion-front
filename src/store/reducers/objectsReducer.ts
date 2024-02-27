@@ -3,13 +3,14 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { NavigateFunction } from 'react-router-dom';
 import {
   CurrentObject,
   ICollection,
   IComment,
   IObject,
 } from '../../types/types';
-import axios from 'axios';
 import { RootState } from '..';
 import { NavigateFunction } from 'react-router-dom';
 import { Action } from '@cloudinary/url-gen/internal/Action';
@@ -167,6 +168,22 @@ export const postObject = createAsyncThunk(
 
       return response.data;
     }
+  }
+);
+
+export const randomObject = createAsyncThunk(
+  'object/randomObject',
+  async (_, thunkAPI) => {
+    const token = JSON.parse(localStorage.getItem('jwt') ?? '');
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}object_random`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
   }
 );
 

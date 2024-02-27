@@ -5,7 +5,7 @@ import {
   fetchComments,
   fetchSingleObject,
 } from '../../store/reducers/objectsReducer';
-import { ICollection, IComment, IObject } from '../../types/types';
+import { IObject } from '../../types/types';
 import Avatar from '../Avatar/Avatar';
 import ObjectCard from '../Object/ObjectCard';
 import Background from '../Background/Background';

@@ -1,10 +1,8 @@
-import { useLocation, useParams } from 'react-router-dom';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   postObject,
   setObjectDescription,
-  setObjectImage,
   setObjectName,
   setObjectCollections,
   updateObject,
@@ -12,15 +10,9 @@ import {
   setObjectCategory,
   uploadObjectImage,
 } from '../../store/reducers/objectsReducer';
-import { Cloudinary } from '@cloudinary/url-gen';
-import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import { ICategory, ICollection, IObject } from '../../types/types';
 import { fetchCategories } from '../../store/reducers/categoriesReducer';
-import {
-  fetchCollections,
-  setCollectionImage,
-  uploadCollectionImage,
-} from '../../store/reducers/collectionsReducer';
+import { fetchCollections } from '../../store/reducers/collectionsReducer';
 
 type CurrentObject = IObject & {};
 
@@ -49,7 +41,6 @@ export default function SingleObjectEdit() {
   const image = useAppSelector((state) => state.objects.currentObject.image);
 
   const handleImageUpload = (evt: React.ChangeEvent<HTMLInputElement>) => {
-
     if (evt.target.files) {
       dispatch(setObjectImage(evt.target.files[0]));
       dispatch(uploadObjectImage());
@@ -133,7 +124,7 @@ export default function SingleObjectEdit() {
         <select
           className="select select-bordered w-full max-w-xs"
           id="object-state"
-          defaultValue={data.state ? data.state : "Excellent"}
+          defaultValue={data.state ? data.state : 'Excellent'}
           onChange={(evt) => dispatch(setObjectState(evt.currentTarget.value))}
         >
           <option value="Excellent">Excellent</option>

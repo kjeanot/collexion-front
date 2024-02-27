@@ -28,10 +28,10 @@ export default function Footer() {
         <NavLink className="link link-hover" to={'/collections'}>
           Collections
         </NavLink>
-        <NavLink className="link link-hover" to={'/collection/random'}>
+        <NavLink className="link link-hover" to={'/collections/random'}>
           Collections au hasard
         </NavLink>
-        <NavLink className="link link-hover" to={'/objet/random'}>
+        <NavLink className="link link-hover" to={'/objets/random'}>
           Objets au hasard
         </NavLink>
       </nav>
@@ -45,11 +45,14 @@ export default function Footer() {
         <NavLink className="link link-hover" to={'/mentions'}>
           Mentions légales & CGU
         </NavLink>
-        {userRole?.includes('ROLE_ADMIN') && 
-          <NavLink className="btn btn-neutral" to="https://www.apicollexion.live/back/main">
+        {userRole?.includes('ROLE_ADMIN') && (
+          <NavLink
+            className="btn btn-neutral"
+            to="https://www.apicollexion.live/back/main"
+          >
             Accès admin
           </NavLink>
-        }
+        )}
       </nav>
     </footer>
   );

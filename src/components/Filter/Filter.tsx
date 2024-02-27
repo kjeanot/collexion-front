@@ -5,8 +5,9 @@ export default function Filter() {
         <option disabled selected>
           Trier par :
         </option>
-        <option>Date</option>
-        <option>Note</option>
+        <option>Pertinence</option>
+        <option>Date d'ajout</option>
+        <option>Ordre alphabétique</option>
       </select>
     </div>
   );

@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { Navigate, redirect, useLocation, useParams } from 'react-router-dom';
 import {
-  fetchSingleCollection,
   postCollection,
   resetCurrentCollection,
   setCollectionDescription,
@@ -14,8 +13,6 @@ import {
   updateCollection,
   uploadCollectionImage,
 } from '../../store/reducers/collectionsReducer';
-import { Cloudinary } from '@cloudinary/url-gen';
-import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import { ICollection, IObject } from '../../types/types';
 
 type CurrentCollection = ICollection & {};
@@ -26,7 +23,9 @@ export default function SingleCollectionEdit() {
     (state) => state.collections.currentCollection
   );
 
-  const redirectPath = useAppSelector((state) => state.collections.redirectPath);
+  const redirectPath = useAppSelector(
+    (state) => state.collections.redirectPath
+  );
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
   console.log('loggedUserId', loggedUserId);
@@ -173,7 +172,9 @@ export default function SingleCollectionEdit() {
             data.id
               ? dispatch(updateCollection(data.id))
               : dispatch(postCollection());
-            data.id ? dispatch(setCollectionRedirectPath(`/collection/${data.id}`)) : dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
+            data.id
+              ? dispatch(setCollectionRedirectPath(`/collection/${data.id}`))
+              : dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
           }}
         >
           Mettre à jour

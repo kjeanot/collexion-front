@@ -1,18 +1,10 @@
-import React, { useEffect } from 'react';
-import Avatar from '../Avatar/Avatar';
+import { useEffect } from 'react';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import Rating from '../Rating/Rating';
 import ObjectCard from '../Object/ObjectCard';
 import { ICollection, IObject } from '../../types/types';
-import {
-  Link,
-  Navigate,
-  redirect,
-  useLoaderData,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import Avatar from '../Avatar/Avatar';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { findCollection } from '../../store/selectors/collections';
 import {
   deleteCollection,
   fetchSingleCollection,

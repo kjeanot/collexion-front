@@ -192,7 +192,9 @@ export const setCollectionRelatedObjects = createAction<IObject[]>(
 );
 export const resetCollectionAlert = createAction('collection/resetAlert');
 
-export const setCollectionRedirectPath = createAction<string>('collection/setRedirectPath');
+export const setCollectionRedirectPath = createAction<string>(
+  'collection/setRedirectPath'
+);
 
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
@@ -300,8 +302,6 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(setCollectionRedirectPath, (state, action) => {
       state.redirectPath = action.payload;
     });
-    ;
 });
-
 
 export default collectionsReducer;
