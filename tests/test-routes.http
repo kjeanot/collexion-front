@@ -60,7 +60,7 @@ content-type: application/json
 }
 
 ### Route Get User
-GET https://www.apicollexion.live/api/user/1 HTTP/1.1
+GET https://www.apicollexion.live/api/categories/childs HTTP/1.1
 content-type: application/json
 
 

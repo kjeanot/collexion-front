@@ -6,11 +6,15 @@ import { RootState } from '..';
 interface CategoriesState {
   list: ICategory[];
   currentCategory: null | ICategory;
+  parentList: ICategory[];
+  childrenList: ICategory[];
 }
 
 export const initialState: CategoriesState = {
   list: [],
   currentCategory: null,
+  parentList: [],
+  childrenList: [],
 };
 
 const storedToken = localStorage.getItem('jwt');
@@ -32,7 +36,27 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
-// Middlewares for a single Categories CRUD
+export const fetchParentCategories = createAsyncThunk(
+  'categories/fetchParentCategories',
+  async (_, thunkAPI) => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}categories/parents`
+    );
+    return response.data;
+  }
+);
+
+export const fetchParentCategoryChilds = createAsyncThunk(
+  'categories/fetchParentCategoriesChilds',
+  async (id: number, thunkAPI) => {
+        const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}category/${id}/childs`
+    );
+    return response.data;
+  }
+);
+
+// Middlewares for a single Categories
 
 export const fetchSingleCategory = createAsyncThunk(
   'categories/fetchSingleCategory',
@@ -55,7 +79,21 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(fetchSingleCategory.fulfilled, (state, action) => {
       state.currentCategory = action.payload;
     })
-    .addCase(fetchSingleCategory.rejected, (state, action) => {});
+    .addCase(fetchSingleCategory.rejected, (state, action) => {})
+    .addCase(fetchParentCategories.pending, (state, action) => {})
+    .addCase(fetchParentCategories.fulfilled, (state, action) => {
+      state.parentList = action.payload;
+    })
+    .addCase(fetchParentCategories.rejected, (state, action) => {})
+    .addCase(fetchParentCategoryChilds.pending, (state, action) => {})
+    .addCase(fetchParentCategoryChilds.fulfilled, (state, action) => {
+      state.childrenList = action.payload;
+      console.log(action.payload);
+    })
+    .addCase(fetchParentCategoryChilds.rejected, (state, action) => {
+      state.childrenList = [];
+    })
+    ;
 });
 
 export default collectionsReducer;

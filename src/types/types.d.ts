@@ -16,6 +16,7 @@ export interface ICategory {
   image?: string;
   rating?: number | null;
   myobjects?: IObject[];
+  category?: [];
 }
 
 export type CurrentCollection = ICollection & {};

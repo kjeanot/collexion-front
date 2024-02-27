@@ -46,7 +46,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="/categories" element={<Categories />} />
-      <Route path="/category/:id" element={<CategoryPage />} errorElement={<Error />} loader={categoryLoader}/>
+      <Route path="/category/:id" element={<CategoryPage />}/>
       <Route path="/objects" element={<Objects />} />
       <Route
         path="/collections"
