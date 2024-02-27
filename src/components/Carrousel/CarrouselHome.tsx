@@ -52,7 +52,7 @@ export default function Carrousel({
             <figure>
               <img
                 className="object-cover h-72 w-full"
-                src={collection.image}
+                src={collection.image ? collection.image as string : 'https://picsum.photos/1200'}
                 alt={collection.name}
               />
             </figure>

@@ -3,8 +3,12 @@ import Background from '../Background/Background';
 import GalleryObjects from '../Gallery/GalleryObjects';
 
 export default function ObjectsRandom() {
-  const loaderRandomObjects = useLoaderData();
-
+  const loaderRandomObjects = useLoaderData() as Awaited<ReturnType<typeof Object>>;
+  // const dispatch = useAppDispatch();
+  // const data = useAppSelector((state) => state.objects.list);
+  // useEffect(() => {
+  //   dispatch(fetchObjects());
+  // }, []);
   return (
     <div>
       <div className="relative">

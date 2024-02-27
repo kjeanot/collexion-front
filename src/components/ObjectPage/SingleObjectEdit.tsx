@@ -10,7 +10,6 @@ import {
   setObjectCategory,
   uploadObjectImage,
 } from '../../store/reducers/objectsReducer';
-import CloudinaryUploadWidget from '../Upload/UploadButton';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 import { ICategory, ICollection, IObject } from '../../types/types';
