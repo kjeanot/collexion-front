@@ -191,6 +191,8 @@ export const setCollectionRelatedObjects = createAction<IObject[]>(
 );
 export const resetCollectionAlert = createAction('collection/resetAlert');
 
+export const setCollectionRedirectPath = createAction<string>('collection/setRedirectPath');
+
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchCollections.pending, (state, action) => {})
@@ -238,11 +240,9 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(postCollection.pending, (state, action) => {})
     .addCase(postCollection.fulfilled, (state, action) => {
       console.log('post successfully');
-      state.redirectPath = `/user/${state.currentCollection.user?.id}`;
       state.currentCollection = {};
       state.collectionAlert.message = 'Collection created successfully';
       state.collectionAlert.type = 'success';
-      state.redirectPath = '';
     })
     .addCase(postCollection.rejected, (state, action) => {
       console.log('post rejected');
@@ -258,7 +258,6 @@ const collectionsReducer = createReducer(initialState, (builder) => {
       state.currentCollection.id
         ? (state.redirectPath = `/collection/${state.currentCollection.id}`)
         : '';
-        console.log('redirectPath', state.redirectPath);
     })
     .addCase(updateCollection.rejected, (state, action) => {
       console.log('update rejected');
@@ -296,7 +295,12 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(resetCollectionAlert, (state) => {
       state.collectionAlert.message = '';
       state.collectionAlert.type = '';
+    })
+    .addCase(setCollectionRedirectPath, (state, action) => {
+      state.redirectPath = action.payload;
     });
+    ;
 });
+
 
 export default collectionsReducer;

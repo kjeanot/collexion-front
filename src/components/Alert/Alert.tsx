@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { resetAlert } from '../../store/reducers/userReducer';
 import { useAppDispatch } from '../../hooks/redux';
-import { resetCollectionAlert } from '../../store/reducers/collectionsReducer';
+import {
+  resetCollectionAlert,
+  setCollectionRedirectPath,
+} from '../../store/reducers/collectionsReducer';
 
 interface AlertProps {
   type: string;
@@ -9,18 +12,31 @@ interface AlertProps {
 }
 
 export default function Alert({ type, message }: AlertProps) {
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     setTimeout(() => {
       dispatch(resetCollectionAlert());
-      dispatch(resetAlert())
+      dispatch(resetAlert());
     }, 3000);
   }, []);
 
+  useEffect(() => {
+    dispatch(setCollectionRedirectPath(''));
+  }, []);
+
   return (
-    <div role="alert" className={type === 'success' ? `alert mb-6 bg-teal-400` : type === 'error' ? `alert mb-6 bg-red-400` : `alert mb-6 bg-yellow-400`}>
+    <>
+    <div
+      role="alert"
+      className={
+        type === 'success'
+          ? `alert mb-6 bg-teal-400`
+          : type === 'error'
+          ? `alert mb-6 bg-red-400`
+          : `alert mb-6 bg-yellow-400`
+      }
+    >
       {type === 'success' && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +83,7 @@ export default function Alert({ type, message }: AlertProps) {
         </svg>
       )}
       <span>{message}</span>
-      
     </div>
+    </>
   );
 }

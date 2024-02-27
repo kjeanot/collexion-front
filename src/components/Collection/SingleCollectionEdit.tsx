@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { redirect, useLocation, useParams } from 'react-router-dom';
+import { Navigate, redirect, useLocation, useParams } from 'react-router-dom';
 import {
   fetchSingleCollection,
   postCollection,
@@ -9,6 +9,7 @@ import {
   setCollectionImage,
   setCollectionName,
   setCollectionObjects,
+  setCollectionRedirectPath,
   setCollectionRelatedObjects,
   updateCollection,
   uploadCollectionImage,
@@ -25,7 +26,7 @@ export default function SingleCollectionEdit() {
     (state) => state.collections.currentCollection
   );
 
-  const location = useLocation();
+  const redirectPath = useAppSelector((state) => state.collections.redirectPath);
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
@@ -171,17 +172,13 @@ export default function SingleCollectionEdit() {
             data.id
               ? dispatch(updateCollection(data.id))
               : dispatch(postCollection());
-
-            data.id ? (
-              redirect(`/collection/${data.id}`)
-            ) : (
-              redirect(`/user/${loggedUserId}`)
-            );
+            data.id ? dispatch(setCollectionRedirectPath(`/collection/${data.id}`)) : dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
           }}
         >
           Mettre à jour
         </button>
       </form>
+      {redirectPath !== '' && <Navigate to={redirectPath} />}
     </>
   );
 }

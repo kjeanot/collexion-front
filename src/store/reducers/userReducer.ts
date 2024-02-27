@@ -337,7 +337,8 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(resetAlert, (state, action) => {
       state.userAlert.message = '';
       state.userAlert.type = '';
-    });
+    })
+    ;
 });
 
 export default userReducer;
