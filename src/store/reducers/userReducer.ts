@@ -136,6 +136,8 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
         nickname: state.user.loggedUser.nickname,
         email: state.user.loggedUser.email,
         description: state.user.loggedUser.description,
+        picture: state.user.loggedUser.picture,
+        password: state.user.loggedUser.password,
       },
       {
         headers: {
@@ -151,17 +153,10 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
 export const fetchUserInfo = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_PATH}user/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
-    }
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_PATH}user/${id}`
+    );
+    return response.data;
   }
 );
 

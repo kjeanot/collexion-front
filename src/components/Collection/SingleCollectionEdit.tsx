@@ -28,6 +28,7 @@ export default function SingleCollectionEdit() {
   );
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+  console.log('loggedUserId', loggedUserId);
 
   const image = useAppSelector(
     (state) => state.collections.currentCollection.image

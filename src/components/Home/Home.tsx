@@ -72,7 +72,7 @@ export default function Home() {
       <CollectionCTA />
       <h2 className="font-bold text-2xl text-customred mt-10">Catégories</h2>
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-10">
-        {dataCategories.slice(-6).map((category, _) => (
+        {dataCategories && dataCategories.slice(-6).map((category, _) => (
           <ObjectCard
             key={category.id}
             id={category.id}
