@@ -9,6 +9,7 @@ import {
   setObjectState,
   setObjectCategory,
   uploadObjectImage,
+  setObjectImage,
 } from '../../store/reducers/objectsReducer';
 import { ICategory, ICollection, IObject } from '../../types/types';
 import { fetchCategories } from '../../store/reducers/categoriesReducer';
