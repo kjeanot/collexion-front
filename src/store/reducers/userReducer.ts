@@ -112,6 +112,8 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
     // Retreive the state to pass the stored informations into the API request body
     const state = thunkAPI.getState() as RootState;
 
+    localStorage.removeItem('jwt');
+
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}login_check`,
       {
@@ -239,10 +241,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(register.rejected, (state, action) => {
       console.log('register rejected', action);
     })
-    .addCase(loginCheck.pending, (state, action) => {
-      localStorage.removeItem('jwt');
-      state.loggedUser = {};
-    })
+    .addCase(loginCheck.pending, (state, action) => {})
     .addCase(loginCheck.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.loggedUser.id = (action.payload as IUser).id;
@@ -251,9 +250,11 @@ const userReducer = createReducer(initialState, (builder) => {
       state.loggedUser.description = (action.payload as IUser).description;
       state.loggedUser.picture = (action.payload as IUser).picture;
       state.loggedUser.roles = (action.payload as IUser).roles;
-      state.loggedUser.token = (action.payload as IUser).token;
       state.loggedUser.username = (action.payload as IUser).username;
-      localStorage.setItem('jwt', JSON.stringify(state.loggedUser.token));
+      localStorage.setItem(
+        'jwt',
+        JSON.stringify((action.payload as IUser).token)
+      );
       localStorage.setItem('uid', JSON.stringify(state.loggedUser.id));
       state.userAlert.message = 'Login successful';
       state.userAlert.type = 'success';
