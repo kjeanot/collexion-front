@@ -4,7 +4,6 @@ interface AppState {
   showLogin: boolean;
   showModal: boolean;
   redirectPath: string;
-  
 }
 export const initialState: AppState = {
   showLogin: false,

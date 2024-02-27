@@ -66,7 +66,7 @@ const router = createBrowserRouter(
         errorElement={<Error />}
       />
       <Route
-        path="/collection/random"
+        path="/collections/random"
         element={<CollectionsListRandom />}
         loader={randomCollectionLoader}
         errorElement={<Error />}
@@ -80,7 +80,7 @@ const router = createBrowserRouter(
         errorElement={<Error />}
       />
       <Route
-        path="/objet/random"
+        path="/objets/random"
         element={<ObjectsRandom />}
         loader={randomObjectLoader}
         errorElement={<Error />}

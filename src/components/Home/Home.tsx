@@ -5,16 +5,12 @@ import Background from '../Background/Background';
 import CarrouselHome from '../Carrousel/CarrouselHome';
 import CollectionCTA from '../Collection/CollectionCTA';
 import ObjectCard from '../Object/ObjectCard';
-import {
-  fetchCollections,
-  randomCollection,
-} from '../../store/reducers/collectionsReducer';
+import { randomCollection } from '../../store/reducers/collectionsReducer';
 import { fetchObjects } from '../../store/reducers/objectsReducer';
 import { fetchCategories } from '../../store/reducers/categoriesReducer';
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const dataCollections = useAppSelector((state) => state.collections.list);
   const dataObjects = useAppSelector((state) => state.objects.list);
   const dataCategories = useAppSelector((state) => state.categories.list);
   const dataRandomCollections = useAppSelector(
@@ -29,7 +25,7 @@ export default function Home() {
   return (
     <div>
       {/* banner */}
-      <h1 className="md:h-20 p-5 text-center text-2xl font-bold text-white bg-gradient-to-r from-customred to-customorange">
+      <h1 className="md:h-20 p-5 text-center text-2xl font-bold text-white bg-gradient-to-r from-customred to-customorange ">
         Chaque objet a son histoire, et chaque collection raconte votre parcours
         !
       </h1>

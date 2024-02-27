@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import { setCollectionRedirectPath } from '../../store/reducers/collectionsReducer';
-import { Navigate } from 'react-router-dom';
 
 interface Props {
   actionLabel: string;
@@ -16,7 +15,9 @@ interface Props {
 export default function Modal({ actionLabel, action }: Props) {
   const dispatch = useAppDispatch();
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
-  const collectionRedirectPath = useAppSelector((state) => state.collections.redirectPath);
+  const collectionRedirectPath = useAppSelector(
+    (state) => state.collections.redirectPath
+  );
   return (
     <div
       id="popup-modal"
@@ -74,15 +75,16 @@ export default function Modal({ actionLabel, action }: Props) {
               onClick={() => {
                 action();
                 dispatch(switchModalDisplay());
-                loggedUserId && dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
+                loggedUserId &&
+                  dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
               }} /* When clicked, we execute the action passed as a prop to the modal component */
             >
               {actionLabel}
             </button>
             <button
               onClick={() => {
-                dispatch(switchModalDisplay())
-                dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`))
+                dispatch(switchModalDisplay());
+                dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
               }}
               className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
             >
@@ -91,7 +93,9 @@ export default function Modal({ actionLabel, action }: Props) {
           </div>
         </div>
       </div>
-      {collectionRedirectPath !== '' && <Navigate to={collectionRedirectPath} />}
+      {collectionRedirectPath !== '' && (
+        <Navigate to={collectionRedirectPath} />
+      )}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
 import { ICategory } from '../../types/types';
 
 export default function CarrouselCategories({
@@ -65,66 +64,6 @@ export default function CarrouselCategories({
           </Link>
         </div>
       ))}
-      {/* <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img
-                className=""
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img
-                className=""
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img className="" src={banner} alt="Shoes" />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img
-                className=""
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Category x</h3>
-            </div>
-          </div>
-        </a>
-      </div> */}
     </Carousel>
   );
 }

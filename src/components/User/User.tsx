@@ -1,16 +1,8 @@
-import React, { useEffect } from 'react';
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLoaderData,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchUserInfo } from '../../store/reducers/userReducer';
-import { ICollection } from '../../types/types';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, NavLink, Outlet, useLoaderData } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
+import { fetchUserInfo } from '../../store/reducers/userReducer';
 
 export default function User() {
   const { data }: any = useLoaderData();
@@ -105,22 +97,23 @@ export default function User() {
         </NavLink>
 
         {
-        // Dispay favorite collections only if the id of the current user page corresponds to the logged user id. So the user can handle his favorites.
-        data.id === loggedUserId && (
-          <NavLink
-            to={`/user/${data.id}/favorites`}
-            role="tab"
-            className={({ isActive, isPending }) =>
-              isPending
-                ? 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
-                : isActive
-                ? 'bg-gray-400 w-60 p-2 rounded-tl-xl sm:-ml-2'
-                : 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
-            }
-          >
-            <h3>Collections favorites</h3>
-          </NavLink>
-        )}
+          // Dispay favorite collections only if the id of the current user page corresponds to the logged user id. So the user can handle his favorites.
+          data.id === loggedUserId && (
+            <NavLink
+              to={`/user/${data.id}/favorites`}
+              role="tab"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
+                  : isActive
+                  ? 'bg-gray-400 w-60 p-2 rounded-tl-xl sm:-ml-2'
+                  : 'bg-gray-100 w-60 p-2 rounded-tl-xl sm:-ml-2'
+              }
+            >
+              <h3>Collections favorites</h3>
+            </NavLink>
+          )
+        }
       </div>
       <Outlet />
     </>

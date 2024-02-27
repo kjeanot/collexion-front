@@ -241,6 +241,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(loginCheck.pending, (state, action) => {
       localStorage.removeItem('jwt');
+      state.loggedUser = {};
     })
     .addCase(loginCheck.fulfilled, (state, action) => {
       console.log('fulfilled', action);

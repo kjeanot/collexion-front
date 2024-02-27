@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Background from '../Background/Background';
-import { fetchObjects } from '../../store/reducers/objectsReducer';
 import GalleryObjects from '../Gallery/GalleryObjects';
 
 export default function ObjectsRandom() {
-  const loaderRandomObjects = useLoaderData() as Awaited<ReturnType<typeof Object>>;
-  // const dispatch = useAppDispatch();
-  // const data = useAppSelector((state) => state.objects.list);
-  // useEffect(() => {
-  //   dispatch(fetchObjects());
-  // }, []);
+  const loaderRandomObjects = useLoaderData() as Awaited<
+    ReturnType<typeof Object>
+  >;
   return (
     <div>
       <div className="relative">

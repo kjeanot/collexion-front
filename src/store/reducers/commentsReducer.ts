@@ -50,7 +50,6 @@ const commentsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setComment, (state, action) => {
       state.content = action.payload;
-      console.log(state.content);
     });
 });
 
