@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import banner from '../../assets/5da946d6-avatar-date-de-sortie-histoire-casting-images-tout-savoir-sur-la-serie-live-action-de-netflix.jpg';
 import { IObject } from '../../types/types';
 
 export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
   const responsive = {
     superLargeDesktop: {
-    
       breakpoint: { max: 4000, min: 3000 },
       items: 5,
     },
@@ -44,12 +42,16 @@ export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
         <div key={object.id}>
           <Link
             to={`/object/${object.id}`}
-            className="card h-80 bg-base-100 shadow hover:bg-gray-100"
+            className="card h-80 bg-base-100 shadow hover:bg-gray-100 rounded-none rounded-tr-3xl rounded-bl-3xl"
           >
             <figure>
               <img
                 className="object-cover h-72 w-full"
-                src={object.image ? object.image as string : 'https://picsum.photos/1200'}
+                src={
+                  object.image
+                    ? (object.image as string)
+                    : 'https://picsum.photos/1200'
+                }
                 alt={object.name}
               />
             </figure>
@@ -61,66 +63,6 @@ export default function CarrouselObjects({ objects }: { objects: IObject[] }) {
           </Link>
         </div>
       ))}
-      {/* <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img
-                className=""
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Objet x</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img
-                className=""
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Objet x</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img className="" src={banner} alt="Shoes" />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Objet x</h3>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div>
-        <a href="">
-          <div className="card h-80 bg-base-100 shadow hover:contrast-50">
-            <figure>
-              <img
-                className=""
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h3 className="card-title justify-center">Objet x</h3>
-            </div>
-          </div>
-        </a>
-      </div> */}
     </Carousel>
   );
 }

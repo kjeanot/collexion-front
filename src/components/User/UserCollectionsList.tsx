@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
-import CollectionTile from '../Collection/CollectionTile';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import CollectionTile from '../Collection/CollectionTile';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
 import { useAppSelector } from '../../hooks/redux';
 import { ICollection } from '../../types/types';
-import { useParams } from 'react-router-dom';
 import { fetchUserInfo } from '../../store/reducers/userReducer';
-import { AsyncThunkAction } from '@reduxjs/toolkit';
-import { AsyncThunkConfig } from '@reduxjs/toolkit/dist/createAsyncThunk';
 
 export default function UserCollectionsList({
   collectionType,
@@ -37,7 +34,9 @@ export default function UserCollectionsList({
     <div className="grid lg:grid-cols-2 gap-4">
       {collectionType === 'created' && userCollections
         ? userCollections.map((collection: ICollection, index) => (
-            <Link to={`/collection/${collection.id}`}><CollectionTile key={index} data={collection} userId={numId}/></Link>
+            <Link to={`/collection/${collection.id}`}>
+              <CollectionTile key={index} data={collection} userId={numId} />
+            </Link>
           ))
         : collectionType === 'created'
         ? 'Pas encore de collection'
@@ -47,13 +46,15 @@ export default function UserCollectionsList({
       collectionType === 'favorite' &&
       userFavoriteCollections
         ? userFavoriteCollections.map((collection: ICollection, index) => (
-          <Link to={`/collection/${collection.id}`}><CollectionTile key={index} data={collection} userId={numId}/></Link>
+            <Link to={`/collection/${collection.id}`}>
+              <CollectionTile key={index} data={collection} userId={numId} />
+            </Link>
           ))
         : collectionType === 'favorite'
         ? 'Pas encore de collection favorite'
         : ''}
 
-      {numId === loggedUserId && collectionType === 'created' &&
+      {numId === loggedUserId && collectionType === 'created' && (
         <Link
           to="/collection/new"
           onClick={() => dispatch(resetCurrentCollection())}
@@ -62,7 +63,7 @@ export default function UserCollectionsList({
             + Ajouter une collection
           </button>
         </Link>
-      }
+      )}
     </div>
   );
 }

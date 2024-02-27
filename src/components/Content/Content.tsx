@@ -1,3 +1,8 @@
+import kevin from '../../assets/kevin.jpeg';
+import andy from '../../assets/andy.jpeg';
+import adrien from '../../assets/adrien.jpeg';
+import christian from '../../assets/christian.jpeg';
+
 export default function Content() {
   return (
     <div className="text-justify my-8">
@@ -51,14 +56,34 @@ export default function Content() {
       </div>
       <div className="collapse collapse-arrow bg-base-200 mt-10">
         <input type="checkbox" />
-        <div className="collapse-title text-center text-lg font-bold opacity-60">
+        <div className="collapse-title text-center text-xl font-bold opacity-60">
           Créateurs du site
         </div>
-        <div className="collapse-content grid grid-cols-4 text-base font-medium text-center">
-          <p>Kévin</p>
-          <p>Andy</p>
-          <p>Adrien</p>
-          <p>Christian</p>
+        <div className="collapse-content grid md:grid-cols-4 grid-cols-2 gap-6 text-2xl font-bold text-center text-customred">
+          <div>
+            <img className="rounded-tr-3xl rounded-bl-3xl" src={kevin} alt="" />
+            <p>Kévin</p>
+          </div>
+          <div>
+            <img className="rounded-tr-3xl rounded-bl-3xl" src={andy} alt="" />
+            <p>Andy</p>
+          </div>
+          <div>
+            <img
+              className="rounded-tr-3xl rounded-bl-3xl"
+              src={adrien}
+              alt=""
+            />
+            <p>Adrien</p>
+          </div>
+          <div>
+            <img
+              className="rounded-tr-3xl rounded-bl-3xl"
+              src={christian}
+              alt=""
+            />
+            <p>Christian</p>
+          </div>
         </div>
       </div>
     </div>

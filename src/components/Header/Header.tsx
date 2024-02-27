@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
-import { useState } from 'react';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -36,6 +36,9 @@ export default function Header() {
                   Catégories
                 </summary>
                 <ul className="p-2 text-base bg-base-100 rounded-t-none min-w-56">
+                  <li>
+                    <a>Cartes</a>
+                  </li>
                   <li>
                     <a>Figurines</a>
                   </li>

@@ -1,9 +1,5 @@
 import axios from 'axios';
-import {
-  createAction,
-  createAsyncThunk,
-  createReducer,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { ICategory } from '../../types/types';
 import { RootState } from '..';
 
