@@ -134,7 +134,7 @@ export default function SingleObjectEdit() {
         <select
           className="select select-bordered w-full max-w-xs"
           id="object-state"
-          value={data.state}
+          defaultValue={data.state ? data.state : "Excellent"}
           onChange={(evt) => dispatch(setObjectState(evt.currentTarget.value))}
         >
           <option value="Excellent">Excellent</option>
@@ -150,7 +150,7 @@ export default function SingleObjectEdit() {
         <select
           className="select select-bordered w-full max-w-xs"
           id="object-category"
-          value={data.category?.id ? data.category.id : ''}
+          defaultValue={data.category?.id ? data.category.id : ''}
           onChange={(evt) =>
             dispatch(setObjectCategory(parseInt(evt.currentTarget.value)))
           }

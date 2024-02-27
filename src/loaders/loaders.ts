@@ -70,3 +70,12 @@ export function userEditLoader({ params }: { params: Params }): any {
     return promise;
   }
 }
+
+export function categoryLoader({ params }: { params: Params }): any {
+  if (params.id) {
+    const promise = axios.get(
+      `${import.meta.env.VITE_API_PATH}category/${params.id}`
+    );
+    return promise;
+  }
+}
