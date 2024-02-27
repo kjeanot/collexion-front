@@ -136,6 +136,8 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
         nickname: state.user.loggedUser.nickname,
         email: state.user.loggedUser.email,
         description: state.user.loggedUser.description,
+        picture: state.user.loggedUser.picture,
+        password: state.user.loggedUser.password
       },
       {
         headers: {
