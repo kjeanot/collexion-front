@@ -112,6 +112,7 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
     // Retreive the state to pass the stored informations into the API request body
     const state = thunkAPI.getState() as RootState;
 
+    // reset the token in case of logout
     localStorage.removeItem('jwt');
 
     const response = await axios.post(
