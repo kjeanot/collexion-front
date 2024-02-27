@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import CollectionsList from './CollectionsList';
 import { ICollection } from '../../types/types';
+import { useAppSelector } from '../../hooks/redux';
 
 export default function CollectionsSearchResults() {
   const data = useAppSelector((state) => state.collections.list);

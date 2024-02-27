@@ -4,7 +4,6 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { NavigateFunction } from 'react-router-dom';
 import {
   CurrentObject,
   ICollection,
@@ -12,7 +11,6 @@ import {
   IObject,
 } from '../../types/types';
 import { RootState } from '..';
-import { NavigateFunction } from 'react-router-dom';
 import { Action } from '@cloudinary/url-gen/internal/Action';
 
 interface ObjectsState {
@@ -20,6 +18,7 @@ interface ObjectsState {
   currentObject: CurrentObject;
   comments: IComment[];
   currentComment?: string;
+  randomObjects?: IObject[];
 }
 
 export const initialState: ObjectsState = {
@@ -27,6 +26,7 @@ export const initialState: ObjectsState = {
   currentObject: {},
   comments: [],
   currentComment: undefined,
+  randomObjects: undefined,
 };
 
 const storedToken = localStorage.getItem('jwt');
@@ -177,11 +177,6 @@ export const randomObject = createAsyncThunk(
     const token = JSON.parse(localStorage.getItem('jwt') ?? '');
     const response = await axios.get(
       `${import.meta.env.VITE_API_PATH}object_random`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
     );
     return response.data;
   }
@@ -315,7 +310,15 @@ const objectsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setObjectCollections, (state, action) => {
       state.currentObject.relatedMyCollections = action.payload;
-    });
+    })
+    .addCase(randomObject.pending, (state, action) => {})
+    .addCase(randomObject.fulfilled, (state, action) => {
+      state.randomObjects = action.payload;
+    })
+    .addCase(randomObject.rejected, (state, action) => {
+      console.log('rejected', action);
+    })
+    ;
 });
 
 export default objectsReducer;

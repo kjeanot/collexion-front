@@ -13,7 +13,7 @@ export default function Objects() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.objects.list);
   const dataRandomObjects = useAppSelector(
-    (state) => state.objects.randomObject
+    (state) => state.objects.randomObjects
   );
   useEffect(() => {
     dispatch(fetchObjects());
@@ -30,7 +30,9 @@ export default function Objects() {
           <h2 className="font-bold text-2xl text-customred mt-10">
             Objets au hasard
           </h2>
-          <CarrouselObjects objects={dataRandomObjects} />
+          {dataRandomObjects && (
+            <CarrouselObjects objects={dataRandomObjects} />
+          )}
           <div className="flex justify-between">
             <h2 className="font-bold text-2xl text-customred mt-10 mb-8">
               Tous les Objets
