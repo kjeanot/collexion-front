@@ -15,7 +15,7 @@ export default function Error() {
             <div className="mt-6">
               <Link to="/">
                 <Button
-                  text={'Cliqué ici pour retrouver les collections perdue'}
+                  text={'Cliquez ici pour retrouver les collections perdues'}
                 />
               </Link>
             </div>
