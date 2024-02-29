@@ -102,7 +102,7 @@ export default function SingleObjectEdit() {
             id="object-name"
             type="text"
             placeholder={data ? data.name : "Nom de l'objet"}
-            value={data ? data.name : ''}
+            defaultValue={data ? data.name : ''}
             className="input input-bordered w-full"
             onChange={(evt: ChangeEvent<HTMLInputElement>) =>
               dispatch(setObjectName(evt.currentTarget.value))
@@ -117,7 +117,7 @@ export default function SingleObjectEdit() {
             id="object-description"
             className="textarea textarea-bordered h-24"
             placeholder={data ? data.description : "Description de l'objet"}
-            value={data ? data.description : ''}
+            defaultValue={data ? data.description : ''}
             onChange={(evt: ChangeEvent<HTMLTextAreaElement>) =>
               dispatch(setObjectDescription(evt.currentTarget.value))
             }
@@ -135,7 +135,7 @@ export default function SingleObjectEdit() {
               dispatch(setObjectState(evt.currentTarget.value))
             }
           >
-            <option value="Excellent">Excellent</option>
+            <option defaultValue="Excellent">Excellent</option>
             <option value="Bon">Bon</option>
             <option value="Moyen">Moyen</option>
             <option value="À restaurer">À restaurer</option>
@@ -148,7 +148,7 @@ export default function SingleObjectEdit() {
           <select
             className="select select-bordered w-full max-w-xs"
             id="object-category"
-            defaultValue={data.category?.id ? data.category.id : ''}
+            defaultValue={data.category?.id ? data.category.id : 2}
             onChange={(evt) =>
               dispatch(setObjectCategory(parseInt(evt.currentTarget.value)))
             }

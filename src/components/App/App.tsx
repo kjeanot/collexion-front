@@ -16,6 +16,7 @@ function App() {
   const collectionAlert = useAppSelector(
     (state) => state.collections.collectionAlert
   );
+  const objectAlert = useAppSelector((state) => state.objects.objectAlert);
 
   useEffect(() => {
     userId && dispatch(fetchUserInfo(userId as number));
@@ -37,6 +38,9 @@ function App() {
             type={collectionAlert.type}
             message={collectionAlert.message}
           />
+        )}
+        {objectAlert.message && (
+          <Alert type={objectAlert.type} message={objectAlert.message} />
         )}
         <Outlet />
       </main>

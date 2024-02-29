@@ -157,10 +157,6 @@ export const setCollectionRelatedObjects = createAction<IObject[]>(
 );
 export const resetCollectionAlert = createAction('collection/resetAlert');
 
-export const setCollectionRedirectPath = createAction<string>(
-  'collection/setRedirectPath'
-);
-
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchCollections.pending, (state, action) => {})
