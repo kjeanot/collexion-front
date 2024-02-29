@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
@@ -22,10 +22,6 @@ export default function SingleCollectionEdit() {
   const dispatch = useAppDispatch();
   const data: CurrentCollection = useAppSelector(
     (state) => state.collections.currentCollection
-  );
-
-  const redirectPath = useAppSelector(
-    (state) => state.collections.redirectPath
   );
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
@@ -64,6 +60,10 @@ export default function SingleCollectionEdit() {
     dispatch(setCollectionRelatedObjects(extractedObjects));
     dispatch(setCollectionObjects(remainingObjects));
   }
+
+  // Use state to redirect to the collection page or the user page after the collection has been updated or created.
+  const [redirectPath, setRedirectPath] = useState<null | string>(null);
+
   useEffect(() => {
     location.pathname === '/collection/new' &&
       dispatch(resetCurrentCollection());
@@ -174,15 +174,15 @@ export default function SingleCollectionEdit() {
               ? dispatch(updateCollection(data.id))
               : dispatch(postCollection());
             data.id
-              ? dispatch(setCollectionRedirectPath(`/collection/${data.id}`))
-              : dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
+              ? setRedirectPath(`/collection/${data.id}`)
+              : setRedirectPath(`/user/${loggedUserId}`);
             dispatch(fetchCollections());
           }}
         >
           Mettre à jour
         </button>
       </form>
-      {redirectPath !== '' && <Navigate to={redirectPath} />}
+      {redirectPath && <Navigate to={redirectPath} />}
     </>
   );
 }

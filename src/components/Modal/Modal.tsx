@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import {
@@ -6,7 +5,6 @@ import {
   setCollectionRedirectPath,
 } from '../../store/reducers/collectionsReducer';
 import { fetchObjects } from '../../store/reducers/objectsReducer';
-import { useEffect } from 'react';
 
 interface Props {
   actionLabel: string;
@@ -91,7 +89,6 @@ export default function Modal({ actionLabel, action }: Props) {
                 dispatch(fetchCollections());
                 dispatch(fetchObjects());
                 dispatch(switchModalDisplay());
-                dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
               }}
               className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
             >
