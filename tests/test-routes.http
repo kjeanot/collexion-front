@@ -60,7 +60,7 @@ content-type: application/json
 }
 
 ### Route Get User
-GET https://www.apicollexion.live/api/user/1 HTTP/1.1
+GET https://www.apicollexion.live/api/category/2/childs HTTP/1.1
 content-type: application/json
 
 
@@ -70,7 +70,7 @@ content-type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDgwMDU4OTgsImV4cCI6MTcwODAwOTQ5OCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluQGFkbWluLmNvbSJ9.uxNvhdjUxuLkWDIEWN2IDAolQAiEuos2PioahqhbLDEaBqR9c-TJW4Ol0eN-jzCc87-Y6xcdflDd1STbpqbJQucTykx-Jw9hLp2BPTxR-bgEl1osTzv4FyrjH5x_FsRyBjq9HEmQeJmeVd6V1jKnGfi1FI824VZbD5rRhGj-13k4Z6LTy-5P_AKbpKydQvAjJVxIm6Lon4UUV7qM-WQ0htGkWI15DFyZyyqV8r4kePnG5aK66wVeOPjkHVheuRTvJ5sbGc0gHH0xP4DufZMOfEPaKxLsi-qYb-hGDV8rRJU2t77r-f-jlVXnpC7Sgxth9IO_be-lQIZ2eKOPPcfUBw
 
 ### Route Get Object
-GET https://www.apicollexion.live/api/object/17 HTTP/1.1
+GET https://www.apicollexion.live/api/object/46 HTTP/1.1
 content-type: application/json
 
 

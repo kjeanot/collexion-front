@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
+  fetchCollections,
   postCollection,
   resetCurrentCollection,
   setCollectionDescription,
@@ -175,6 +176,7 @@ export default function SingleCollectionEdit() {
             data.id
               ? dispatch(setCollectionRedirectPath(`/collection/${data.id}`))
               : dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
+            dispatch(fetchCollections());
           }}
         >
           Mettre à jour

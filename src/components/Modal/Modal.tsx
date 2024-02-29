@@ -20,15 +20,8 @@ interface Props {
 export default function Modal({ actionLabel, action }: Props) {
   const dispatch = useAppDispatch();
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
-  const collectionRedirectPath = useAppSelector(
-    (state) => state.collections.redirectPath
-  );
 
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(setCollectionRedirectPath('')), 3000;
-    });
-  }, []);
+
 
   return (
     <div
@@ -107,9 +100,6 @@ export default function Modal({ actionLabel, action }: Props) {
           </div>
         </div>
       </div>
-      {collectionRedirectPath !== '' && (
-        <Navigate to={collectionRedirectPath} />
-      )}
     </div>
   );
 }

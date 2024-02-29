@@ -3,7 +3,6 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import axios from 'axios';
 import {
   CurrentObject,
   ICollection,
@@ -12,6 +11,7 @@ import {
 } from '../../types/types';
 import { RootState } from '..';
 import { Action } from '@cloudinary/url-gen/internal/Action';
+import api from '../../hooks/api';
 
 interface ObjectsState {
   list: IObject[];
@@ -29,19 +29,17 @@ export const initialState: ObjectsState = {
   randomObjects: undefined,
 };
 
-const storedToken = localStorage.getItem('jwt');
-const token = storedToken ? JSON.parse(storedToken) : '';
 /**
  * Middleware for fetching all the objects
  *
- * Uses axios to request the /api/objects route and get all the object from the API.
+ * Uses api to request the /api/objects route and get all the object from the API.
  *
  * @return {Promise} Return a promise with objects when fulfilled.
  */
 export const fetchObjects = createAsyncThunk(
   'objects/fetchObjects',
   async (_, thunkAPI) => {
-    const response = await axios.get(`${import.meta.env.VITE_API_PATH}objects`);
+    const response = await api.get(`${import.meta.env.VITE_API_PATH}objects`);
     return response.data;
   }
 );
@@ -49,16 +47,14 @@ export const fetchObjects = createAsyncThunk(
 /**
  * Middleware for fetching all comments
  *
- * Uses axios to request the /api/comments route and get all the comments from the API.
+ * Uses api to request the /api/comments route and get all the comments from the API.
  *
  * @return {Promise} Return a promise with comments when fulfilled.
  */
 export const fetchComments = createAsyncThunk(
   'objects/fetchComments',
   async (_, thunkAPI) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}comments`
-    );
+    const response = await api.get(`${import.meta.env.VITE_API_PATH}comments`);
     return response.data;
   }
 );
@@ -68,7 +64,7 @@ export const fetchComments = createAsyncThunk(
 export const fetchSingleObject = createAsyncThunk(
   'objects/fetchSingleObject',
   async (id: number, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}object/${id}`
     );
     return response.data;
@@ -78,96 +74,65 @@ export const fetchSingleObject = createAsyncThunk(
 export const uploadObjectImage = createAsyncThunk(
   'objects/uploadObjectImage',
   async (_, thunkAPI) => {
-    if (token) {
-      const state = thunkAPI.getState() as RootState;
-      const formData = new FormData();
-      formData.append('file', state.objects.currentObject.image as File);
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}secure/object/upload_file`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
-    }
+    const state = thunkAPI.getState() as RootState;
+    const formData = new FormData();
+    formData.append('file', state.objects.currentObject.image as File);
+    const response = await api.post(
+      `${import.meta.env.VITE_API_PATH}secure/object/upload_file`,
+      formData
+    );
+    return response.data;
   }
 );
 
 export const deleteObject = createAsyncThunk(
   'objects/deleteObject',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const response = await api.delete(
+      `${import.meta.env.VITE_API_PATH}secure/object/${id}`
+    );
 
-      return response.data;
-    }
+    return response.data;
   }
 );
 
 export const updateObject = createAsyncThunk(
   'objects/updateObject',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const state = thunkAPI.getState() as RootState;
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
-        {
-          name: state.objects.currentObject.name,
-          description: state.objects.currentObject.description,
-          state: state.objects.currentObject.state,
-          relatedCategory: state.objects.currentObject.relatedCategory,
-          relatedMyCollections:
-            state.objects.currentObject.relatedMyCollections,
-          image: state.objects.currentObject.image,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const state = thunkAPI.getState() as RootState;
+    const response = await api.put(
+      `${import.meta.env.VITE_API_PATH}secure/object/${id}`,
+      {
+        name: state.objects.currentObject.name,
+        description: state.objects.currentObject.description,
+        state: state.objects.currentObject.state,
+        relatedCategory: state.objects.currentObject.relatedCategory,
+        relatedMyCollections: state.objects.currentObject.relatedMyCollections,
+        image: state.objects.currentObject.image,
+      }
+    );
 
-      return response.data;
-    }
+    return response.data;
   }
 );
 
 export const postObject = createAsyncThunk(
   'objects/postObject',
   async (_, thunkAPI) => {
-    if (token) {
-      const state = thunkAPI.getState() as RootState;
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}secure/object`,
-        {
-          name: state.objects.currentObject.name,
-          description: state.objects.currentObject.description,
-          state: state.objects.currentObject.state,
-          relatedCategory: state.objects.currentObject.relatedCategory,
-          relatedMyCollections:
-            state.objects.currentObject.relatedMyCollections,
-          image: state.objects.currentObject.image,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const state = thunkAPI.getState() as RootState;
+    const response = await api.post(
+      `${import.meta.env.VITE_API_PATH}secure/object`,
+      {
+        name: state.objects.currentObject.name,
+        description: state.objects.currentObject.description,
+        state: state.objects.currentObject.state,
+        relatedCategory: state.objects.currentObject.relatedCategory,
+        relatedMyCollections: state.objects.currentObject.relatedMyCollections,
+        image: state.objects.currentObject.image,
+      }
+    );
 
-      return response.data;
-    }
+    return response.data;
   }
 );
 
@@ -175,8 +140,8 @@ export const randomObject = createAsyncThunk(
   'object/randomObject',
   async (_, thunkAPI) => {
     const token = JSON.parse(localStorage.getItem('jwt') ?? '');
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_PATH}object_random`,
+    const response = await api.get(
+      `${import.meta.env.VITE_API_PATH}object_random`
     );
     return response.data;
   }
@@ -202,14 +167,9 @@ export const postComment = createAsyncThunk(
   'object/postComment',
   async (id: number, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
-    const response = await axios.post(
+    const response = await api.post(
       `${import.meta.env.VITE_API_PATH}secure/comment`,
-      { content: state.objects.currentComment, object: id },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      { content: state.objects.currentComment, object: id }
     );
     return response.data;
   }
@@ -317,8 +277,7 @@ const objectsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(randomObject.rejected, (state, action) => {
       console.log('rejected', action);
-    })
-    ;
+    });
 });
 
 export default objectsReducer;

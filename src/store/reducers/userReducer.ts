@@ -7,6 +7,7 @@ import {
 import axios from 'axios';
 import { ICollection, IRole, IUser } from '../../types/types';
 import { RootState } from '..';
+import api from '../../hooks/api';
 
 interface loggedUser {
   id?: number;
@@ -51,7 +52,6 @@ interface UploadedFile {
 export const initialState: UserState = {
   loggedUser: {
     id: undefined,
-    token: undefined,
     nickname: undefined,
     email: undefined,
     roles: ['ROLE_USER'],
@@ -76,9 +76,6 @@ export const initialState: UserState = {
   },
 };
 
-const storedToken = localStorage.getItem('jwt');
-const token = storedToken ? JSON.parse(storedToken) : '';
-
 export const setEmail = createAction<string>('user/setUsername');
 export const setPassword = createAction<string>('user/setPassword');
 export const setNickname = createAction<string>('user/setNickname');
@@ -87,6 +84,7 @@ export const setRoles = createAction<IRole[]>('user/setRoles');
 export const setUserDescription = createAction<string>(
   'user/setUserDescription'
 );
+export const logout = createAction('user/logout');
 
 export const register = createAsyncThunk<StateFromReducersMapObject<any>>(
   'user/register',
@@ -111,9 +109,6 @@ export const loginCheck = createAsyncThunk<StateFromReducersMapObject<any>>(
   async (_, thunkAPI) => {
     // Retreive the state to pass the stored informations into the API request body
     const state = thunkAPI.getState() as RootState;
-
-    // reset the token in case of logout
-    localStorage.removeItem('jwt');
 
     const response = await axios.post(
       `${import.meta.env.VITE_API_PATH}login_check`,
@@ -141,11 +136,6 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
         description: state.user.loggedUser.description,
         picture: state.user.loggedUser.picture,
         password: state.user.loggedUser.password,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }
     );
 
@@ -156,7 +146,7 @@ export const userUpdate = createAsyncThunk<StateFromReducersMapObject<any>>(
 export const fetchUserInfo = createAsyncThunk(
   'user/fetchUserInfo',
   async (id: number, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}user/${id}`
     );
     return response.data;
@@ -166,45 +156,35 @@ export const fetchUserInfo = createAsyncThunk(
 export const addToFavorites = createAsyncThunk(
   'collections/addToFavorites',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const response = await axios.post(
+    
+      const response = await api.post(
         `${import.meta.env.VITE_API_PATH}secure/add/${id}/favorite`,
         '',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
 
       return response.data;
-    }
+    
   }
 );
 
 export const removeFromFavorites = createAsyncThunk(
   'collections/removeFromFavorites',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const response = await axios.post(
+    
+      const response = await api.post(
         `${import.meta.env.VITE_API_PATH}secure/delete/${id}/favorite`,
         '',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
 
       return response.data;
     }
-  }
+  
 );
 
 export const uploadUserImage = createAsyncThunk(
   'collections/uploadUserImage',
   async (_, thunkAPI) => {
-    if (token) {
+    
       const state = thunkAPI.getState() as RootState;
 
       const formData = new FormData();
@@ -215,19 +195,14 @@ export const uploadUserImage = createAsyncThunk(
           state.user.loggedUser.picture.name as string | Blob
         );
 
-      const response = await axios.post(
+      const response = await api.post(
         `${import.meta.env.VITE_API_PATH}secure/user/upload_file`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        formData
       );
 
       return response.data;
     }
-  }
+  
 );
 
 export const resetAlert = createAction('user/resetAlert');
@@ -254,14 +229,23 @@ const userReducer = createReducer(initialState, (builder) => {
       state.loggedUser.username = (action.payload as IUser).username;
       localStorage.setItem(
         'jwt',
-        JSON.stringify((action.payload as IUser).token)
+        JSON.stringify(action.payload.token)
       );
-      localStorage.setItem('uid', JSON.stringify(state.loggedUser.id));
+      api.defaults.headers.common['Authorization'] = `Bearer ${action.payload.token}`;
       state.userAlert.message = 'Login successful';
       state.userAlert.type = 'success';
+      console.log(api.defaults.headers);
     })
     .addCase(loginCheck.rejected, (state, action) => {
       console.log('rejected', action);
+    })
+    .addCase(logout, (state, action) => {
+      state.loggedUser = initialState.loggedUser;
+      state.currentUser = initialState.currentUser;
+      state.userAlert.message = 'Logout successful';
+      state.userAlert.type = 'success';
+      localStorage.removeItem('jwt');
+      api.defaults.headers.common['Authorization'] = '';
     })
     .addCase(fetchUserInfo.pending, (state, action) => {})
     .addCase(fetchUserInfo.fulfilled, (state, action) => {

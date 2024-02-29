@@ -33,7 +33,7 @@ export default function Home() {
         <Background />
       </div>
       <h2 className="font-bold text-2xl text-customred mt-10">
-        Collection au hasard
+        Collections au hasard
       </h2>
       <CarrouselHome collections={dataRandomCollections} />
       <div className="flex justify-center md:justify-end mb-9">

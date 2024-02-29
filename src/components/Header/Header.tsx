@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from '../Login/Login';
 import logo from '../../assets/logo-collexion.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchLoginDisplay } from '../../store/reducers/appReducer';
+import { fetchParentCategories } from '../../store/reducers/categoriesReducer';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,12 @@ export default function Header() {
   const [mobileSearch, setMobileSearch] = useState(false);
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+
+  const mainCategories = useAppSelector((state) => state.categories.parentList);
+
+  useEffect(() => {
+    dispatch(fetchParentCategories());
+  }, []);
 
   return (
     <header>
@@ -36,21 +43,16 @@ export default function Header() {
                   Catégories
                 </summary>
                 <ul className="p-2 text-base bg-base-100 rounded-t-none min-w-56">
-                  <li>
-                    <a>Cartes</a>
-                  </li>
-                  <li>
-                    <a>Figurines</a>
-                  </li>
-                  <li>
-                    <a>Jeux-vidéos</a>
-                  </li>
-                  <li>
-                    <a>Montres</a>
-                  </li>
-                  <li>
-                    <a>Véhicules</a>
-                  </li>
+                  {
+                    mainCategories &&
+                    mainCategories.map((category) => (
+                      <li key={category.id}>
+                        <Link to={`/category/${category.id}`}>
+                          {category.name}
+                        </Link>
+                      </li>
+                    ))
+                  }
                 </ul>
               </details>
             </li>
