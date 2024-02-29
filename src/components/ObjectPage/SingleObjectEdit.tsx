@@ -250,6 +250,7 @@ export default function SingleObjectEdit() {
               : currentCollection.id
               ? setRedirectPath(`/collection/${currentCollection.id}`)
               : setRedirectPath(`/`);
+            dispatch(fetchCollections());
           }}
         >
           {data.id ? 'Mettre à jour' : 'Publier'}
