@@ -3,12 +3,10 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 interface AppState {
   showLogin: boolean;
   showModal: boolean;
-  redirectPath: string;
 }
 export const initialState: AppState = {
   showLogin: false,
   showModal: false,
-  redirectPath: '',
 };
 
 export const switchLoginDisplay = createAction('app/switchLoginDisplay');

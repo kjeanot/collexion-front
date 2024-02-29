@@ -17,7 +17,6 @@ interface CollectionsState {
   currentCollection: CurrentCollection;
   randomCollection: ICollection[];
   collectionAlert: IAlert;
-  redirectPath: string;
 }
 
 export const initialState: CollectionsState = {
@@ -28,7 +27,6 @@ export const initialState: CollectionsState = {
     message: '',
     type: '',
   },
-  redirectPath: '',
 };
 
 /**
@@ -159,10 +157,6 @@ export const setCollectionRelatedObjects = createAction<IObject[]>(
 );
 export const resetCollectionAlert = createAction('collection/resetAlert');
 
-export const setCollectionRedirectPath = createAction<string>(
-  'collection/setRedirectPath'
-);
-
 const collectionsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchCollections.pending, (state, action) => {})
@@ -196,11 +190,9 @@ const collectionsReducer = createReducer(initialState, (builder) => {
     .addCase(deleteCollection.pending, (state, action) => {})
     .addCase(deleteCollection.fulfilled, (state, action) => {
       console.log('delete successfully');
-      state.redirectPath = `/user/${state.currentCollection.user?.id}`;
       state.currentCollection = {};
       state.collectionAlert.message = 'Collection deleted successfully';
       state.collectionAlert.type = 'success';
-      state.redirectPath = '';
     })
     .addCase(deleteCollection.rejected, (state, action) => {
       console.log('delete rejected');
@@ -225,9 +217,6 @@ const collectionsReducer = createReducer(initialState, (builder) => {
       state.currentCollection = action.payload;
       state.collectionAlert.message = 'Collection updated successfully';
       state.collectionAlert.type = 'success';
-      state.currentCollection.id
-        ? (state.redirectPath = `/collection/${state.currentCollection.id}`)
-        : '';
     })
     .addCase(updateCollection.rejected, (state, action) => {
       console.log('update rejected');
@@ -266,9 +255,7 @@ const collectionsReducer = createReducer(initialState, (builder) => {
       state.collectionAlert.message = '';
       state.collectionAlert.type = '';
     })
-    .addCase(setCollectionRedirectPath, (state, action) => {
-      state.redirectPath = action.payload;
-    });
+    ;
 });
 
 export default collectionsReducer;

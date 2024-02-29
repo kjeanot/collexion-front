@@ -17,9 +17,6 @@ export const initialState: CategoriesState = {
   childrenList: [],
 };
 
-const storedToken = localStorage.getItem('jwt');
-const token = storedToken ? JSON.parse(storedToken) : '';
-const url = import.meta.env.VITE_API_PATH;
 /**
  * Middleware for fetching all the categories
  *

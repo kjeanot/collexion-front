@@ -1,12 +1,11 @@
-import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import {
   fetchCollections,
-  setCollectionRedirectPath,
 } from '../../store/reducers/collectionsReducer';
 import { fetchObjects } from '../../store/reducers/objectsReducer';
-import { useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 interface Props {
   actionLabel: string;
@@ -20,7 +19,16 @@ interface Props {
 export default function Modal({ actionLabel, action }: Props) {
   const dispatch = useAppDispatch();
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
+  const currentCollectionId = useAppSelector((state) => state.collections.currentCollection.id);
+  const location = useLocation();
 
+  // Use state to redirect to the collection page or the user page after the collection has been updated or created.
+  const [redirectPath, setRedirectPath] = useState<null | string>(null);
+
+  // switch the display state of the modal component when the redirectPath changes
+  useEffect(() => {
+    dispatch(switchModalDisplay());
+  }, [redirectPath]);
 
 
   return (
@@ -79,19 +87,20 @@ export default function Modal({ actionLabel, action }: Props) {
               className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
               onClick={() => {
                 action();
-                dispatch(switchModalDisplay());
-                loggedUserId &&
-                  dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
+                dispatch(fetchCollections());
+                dispatch(fetchObjects());
+                location.pathname.includes('object') && currentCollectionId ?
+                  setRedirectPath(`/collection/${currentCollectionId}`)
+                  :
+                  loggedUserId ? setRedirectPath(`/user/${loggedUserId}`) : setRedirectPath(`/`);
+                  
               }} /* When clicked, we execute the action passed as a prop to the modal component */
             >
               {actionLabel}
             </button>
             <button
               onClick={() => {
-                dispatch(fetchCollections());
-                dispatch(fetchObjects());
                 dispatch(switchModalDisplay());
-                dispatch(setCollectionRedirectPath(`/user/${loggedUserId}`));
               }}
               className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10"
             >
@@ -100,6 +109,7 @@ export default function Modal({ actionLabel, action }: Props) {
           </div>
         </div>
       </div>
+      {redirectPath && <Navigate to={redirectPath} />}
     </div>
   );
 }

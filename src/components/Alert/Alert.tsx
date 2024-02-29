@@ -3,8 +3,8 @@ import { resetAlert } from '../../store/reducers/userReducer';
 import { useAppDispatch } from '../../hooks/redux';
 import {
   resetCollectionAlert,
-  setCollectionRedirectPath,
 } from '../../store/reducers/collectionsReducer';
+import { resetObjectAlert } from '../../store/reducers/objectsReducer';
 
 interface AlertProps {
   type: string;
@@ -17,13 +17,11 @@ export default function Alert({ type, message }: AlertProps) {
   useEffect(() => {
     setTimeout(() => {
       dispatch(resetCollectionAlert());
+      dispatch(resetObjectAlert());
       dispatch(resetAlert());
     }, 3000);
   }, []);
 
-  useEffect(() => {
-    dispatch(setCollectionRedirectPath(''));
-  }, []);
 
   return (
     <>

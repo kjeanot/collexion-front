@@ -19,6 +19,10 @@ interface ObjectsState {
   comments: IComment[];
   currentComment?: string;
   randomObjects?: IObject[];
+  objectAlert: {
+    message: string;
+    type: string;
+  };
 }
 
 export const initialState: ObjectsState = {
@@ -27,6 +31,10 @@ export const initialState: ObjectsState = {
   comments: [],
   currentComment: undefined,
   randomObjects: undefined,
+  objectAlert: {
+    message: '',
+    type: '',
+  },
 };
 
 /**
@@ -177,6 +185,7 @@ export const postComment = createAsyncThunk(
 
 export const setComment = createAction<string>('object/setComment');
 export const setObject = createAction<number>('object/setObject');
+export const resetObjectAlert = createAction('collection/resetAlert');
 
 const objectsReducer = createReducer(initialState, (builder) => {
   builder
@@ -216,6 +225,8 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(deleteObject.fulfilled, (state, action) => {
       console.log('delete successfully');
       state.currentObject = {};
+      state.objectAlert.message = 'Object deleted successfully';
+      state.objectAlert.type = 'success';
     })
     .addCase(deleteObject.rejected, (state, action) => {
       console.log('delete rejected');
@@ -224,6 +235,8 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(postObject.fulfilled, (state, action) => {
       console.log('post successfully');
       state.currentObject = {};
+      state.objectAlert.message = 'Object posted successfully';
+      state.objectAlert.type = 'success';
     })
     .addCase(postObject.rejected, (state, action) => {
       console.log('post rejected');
@@ -231,6 +244,8 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(updateObject.pending, (state, action) => {})
     .addCase(updateObject.fulfilled, (state, action) => {
       console.log('updated successfully', action.payload);
+      state.objectAlert.message = 'Object updated successfully';
+      state.objectAlert.type = 'success';
     })
     .addCase(updateObject.rejected, (state, action) => {
       console.log('update rejected');
@@ -277,7 +292,11 @@ const objectsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(randomObject.rejected, (state, action) => {
       console.log('rejected', action);
-    });
+    })
+    .addCase(resetObjectAlert, (state) => {
+      state.objectAlert = initialState.objectAlert;
+    })
+    ;
 });
 
 export default objectsReducer;
