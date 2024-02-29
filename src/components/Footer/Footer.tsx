@@ -1,9 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { logout } from '../../store/reducers/userReducer';
 
 export default function Footer() {
   const userId = useAppSelector((state) => state.user.loggedUser.id);
   const userRole = useAppSelector((state) => state.user.loggedUser.roles);
+
+  const dispatch = useAppDispatch();
 
   return (
     <footer className="footer relative p-10 bg-base-200 text-base-content mt-6">
@@ -38,9 +41,12 @@ export default function Footer() {
       <nav>
         <h6 className="footer-title">à propos</h6>
         {userId && (
-          <NavLink className="link link-hover" to={`/user/${userId}`}>
-            Mon profil
-          </NavLink>
+          <>
+            <NavLink className="link link-hover" to={`/user/${userId}`}>
+              Mon profil
+            </NavLink>
+            <button className="link link-hover" onClick={() => dispatch(logout())}>Se déconnecter</button>
+          </>
         )}
         <NavLink className="link link-hover" to={'/mentions'}>
           Mentions légales & CGU
