@@ -9,8 +9,8 @@ import {
   ICollection,
   IObject,
 } from '../../types/types';
-import axios from 'axios';
 import { RootState } from '..';
+import api from '../../hooks/api';
 
 interface CollectionsState {
   list: ICollection[];
@@ -31,20 +31,17 @@ export const initialState: CollectionsState = {
   redirectPath: '',
 };
 
-const storedToken = localStorage.getItem('jwt');
-const token = storedToken ? JSON.parse(storedToken) : '';
-
 /**
  * Middleware for fetching all the collections
  *
- * Uses axios to request the /api/collections route and get all the collection from the API.
+ * Uses api to request the /api/collections route and get all the collection from the API.
  *
  * @return {Promise} Return a promise with collections when fulfilled.
  */
 export const fetchCollections = createAsyncThunk(
   'collections/fetchCollections',
   async (_, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}collections`
     );
     return response.data;
@@ -56,7 +53,7 @@ export const fetchCollections = createAsyncThunk(
 export const fetchSingleCollection = createAsyncThunk(
   'collections/fetchSingleCollection',
   async (id: number, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}collection/${id}`
     );
     return response.data;
@@ -70,37 +67,22 @@ export const uploadCollectionImage = createAsyncThunk(
     const formData = new FormData();
     formData.append('file', state.collections.currentCollection.image as File);
 
-    if (token) {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}secure/collection/upload_file`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
-    }
+    const response = await api.post(
+      `${import.meta.env.VITE_API_PATH}secure/collection/upload_file`,
+      formData
+    );
+    return response.data;
   }
 );
 
 export const deleteCollection = createAsyncThunk(
   'collections/deleteCollection',
   async (id: number, thunkAPI) => {
-    if (token) {
-      const response = await axios.delete(
-        `${import.meta.env.VITE_API_PATH}secure/collection/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const response = await api.delete(
+      `${import.meta.env.VITE_API_PATH}secure/collection/${id}`
+    );
 
-      return response.data;
-    }
+    return response.data;
   }
 );
 
@@ -108,60 +90,46 @@ export const updateCollection = createAsyncThunk(
   'collections/updateCollection',
 
   async (id: number, thunkAPI) => {
-    if (token) {
-      const state = thunkAPI.getState() as RootState;
-      const response = await axios.put(
-        `${import.meta.env.VITE_API_PATH}secure/collection/${id}`,
-        {
-          name: state.collections.currentCollection.name,
-          description: state.collections.currentCollection.description,
-          image: state.collections.currentCollection.image,
-          relatedObjects: state.collections.currentCollection.relatedObjects,
-          title:
-            'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
-          is_active: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const state = thunkAPI.getState() as RootState;
+    const response = await api.put(
+      `${import.meta.env.VITE_API_PATH}secure/collection/${id}`,
+      {
+        name: state.collections.currentCollection.name,
+        description: state.collections.currentCollection.description,
+        image: state.collections.currentCollection.image,
+        relatedObjects: state.collections.currentCollection.relatedObjects,
+        title:
+          'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
+        is_active: true,
+      }
+    );
 
-      return response.data;
-    }
+    return response.data;
   }
 );
 
 export const postCollection = createAsyncThunk(
   'collections/postCollection',
   async (_, thunkAPI) => {
-    if (token) {
-      const state = thunkAPI.getState() as RootState;
+    const state = thunkAPI.getState() as RootState;
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_PATH}secure/collection`,
-        {
-          ...state.collections.currentCollection,
-          title: state.collections.currentCollection.name,
-          is_active: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const response = await api.post(
+      `${import.meta.env.VITE_API_PATH}secure/collection`,
+      {
+        ...state.collections.currentCollection,
+        title: state.collections.currentCollection.name,
+        is_active: true,
+      }
+    );
 
-      return response.data;
-    }
+    return response.data;
   }
 );
 
 export const randomCollection = createAsyncThunk(
   'collections/randomCollection',
   async (_, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}collection_random`
     );
     return response.data;

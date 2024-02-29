@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import { ICategory } from '../../types/types';
 import { RootState } from '..';
+import api from '../../hooks/api';
 
 interface CategoriesState {
   list: ICategory[];
@@ -23,14 +23,14 @@ const url = import.meta.env.VITE_API_PATH;
 /**
  * Middleware for fetching all the categories
  *
- * Uses axios to request the /api/categories route and get all the categories from the API.
+ * Uses api to request the /api/categories route and get all the categories from the API.
  *
  * @return {Promise} Return a promise with categories when fulfilled.
  */
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
   async (_, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}categories`
     );
     return response.data;
@@ -40,7 +40,7 @@ export const fetchCategories = createAsyncThunk(
 export const fetchParentCategories = createAsyncThunk(
   'categories/fetchParentCategories',
   async (_, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}categories/parents`
     );
     return response.data;
@@ -50,7 +50,7 @@ export const fetchParentCategories = createAsyncThunk(
 export const fetchParentCategoryChilds = createAsyncThunk(
   'categories/fetchParentCategoriesChilds',
   async (id: number, thunkAPI) => {
-        const response = await axios.get(
+        const response = await api.get(
       `${import.meta.env.VITE_API_PATH}category/${id}/childs`
     );
     return response.data;
@@ -62,7 +62,7 @@ export const fetchParentCategoryChilds = createAsyncThunk(
 export const fetchSingleCategory = createAsyncThunk(
   'categories/fetchSingleCategory',
   async (id: number, thunkAPI) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${import.meta.env.VITE_API_PATH}category/${id}`
     );
     return response.data;
