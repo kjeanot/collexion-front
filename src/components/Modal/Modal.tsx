@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import {
   fetchCollections,
-  setCollectionRedirectPath,
 } from '../../store/reducers/collectionsReducer';
 import { fetchObjects } from '../../store/reducers/objectsReducer';
 import { Navigate, useLocation } from 'react-router-dom';

@@ -9,7 +9,6 @@ import {
   setCollectionImage,
   setCollectionName,
   setCollectionObjects,
-  setCollectionRedirectPath,
   setCollectionRelatedObjects,
   updateCollection,
   uploadCollectionImage,
