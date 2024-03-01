@@ -28,15 +28,9 @@ export default function Modal({ actionLabel, action, id, entity }: Props) {
   const currentCollectionId = useAppSelector(
     (state) => state.collections.currentCollection.id
   );
-  const location = useLocation();
 
   // Use state to redirect to the collection page or the user page after the collection has been updated or created.
   const [redirectPath, setRedirectPath] = useState<null | string>(null);
-
-  // switch the display state of the modal component when the redirectPath changes
-  useEffect(() => {
-    dispatch(switchModalDisplay());
-  }, [redirectPath]);
 
   // Function to trigger the delete action of the object or collection
   const handleDelete = (entity: string, id: number) => {
