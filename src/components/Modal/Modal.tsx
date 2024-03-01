@@ -2,24 +2,32 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { switchModalDisplay } from '../../store/reducers/appReducer';
 import {
+  deleteCollection,
   fetchCollections,
 } from '../../store/reducers/collectionsReducer';
-import { fetchObjects } from '../../store/reducers/objectsReducer';
+import {
+  deleteObject,
+  fetchObjects,
+} from '../../store/reducers/objectsReducer';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface Props {
   actionLabel: string;
   action: any;
+  id: number;
+  entity: string;
 }
 
 /**
  * The modal receive the name of the action to trigger and the function to execute when the confirm button of the modal is clicked
  *
  */
-export default function Modal({ actionLabel, action }: Props) {
+export default function Modal({ actionLabel, action, id, entity }: Props) {
   const dispatch = useAppDispatch();
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
-  const currentCollectionId = useAppSelector((state) => state.collections.currentCollection.id);
+  const currentCollectionId = useAppSelector(
+    (state) => state.collections.currentCollection.id
+  );
   const location = useLocation();
 
   // Use state to redirect to the collection page or the user page after the collection has been updated or created.
@@ -30,6 +38,20 @@ export default function Modal({ actionLabel, action }: Props) {
     dispatch(switchModalDisplay());
   }, [redirectPath]);
 
+  // Function to trigger the delete action of the object or collection
+  const handleDelete = (entity: string, id: number) => {
+    if (entity === 'object') {
+      dispatch(deleteObject(id));
+      setRedirectPath(`/collection/${currentCollectionId}`);
+    }
+
+    if (entity === 'collection') {
+      dispatch(deleteCollection(id));
+      loggedUserId
+        ? setRedirectPath(`/user/${loggedUserId}`)
+        : setRedirectPath(`/`);
+    }
+  };
 
   return (
     <div
@@ -86,14 +108,9 @@ export default function Modal({ actionLabel, action }: Props) {
               type="button"
               className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 text-center me-2 mb-2"
               onClick={() => {
-                action();
+                action === 'delete' && handleDelete(entity, id);
                 dispatch(fetchCollections());
                 dispatch(fetchObjects());
-                location.pathname.includes('object') && currentCollectionId ?
-                  setRedirectPath(`/collection/${currentCollectionId}`)
-                  :
-                  loggedUserId ? setRedirectPath(`/user/${loggedUserId}`) : setRedirectPath(`/`);
-                  
               }} /* When clicked, we execute the action passed as a prop to the modal component */
             >
               {actionLabel}

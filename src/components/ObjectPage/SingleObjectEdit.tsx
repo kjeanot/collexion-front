@@ -10,6 +10,7 @@ import {
   setObjectCategory,
   uploadObjectImage,
   setObjectImage,
+  fetchSingleObject,
 } from '../../store/reducers/objectsReducer';
 import { ICategory, ICollection, IObject } from '../../types/types';
 import { fetchCategories } from '../../store/reducers/categoriesReducer';
@@ -254,6 +255,7 @@ export default function SingleObjectEdit() {
               ? setRedirectPath(`/collection/${currentCollection.id}`)
               : setRedirectPath(`/`);
             dispatch(fetchCollections());
+            data.id && dispatch(fetchSingleObject(data.id));
           }}
         >
           {data.id ? 'Mettre à jour' : 'Publier'}
