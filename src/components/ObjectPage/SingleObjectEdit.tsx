@@ -249,13 +249,12 @@ export default function SingleObjectEdit() {
           className="text-white bg-gradient-to-r from-customred to-customorange hover:bg-gradient-to-br font-semibold rounded-lg text-base px-3 py-2 my-6 text-center mb-2 mx-auto"
           onClick={() => {
             data.id ? dispatch(updateObject(data.id)) : dispatch(postObject());
+            data.id && dispatch(fetchSingleObject(data.id));
             data.id
               ? setRedirectPath(`/object/${data.id}`)
               : currentCollection.id
               ? setRedirectPath(`/collection/${currentCollection.id}`)
               : setRedirectPath(`/`);
-            dispatch(fetchCollections());
-            data.id && dispatch(fetchSingleObject(data.id));
           }}
         >
           {data.id ? 'Mettre à jour' : 'Publier'}
