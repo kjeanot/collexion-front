@@ -10,7 +10,7 @@ import {
   fetchSingleCollection,
 } from '../../store/reducers/collectionsReducer';
 import Modal from '../Modal/Modal';
-import { switchModalDisplay } from '../../store/reducers/appReducer';
+import { closeModal, switchModalDisplay } from '../../store/reducers/appReducer';
 import { resetCurrentObject } from '../../store/reducers/objectsReducer';
 import {
   addToFavorites,
@@ -31,13 +31,10 @@ export default function SingleCollection() {
     (state) => state.user.loggedUser.myfavoritescollections
   );
 
-  // Triggered function sent to the modal component when the collection's delete button is clicked
-  const handleDelete = () => {
-    dispatch(deleteCollection(data.id));
-  };
-
+ 
   useEffect(() => {
     dispatch(fetchSingleCollection(data.id));
+    dispatch(closeModal());
   }, []);
 
   useEffect(() => {

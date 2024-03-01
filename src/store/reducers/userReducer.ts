@@ -250,6 +250,7 @@ const userReducer = createReducer(initialState, (builder) => {
         state.loggedUser.picture = (action.payload as IUser).picture;
         state.loggedUser.roles = (action.payload as IUser).roles;
         state.loggedUser.username = (action.payload as IUser).username;
+        state.loggedUser.myfavoritescollections = action.payload.myfavoritescollections;
       }
     })
     .addCase(fetchUserInfo.rejected, (state, action) => {

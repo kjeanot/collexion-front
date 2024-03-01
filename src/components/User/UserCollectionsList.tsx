@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import CollectionTile from '../Collection/CollectionTile';
 import { resetCurrentCollection } from '../../store/reducers/collectionsReducer';
@@ -22,9 +22,12 @@ export default function UserCollectionsList({
     (state) => state.user.currentUser.mycollections
   );
 
+  const location = useLocation();
+
   const userFavoriteCollections = useAppSelector(
     (state) => state.user.loggedUser.myfavoritescollections
   );
+  console.log(userFavoriteCollections);
 
   useEffect(() => {
     numId && dispatch(fetchUserInfo(numId));
@@ -44,7 +47,8 @@ export default function UserCollectionsList({
 
       {numId === loggedUserId &&
       collectionType === 'favorite' &&
-      userFavoriteCollections
+      userFavoriteCollections &&
+      userFavoriteCollections.length > 0
         ? userFavoriteCollections.map((collection: ICollection, index) => (
             <Link to={`/collection/${collection.id}`}>
               <CollectionTile key={index} data={collection} userId={numId} />

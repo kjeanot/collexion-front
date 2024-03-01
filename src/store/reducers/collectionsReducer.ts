@@ -79,7 +79,7 @@ export const deleteCollection = createAsyncThunk(
     const response = await api.delete(
       `${import.meta.env.VITE_API_PATH}secure/collection/${id}`
     );
-
+    
     return response.data;
   }
 );
