@@ -234,7 +234,6 @@ const objectsReducer = createReducer(initialState, (builder) => {
     .addCase(postObject.pending, (state, action) => {})
     .addCase(postObject.fulfilled, (state, action) => {
       console.log('post successfully');
-      state.currentObject = {};
       state.objectAlert.message = 'Object posted successfully';
       state.objectAlert.type = 'success';
     })
