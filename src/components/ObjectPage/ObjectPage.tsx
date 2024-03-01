@@ -22,12 +22,7 @@ export default function ObjectPage() {
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
 
-  // Function passed in the Modal component to trigger the delete action of the object
-  const handleDelete = () => {
-    data.id && dispatch(deleteObject(data.id));
-  };
-
-  useEffect(() => {
+   useEffect(() => {
     dispatch(fetchSingleObject(data.id));
     dispatch(fetchComments());
   }, []);
@@ -35,8 +30,10 @@ export default function ObjectPage() {
     <>
       {showModal && (
         <Modal
-          actionLabel={"Supprimer l'objet"}
-          action={() => handleDelete()}
+          actionLabel="Supprimer l'objet"
+          action="delete"
+          entity="object"
+          id={data.id}
         />
       )}
       <div className="relative">
