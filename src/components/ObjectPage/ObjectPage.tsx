@@ -11,7 +11,7 @@ import ObjectCard from '../Object/ObjectCard';
 import Background from '../Background/Background';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Modal from '../Modal/Modal';
-import { switchModalDisplay } from '../../store/reducers/appReducer';
+import { closeModal, switchModalDisplay } from '../../store/reducers/appReducer';
 import Comments from '../Comment/Comments';
 
 export default function ObjectPage() {
@@ -25,6 +25,7 @@ export default function ObjectPage() {
    useEffect(() => {
     dispatch(fetchSingleObject(data.id));
     dispatch(fetchComments());
+    dispatch(closeModal());
   }, []);
   return (
     <>

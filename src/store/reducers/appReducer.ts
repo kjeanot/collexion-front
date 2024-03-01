@@ -11,6 +11,7 @@ export const initialState: AppState = {
 
 export const switchLoginDisplay = createAction('app/switchLoginDisplay');
 export const switchModalDisplay = createAction('app/switchModalDisplay');
+export const closeModal = createAction('app/closeModal');
 
 const appReducer = createReducer(initialState, (builder) => {
   builder.addCase(switchLoginDisplay, (state) => {
@@ -18,6 +19,9 @@ const appReducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(switchModalDisplay, (state) => {
     state.showModal = !state.showModal;
+  })
+  builder.addCase(closeModal, (state) => {
+    state.showModal = false;
   });
 });
 

@@ -99,7 +99,7 @@ export const deleteObject = createAsyncThunk(
     const response = await api.delete(
       `${import.meta.env.VITE_API_PATH}secure/object/${id}`
     );
-
+    
     return response.data;
   }
 );
