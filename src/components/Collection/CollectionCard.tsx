@@ -12,7 +12,7 @@ export default function CollectionCard({
       to={`/collection/${collection.id}`}
       className="card bg-base-100 shadow hover:bg-gray-100 rounded-none rounded-tr-3xl rounded-bl-3xl"
     >
-      <figure className="h-64">
+      <figure className="h-64 w-full">
         <img
           src={
             collection.image
@@ -23,7 +23,7 @@ export default function CollectionCard({
           className="object-cover h-full w-full"
         />
       </figure>
-      <div className="card-body">
+      <div className="card-body w-full">
         <h3 className="card-title text-customred">{collection.name}</h3>
         {collection.user && (
           <Avatar
@@ -31,7 +31,7 @@ export default function CollectionCard({
             nickname={collection.user.nickname}
           />
         )}
-        <p className="line-clamp-5">{collection.description}</p>
+        <p className="line-clamp-5 w-full">{collection.description}</p>
       </div>
     </Link>
   );
