@@ -226,7 +226,6 @@ const userReducer = createReducer(initialState, (builder) => {
       ] = `Bearer ${action.payload.token}`;
       state.userAlert.message = 'Login successful';
       state.userAlert.type = 'success';
-      console.log(state.loggedUser.password);
     })
     .addCase(loginCheck.rejected, (state, action) => {
       console.log('rejected', action);
@@ -243,9 +242,15 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(fetchUserInfo.fulfilled, (state, action) => {
       console.log('fulfilled', action);
       state.currentUser = action.payload;
-      state.currentUser.id === state.loggedUser.id
-        ? (state.loggedUser = action.payload)
-        : '';
+      if (state.currentUser.id === state.loggedUser.id) {
+        state.loggedUser.id = (action.payload as IUser).id;
+        state.loggedUser.nickname = (action.payload as IUser).nickname;
+        state.loggedUser.email = (action.payload as IUser).email;
+        state.loggedUser.description = (action.payload as IUser).description;
+        state.loggedUser.picture = (action.payload as IUser).picture;
+        state.loggedUser.roles = (action.payload as IUser).roles;
+        state.loggedUser.username = (action.payload as IUser).username;
+      }
     })
     .addCase(fetchUserInfo.rejected, (state, action) => {
       console.log('rejected', action);

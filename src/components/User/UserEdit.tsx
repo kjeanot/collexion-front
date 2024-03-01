@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navigate, useLoaderData } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   fetchUserInfo,
@@ -23,7 +23,11 @@ export default function UserEdit() {
     dispatch(uploadUserImage());
   };
 
+  // Use state to redirect to the collection page after the object has been updated or created.
+  const [redirectPath, setRedirectPath] = useState<null | string>(null);
+
   return (
+    <>
     <form className="md:w-1/2 mx-auto flex flex-col">
       <h1 className="text-3xl mb-6">Editer votre profil</h1>
       <label className="form-control w-full" htmlFor="user-nickname">
@@ -93,10 +97,13 @@ export default function UserEdit() {
         onClick={() => {
           dispatch(userUpdate());
           dispatch(fetchUserInfo(data.id));
+          setRedirectPath(`/user/${data.id}`);
         }}
       >
         {data.id ? 'Mettre à jour' : 'Publier'}
       </button>
     </form>
+    {redirectPath && <Navigate to={redirectPath} />}
+    </>
   );
 }
