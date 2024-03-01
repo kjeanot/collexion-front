@@ -23,7 +23,7 @@ export default function SingleCollection() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const showModal = useAppSelector((state) => state.app.showModal);
   const { data } = useLoaderData() as Awaited<ReturnType<typeof Object>>;
 
   const loggedUserId = useAppSelector((state) => state.user.loggedUser.id);
@@ -90,7 +90,7 @@ export default function SingleCollection() {
                   </Link>
                   <button
                     className="btn btn-circle"
-                    onClick={() => setShowModal(true)}
+                    onClick={() => dispatch(switchModalDisplay())}
                   >
                     <svg
                       className="w-6 h-6 text-gray-800"
