@@ -251,10 +251,16 @@ export default function SingleObjectEdit() {
             data.id ? dispatch(updateObject(data.id)) : dispatch(postObject());
             data.id && dispatch(fetchSingleObject(data.id));
             data.id
-              ? setRedirectPath(`/object/${data.id}`)
+              ? setTimeout(() => {
+                  setRedirectPath(`/object/${data.id}`);
+                }, 1000)
               : currentCollection.id
-              ? setRedirectPath(`/collection/${currentCollection.id}`)
-              : setRedirectPath(`/`);
+              ? setTimeout(() => {
+                  setRedirectPath(`/collection/${currentCollection.id}`);
+                }, 1000)
+              : setTimeout(() => {
+                  setRedirectPath(`/`);
+                }, 1000);
           }}
         >
           {data.id ? 'Mettre à jour' : 'Publier'}

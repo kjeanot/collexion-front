@@ -175,8 +175,12 @@ export default function SingleCollectionEdit() {
               : dispatch(postCollection());
             data.id && dispatch(fetchSingleCollection(data.id));
             data.id
-              ? setRedirectPath(`/collection/${data.id}`)
-              : setRedirectPath(`/user/${loggedUserId}`);
+              ? setTimeout(() => {
+                  setRedirectPath(`/collection/${data.id}`);
+                }, 1000)
+              : setTimeout(() => {
+                  setRedirectPath(`/user/${loggedUserId}`);
+                }, 1000);
           }}
         >
           Mettre à jour
