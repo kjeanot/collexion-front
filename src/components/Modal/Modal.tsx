@@ -105,6 +105,7 @@ export default function Modal({ actionLabel, action, id, entity }: Props) {
                 action === 'delete' && handleDelete(entity, id);
                 dispatch(fetchCollections());
                 dispatch(fetchObjects());
+                dispatch(switchModalDisplay());
               }} /* When clicked, we execute the action passed as a prop to the modal component */
             >
               {actionLabel}
