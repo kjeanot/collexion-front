@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -18,6 +18,8 @@ function App() {
   );
   const objectAlert = useAppSelector((state) => state.objects.objectAlert);
 
+  const location = useLocation();
+
   useEffect(() => {
     userId && dispatch(fetchUserInfo(userId as number));
   }, []);
@@ -25,6 +27,10 @@ function App() {
   useEffect(() => {
     dispatch(fetchCollections());
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="App container mx-auto px-4 max-w-screen-xl">

@@ -4,6 +4,7 @@ import { switchModalDisplay } from '../../store/reducers/appReducer';
 import {
   deleteCollection,
   fetchCollections,
+  fetchSingleCollection,
 } from '../../store/reducers/collectionsReducer';
 import {
   deleteObject,
@@ -35,8 +36,9 @@ export default function Modal({ actionLabel, action, id, entity }: Props) {
   // Function to trigger the delete action of the object or collection
   const handleDelete = (entity: string, id: number) => {
     if (entity === 'object') {
-      dispatch(deleteObject(id));
-      setRedirectPath(`/collection/${currentCollectionId}`);
+      dispatch(deleteObject(id))
+      currentCollectionId && dispatch(fetchSingleCollection(currentCollectionId));
+      currentCollectionId ? setRedirectPath(`/collection/${currentCollectionId}`) : setRedirectPath(`/`);
     }
 
     if (entity === 'collection') {
