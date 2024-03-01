@@ -75,6 +75,9 @@ export default function SingleObjectEdit() {
     dispatch(fetchCategories());
     dispatch(fetchCollections());
 
+    // Setting default value for the object state
+    dispatch(setObjectState(data.state ? data.state : 'Excellent'));
+
     // If it's an existing object and its data is stored in state : setting the currentObject (used for actions) properties in the object state
     data.category?.id && dispatch(setObjectCategory(data.category.id));
     data.myCollections &&
@@ -130,12 +133,12 @@ export default function SingleObjectEdit() {
           <select
             className="select select-bordered w-full max-w-xs"
             id="object-state"
-            defaultValue={data.state ? data.state : 'Excellent'}
+            value={data.state ? data.state : 'Excellent'}
             onChange={(evt) =>
               dispatch(setObjectState(evt.currentTarget.value))
             }
           >
-            <option defaultValue="Excellent">Excellent</option>
+            <option value="Excellent">Excellent</option>
             <option value="Bon">Bon</option>
             <option value="Moyen">Moyen</option>
             <option value="À restaurer">À restaurer</option>
@@ -250,6 +253,7 @@ export default function SingleObjectEdit() {
               : currentCollection.id
               ? setRedirectPath(`/collection/${currentCollection.id}`)
               : setRedirectPath(`/`);
+            dispatch(fetchCollections());
           }}
         >
           {data.id ? 'Mettre à jour' : 'Publier'}
